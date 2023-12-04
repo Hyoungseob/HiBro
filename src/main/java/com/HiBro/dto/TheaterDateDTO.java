@@ -8,6 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class TheaterDateDTO {
+	private Long theaterDateCode;
 	private LocalDateTime screeningDateTime;
-
 }

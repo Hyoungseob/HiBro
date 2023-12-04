@@ -1,5 +1,6 @@
 package com.HiBro.entity;
 
+import com.HiBro.constant.ScreeningTime;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,9 +18,12 @@ public class Theater {
 	@Column
 	private String theaterImg;
 
-	@Column
+	@Column(nullable = false)
 	private String theaterLocation;
 
 	@Column
 	private String theaterType;
+
+	@Enumerated(EnumType.STRING)
+	private ScreeningTime screeningTime;
 }

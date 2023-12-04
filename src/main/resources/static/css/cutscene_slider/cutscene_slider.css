@@ -1,0 +1,49 @@
+/** 컷신 이미지 슬라이드 */
+.slide-wrapper{
+	position: relative;
+	width:600px;
+	margin:0 auto;
+	height: 400px;
+	overflow:hidden;
+}
+.controls {
+	position: relative;
+}
+.controls>div {
+	display: flex;
+	justify-content:space-between ;
+}
+.slides {
+	display:flex;
+	position: absolute;
+	left:0; 
+	top:0;
+	transition: left 0.3s ease-in-out; /* 트랜지션 추가 */
+}
+/** 마지막 자식요소 적용x*/
+/**.slides>li:not(:last-child){
+	
+}*/
+
+.prev{
+	position: relative;
+    width: 30px;
+    height: 30px;
+	top: 224px;
+}
+.next {
+	position: relative;
+    width: 30px;
+    height: 30px;
+	top: 224px;
+}
+
+.img1,.img2,.img4{
+	padding: 0px 159.705px;
+}
+/* 목표: 패딩값 지정을 javascript로 해서 
+	어떤 이미지를 넣던 함수로 보이는화면 크기 (600px-이미지길이)/2
+	해서 이미지를 넣으면 저절로 계산이 되도록 설정하기 */
+
+/** 컷신 이미지 슬라이드 끝 */
+

@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+
+*{
+	margin: 0;
+	padding: 0;
+	border:0;
+	list-style: none;
+}
+
+#forum_body {
+	width:100%;
+	/*height:3000px;*/
+	background-color:var(--background-color);
+}
+
+#top_logo>img {
+	width: 255px;
+    height: 120px;
+}
+
+#forum_main {
+	margin:0 auto;
+	width: 960px;
+}
+
+#forum_poster {
+	float: left;
+	padding: 20px;		
+}
+#forum_poster>img {
+	width:200px;
+	height:300px;
+}
+
+#poster_name {
+	clear:both;
+	padding-top: 20px;
+}
+
+#screening_status {
+	border:3px solid var(--main-corlor);
+	height: 15px;
+    position: relative;
+    top: 30px;
+    left: 10px;
+    text-align: center;
+	background-color: var(--main-corlor);
+	color :var(--font-color);
+}
+/*flex 컨테이너*/
+#forum_topflex {
+	display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: auto;
+}
+
+#genre {
+	height: 75px;
+    position: relative;
+    top: 235px;
+    right: 120px;
+}
+#genre>input{
+	color:var(--font-color);
+	background-color:var(--main-corlor);
+}
+#genre>input:hover {
+	cursor: pointer;
+}
+
+#trailer_link {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	
+}
+#trailer_link>div {
+	width:100%;
+}
+#trailer_link>div>ul {	
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#trailer_link>div>ul>li {
+    display: inline-block;
+    padding: 20px;
+    border: 1px solid var(--background-color);
+    width:110px;
+    background-color: var(--main-corlor);
+}
+#trailer_link>div>ul>li>a{
+	color: white;
+    text-decoration: none;
+    margin: 0 15px;	
+}
+#forum_text {
+	display: block;
+    height: 290px;
+    padding: 30px;
+    line-height: 2.8;
+    margin: auto;
+}
+#forum_text>p{
+	 font-size: 12px;
+	 width:700px;
+	 margin:auto;
+}
+
+.trailer_stillcut {
+	background-color: var(--accent-corlor);
+	margin: 30px;
+}
+.trailer_stillcut>a>img {
+	vertical-align: middle;
+}
+
+.video_img {
+	height:400px;
+	max-width:600px;
+}
+#video_img1>span:hover, #video_img2>span:hover, #video_img3>span:hover {
+	cursor: pointer;
+}
+#video_part {
+	display:flex;
+	flex-direction:row;
+	justify-content:space-around;
+}
+#video_part>div>img {
+	width: 270px;
+    height: 150px;
+}
+#video_part>div>img:hover{
+	cursor: pointer;
+}
+
+#preview{
+	display:flex;
+	justify-content: center;
+}
+
+#comment_top{
+	display:flex;
+	justify-content: space-between;
+	background-color: var(--accent-corlor);
+}
+
+.comment_start{
+	width:100%;
+	height:930px;
+	overflow:hidden;
+}
+#comment_body{
+	width: 100%;
+    height: 800px;
+}
+#conmment_array {
+	display: flex;
+}
+
+#com_array1 {
+	border-right: 1px solid var(--accent-corlor);
+}
+
+#conmment_array>li>a {
+	color: black;
+    text-decoration: none; 
+    margin: 0 15px;	
+}
+

@@ -1,0 +1,65 @@
+.container /*ul의 직계부모 div*/ {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /*위아래에 내용이 더있으면  overflow-X: hidden;로 표현 */
+}
+
+.slider-container/*전체 리스트를 감싸는 ul*/ {
+    position: absolute;
+    width: 100%;
+}
+
+.slide /*각각의 리스트들 */{
+    position: absolute;
+    width: 100%;
+    padding: 0 10%;
+    box-sizing: border-box;
+    top: 50%;
+    transform: translateY(-50%); /*자기 크기의 반만큼 위로 올려와*/
+    text-align: center;
+    overflow: hidden;
+}
+
+.slider-container.animated {
+    -webkit-transition: left .3s ease-in; /*레프트 값이 바뀌는 과정을 0.3초에 걸쳐서*/
+    transition: left .3s ease-in;         /* 초반이 느린속도의 모델로 보여준다*/
+}
+
+/* button */
+#prev,
+#next {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%);
+    z-index: 999999;
+    display: inline-block;
+    height: 5em;
+    width: 5em;
+    border-radius: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+}
+
+#prev.disabled, #next.disabled {display: none;}
+/*좌우 버튼에 disabled 클래스명이 들어가면 display: none;*/
+#prev { 
+    background-image: url('#'); 
+    margin-left: -480px;
+}
+
+#prev:hover {
+    background-image: url('#');
+}
+
+#next {
+    margin-left: 380px;
+    background-image: url('#');
+}
+
+#next:hover {
+    background-image: url('#') ;
+}

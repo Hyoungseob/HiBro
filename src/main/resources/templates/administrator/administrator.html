@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/administrator.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div>
+		<header>
+			<div class="logoDiv">
+				<div class="logo">B F C</div>
+				<div class="subLogo">Administration</div>
+			</div>
+			<div class="adNav">
+				<select name="select" class="selectUserState">
+					<option value="user">사용자</option>
+					<option value="poinManagement">포인트 관리</option>
+					<option value="InquiryHistory">문의 내역</option>
+					<option value="mainVideo">메인페이지 비디오 관리</option>
+					<option value="mainPoster">메인 포스터</option>
+					<option value="introductionTheater">상영관 소개</option>
+				</select>
+				<div><input class="navInput" type="text" placeholder="내용을 입력하세요"></div>
+				<div><input class="inputBtn" type="button" value="검색"></div>
+			</div>
+		</header>
+		<div class="asidePlusMain">
+			<aside>
+				<div class="asideMenu">
+					<div class="managerProfile">
+						<p><img src="" alt=""></p>
+						<p>관리자님 환영합니다.</p>
+					</div>
+					<div class="memberManagement">
+						<ul>
+							<li class="membership">회원 관리</li>
+							<li id="membershipUser">사용자</li>
+							<li id="membershipPoin">포인트 관리</li><!--접근성을 낮출것-->
+							<li id="membershipInquiry">문의 내역</li>
+						</ul>
+					</div>
+					<div class="contentManagement">
+						<ul>
+							<li class="contentManagementTitle">콘텐츠 관리</li>
+							<li>메인페이지 비디오 관리</li>
+							<li>메인페이지 포스터</li>
+							<li>상영관 소개</li>
+						</ul>
+					</div>
+					<div class="logout">
+						<p>로그아웃</p>
+					</div>
+				</div>
+			</aside>
+			<main>
+				<!--사용자 창 시작-->
+				<div class="noticeBoard">
+					<div>
+						<h2 class="allMember">전체 멤버<p></p>
+						</h2>
+					</div>
+					<div class="board_list_wrap">
+						<div class="board_list">
+							<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
+								<div class="num">번호</div>
+								<div class="title">제목</div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="num">7</div>
+								<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+								<div class="writer">황영섭</div>
+								<div class="date">2023.08.09</div>
+								<div class="count">555</div>
+							</div>
+							<div>
+								<div class="num">6</div>
+								<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="num">5</div>
+								<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="num">4</div>
+								<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="num">3</div>
+								<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="num">2</div>
+								<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="num">1</div>
+								<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+						</div>
+						<div class="board_page">
+							<a href="#" class="bt first">
+								<< </a>
+									<a href="#" class="bt prev">
+										< </a>
+											<a href="#" class="num on">1</a>
+											<a href="#" class="bt">2</a>
+											<a href="#" class="bt">3</a>
+											<a href="#" class="bt">4</a>
+											<a href="#" class="bt">5</a>
+											<a href="#" class="bt next">></a>
+											<a href="#" class="bt last">>></a>
+						</div>
+						<div class="bt_wrap">
+							<a href="#" class="on">목록</a>
+							<a href="#">수정</a>
+						</div>
+					</div>
+				</div>
+				<!--사용자창 끝-->
+				<!--포인트 관리 시작-->
+				<div class="noticeBoard_point">
+					<div class="noticeBoard_point_Container">
+						<h2 class="allMember">포인트</h2>
+						<div>
+							<input class="noticeBoard_Point_Text" type="text" placeholder="닉네임을 입력해 주세요.">
+							<input class="noticeBoard_Point_Btn" type="button" value="검색">
+						</div>
+					</div>
+					<div class="board_list_wrap">
+						<div class="board_list">
+							<div class="top">
+								<div class="board_idx">IDX</div>
+								<div class="point_id">이름/아이디</div>
+								<div class="point_email">이메일 주소</div>
+								<div class="point_point">포인트</div>
+								<div class="point_date">가입일</div>
+							</div>
+							<div>
+								<div class="board_idx">7</div>
+								<div class="point_id"><a href="#">youngseob</a></div>
+								<div class="point_email">youngseob10@naver.com</div>
+								<div class="point_point">100P</div>
+								<div class="point_date">2023.08.09</div>
+							</div>
+							<div>
+								<div class="board_idx">6</div>
+								<div class="point_id"><a href="#">이름/아이디</a></div>
+								<div class="point_email"> youngseob**@naver.com</div>
+								<div class="point_point">0P</div>
+								<div class="point_date">가입일</div>
+							</div>
+							<div>
+								<div class="board_idx">5</div>
+								<div class="point_id"><a href="#">이름/아이디</a></div>
+								<div class="point_email"> youngseob**@naver.com</div>
+								<div class="point_point">0P</div>
+								<div class="point_date">가입일</div>
+							</div>
+							<div>
+								<div class="board_idx">4</div>
+								<div class="point_id"><a href="#">이름/아이디</a></div>
+								<div class="point_email"> youngseob**@naver.com</div>
+								<div class="point_point">0P</div>
+								<div class="point_date">가입일</div>
+							</div>
+							<div>
+								<div class="board_idx">3</div>
+								<div class="point_id"><a href="#">이름/아이디</a></div>
+								<div class="point_email"> youngseob**@naver.com</div>
+								<div class="point_point">0P</div>
+								<div class="point_date">가입일</div>
+							</div>
+							<div>
+								<div class="board_idx">2</div>
+								<div class="point_id"><a href="#">이름/아이디</a></div>
+								<div class="point_email"> youngseob**@naver.com</div>
+								<div class="point_point">0P</div>
+								<div class="point_date">가입일</div>
+							</div>
+							<div>
+								<div class="board_idx">1</div>
+								<div class="point_id"><a href="#">이름/아이디</a></div>
+								<div class="point_email"> youngseob**@naver.com</div>
+								<div class="point_point">0P</div>
+								<div class="point_date">가입일</div>
+							</div>
+						</div>
+						<div class="board_page">
+							<a href="#" class="bt first">
+								<< </a>
+									<a href="#" class="bt prev">
+										< </a>
+											<a href="#" class="num on">1</a>
+											<a href="#" class="bt">2</a>
+											<a href="#" class="bt">3</a>
+											<a href="#" class="bt">4</a>
+											<a href="#" class="bt">5</a>
+											<a href="#" class="bt next">></a>
+											<a href="#" class="bt last">>></a>
+						</div>
+						<div class="bt_wrap">
+							<a href="#" class="on">목록</a>
+							<a href="#">수정</a>
+						</div>
+					</div>
+				</div>
+				<!--포인트 게시판 끝-->
+				<!--문의 게시판 시작-->
+				<div class="noticeBoard_Inquiry_History">
+					<div>
+						<h2 class="allMember">전체 문의<p></p>
+						</h2>
+					</div>
+					<div class="board_list_wrap">
+						<div class="board_list">
+							<div class="top">
+								<div class="board_idx">IDX</div>
+								<div class="title">내용</div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">답변여부</div>
+							</div>
+							<div>
+								<div class="board_idx">7</div>
+								<div class="title"><a href="#">문의 내용 제목이 들어갑니다.</a></div>
+								<div class="writer">황영섭</div>
+								<div class="date">2023.08.09</div>
+								<div class="count">555</div>
+							</div>
+							<div>
+								<div class="board_idx">6</div>
+								<div class="title"><a href="#">문의 내용 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="board_idx">5</div>
+								<div class="title"><a href="#">문의 내용 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="board_idx">4</div>
+								<div class="title"><a href="#">문의 내용 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="board_idx">3</div>
+								<div class="title"><a href="#">문의 내용 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="board_idx">2</div>
+								<div class="title"><a href="#">문의 내용 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+							<div>
+								<div class="board_idx">1</div>
+								<div class="title"><a href="#">문의 내용 제목이 들어갑니다.</a></div>
+								<div class="writer">글쓴이</div>
+								<div class="date">작성일</div>
+								<div class="count">조회</div>
+							</div>
+						</div>
+						<div class="board_page">
+							<a href="#" class="bt first">
+								<< </a>
+									<a href="#" class="bt prev">
+										< </a>
+											<a href="#" class="num on">1</a>
+											<a href="#" class="bt">2</a>
+											<a href="#" class="bt">3</a>
+											<a href="#" class="bt">4</a>
+											<a href="#" class="bt">5</a>
+											<a href="#" class="bt next">></a>
+											<a href="#" class="bt last">>></a>
+						</div>
+						<div class="bt_wrap">
+							<a href="#" class="on">목록</a>
+							<a href="#">수정</a>
+						</div>
+					</div>
+				</div>
+				<!--문의 게시판 끝-->
+				<!--메인 페이지 비디오 관리-->
+
+			</main>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/administrator.js"></script>
+</body>
+
+</html>

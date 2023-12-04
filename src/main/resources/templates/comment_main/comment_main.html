@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>댓글 등록 예시</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .comment-box {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form input[type="text"],
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+        }
+
+        .comment-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .comment-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .comment-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .comment-item {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="comment-box">
+        <h2>댓글 등록</h2>
+        <form class="comment-form">
+            <input type="text" id="name" placeholder="이름 (한글 또는 영어)">
+            <input type="text" id="phoneNumber" placeholder="전화번호 (숫자만)">
+            <textarea id="commentText" placeholder="댓글을 작성해주세요"></textarea>
+            <button type="button" onclick="submitComment()">댓글 등록</button>
+        </form>
+    </div>
+
+    <ul class="comment-list" id="commentList">
+        <!-- 댓글 목록이 여기에 나타납니다 -->
+    </ul>
+</div>
+
+<script>
+    function hideMiddleCharacters(str) {
+        if (str.length <= 2) {
+            return str;
+        }
+        const firstChar = str.charAt(0);
+        const lastChar = str.charAt(str.length - 1);
+        const middleChars = '*'.repeat(str.length - 2);
+        return firstChar + middleChars + lastChar;
+    }
+
+    function isOnlyKoreanOrEnglish(str) {
+        const regex = /^[a-zA-Z가-힣\s]+$/;
+        return regex.test(str);
+    }
+
+    function isOnlyNumbers(str) {
+        const regex = /^[0-9]+$/;
+        return regex.test(str);
+    }
+
+    function submitComment() {
+        const name = document.getElementById("name").value;
+        const phoneNumber = document.getElementById("phoneNumber").value;
+        const commentText = document.getElementById("commentText").value;
+
+        if (!isOnlyKoreanOrEnglish(name)) {
+            alert("이름은 한글 또는 영어만 입력할 수 있습니다.");
+            return;
+        }
+
+        if (!isOnlyNumbers(phoneNumber)) {
+            alert("전화번호는 숫자만 입력할 수 있습니다.");
+            return;
+        }
+
+        if (name.trim() === "" || phoneNumber.trim() === "" || commentText.trim() === "") {
+            alert("이름, 전화번호, 댓글을 모두 입력해주세요.");
+            return;
+        }
+
+        const hiddenName = hideMiddleCharacters(name);
+        const hiddenPhoneNumber = hideMiddleCharacters(phoneNumber);
+
+        const commentList = document.getElementById("commentList");
+        const commentItem = document.createElement("li");
+        commentItem.className = "comment-item";
+        commentItem.innerHTML = `<p><strong>${hiddenName}</strong> (${hiddenPhoneNumber})</p><p>${commentText}</p>`;
+        commentList.appendChild(commentItem);
+
+        // 서버로 댓글 및 정보 전송 및 저장하는 로직 추가
+        // 실제 서버로는 Ajax 등을 사용하여 처리합니다.
+        // 여기서는 모의 데이터를 사용하여 구현합니다.
+    }
+</script>
+
+</body>
+</html>

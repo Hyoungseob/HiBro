@@ -1,0 +1,127 @@
+html {
+    font-size: 10px;
+}
+
+.board_wrap {
+    width: 960px;
+    margin: 100px auto;
+    text-decoration: none;
+    list-style:none;
+}
+
+.board_title {
+    margin-bottom:30px;
+}
+
+.board_title strong{
+    font-size: 3rem;
+}
+.board_title p {
+    margin-top:5px;
+    font-size: 1.4rem;
+}
+
+.bt_wrap {
+    margin-top: 30px;
+    font-size: 0; 
+    /*인라인 블록 요소의 부모 태그에 폰트사이즈 0을
+    적용하면 버튼사이의 여백이 사라짐(정확한 수치적용)
+     띄어쓰기 여백만큼이 남는것(font size 0 으로 없애줌) */
+    text-align: center;
+}
+.bt_wrap a {
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    padding:10px;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size: 1.4rem;
+}
+.bt_wrap a:first-child {
+    margin-left:0;
+}
+
+.bt_wrap a.on {
+    background:#000;
+    color: #fff;
+}
+
+.board_list {
+    width: 100%;
+    border-top : 2px solid #000;
+}
+
+.board_list>div {
+    border-bottom:1px solid #ddd;
+    font-size: 0;
+    vertical-align: middle;
+}
+
+.board_list>div.top {
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    vertical-align: middle;
+}
+.board_list>div:last-child {
+    border-bottom: 1px solid #000;
+}
+.board_list>div>div {
+    display: inline-block;
+    padding: 15px 0;
+    font-size: 1.4rem;
+    text-align: center
+}
+
+.board_list>div.top>div{
+    text-align: center;
+    font-weight: 600; /*폰트 굵기*/
+}
+
+.board_list .num {
+    width:10%;
+}
+
+.board_list .title {
+    width:60%;
+    text-align: left;
+}
+
+.board_list.top.title{
+    text-align: center;
+}
+
+.board_list .writer {
+    width:10%;
+}
+
+.board_list .date {
+    width:10%;
+}
+
+.board_list .count {
+    width:10%;
+}
+
+.board_page {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.board_page a {
+    display: inline-block;
+    width:32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    border-left: 0;
+}
+
+.board_page a.bt {
+    font-size: 1.4rem;
+}
+
+.board_page a:first-child {
+    border-left: 1px solid #ddd;
+}

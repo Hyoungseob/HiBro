@@ -1,10 +1,8 @@
 package com.HiBro.entity;
 
 import com.HiBro.constant.SeatStatus;
-import com.HiBro.repository.SeatRepository;
-import com.HiBro.repository.TheaterRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.HiBro.repository.*;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -24,7 +22,6 @@ public class SeatTest {
 	TheaterRepository theaterRepository;
 
 	public void createSeat() {
-
 
 		Theater theater = new Theater();
 		theater.setTheaterImg("임시 이미지");
@@ -47,7 +44,7 @@ public class SeatTest {
 	public void findByTheaterLocation() {
 		this.createSeat();
 		Long theaterCode = theaterRepository.findAll().get(0).getTheaterCode();
-		List<Seat> seatList = seatRepository.findByTheaterCode(theaterCode);
+		List<Seat> seatList = seatRepository.findSeatByTheaterCode(theaterCode);
 		for (Seat seat : seatList) {
 			System.out.println(seat);
 		}

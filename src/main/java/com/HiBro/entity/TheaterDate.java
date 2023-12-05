@@ -23,4 +23,8 @@ public class TheaterDate {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private ScreeningTime screeningTime;
+
+	@ManyToOne
+	@JoinColumn(name = "theater_id")
+	private Theater theater;
 }

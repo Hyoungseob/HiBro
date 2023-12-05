@@ -2,6 +2,7 @@ package com.HiBro.repository;
 
 import com.HiBro.constant.AgeLimit;
 import com.HiBro.entity.Movie;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ public class MovieRepositoryTest {
     MovieRepository movieRepository;
 
     @Test
+    @DisplayName("영화 레파지토리 작동 테스트")
     public void saveMovie() {
         Movie movie = new Movie();
 

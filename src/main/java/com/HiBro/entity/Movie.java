@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="movie")
@@ -37,6 +39,9 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AgeLimit ageLimit;
+
+    @OneToMany(mappedBy = "movieCode", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<MovieImg> orderItems = new ArrayList<>();
 
     public static Movie createMovie(MovieDTO movieDTO){
         Movie movie = new Movie();

@@ -1,4 +1,4 @@
-package com.HiBro;
+package com.HiBro.entity;
 
 import com.HiBro.constant.Role;
 import com.HiBro.dto.MemberDTO;
@@ -35,6 +35,9 @@ public class MemberTest{
         memberDTO.setRegDate(LocalDateTime.now());
 
         Member member = Member.createMember(memberDTO,encoder);
-        System.out.println(member.toString());
+        System.out.println(".. ");
+        memberRepository.save(member);
+        Member savedMember = memberRepository.findById("test");
+        System.out.println(savedMember.toString());
     }
 }

@@ -18,6 +18,7 @@ import java.util.Date;
 public class Member{
     @Id
     @Column(name="member_code")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long code;
     @Column(unique = true,nullable = false)
     private String id;

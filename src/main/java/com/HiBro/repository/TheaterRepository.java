@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TheaterRepository extends JpaRepository<Theater, Long> {
+
+	Theater findByTheaterCode(Long theaterCode);
 	@Query("SELECT T FROM Theater T WHERE T.theaterLocation LIKE %:theaterLocation% ORDER BY T.theaterCode DESC")
 	List<Theater> findByTheaterLocation(@Param("theaterLocation") String theaterLocation);
 

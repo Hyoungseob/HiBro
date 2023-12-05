@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Setter
 @Entity()
 @Table(name = "seat")
+@ToString
 public class Seat {
 	@Id
 	@Column(name = "seat_code")

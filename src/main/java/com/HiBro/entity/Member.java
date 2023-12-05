@@ -20,16 +20,21 @@ public class Member{
     @Column(name="member_code")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long code;
+
     @Column(unique = true,nullable = false)
     private String id;
+
     @Column(nullable = false)
     private String password;
+
     @Column(nullable = false)
     private String name;
+
     @Column(unique = true,nullable = false)
     private String email;
 
     private Integer point;
+
     @Column(nullable = false)
     private LocalDateTime regDate;
 

@@ -38,6 +38,19 @@ public class Movie {
     @Column(nullable = false)
     private AgeLimit ageLimit;
 
+    public static Movie createMovie(MovieDTO movieDTO){
+        Movie movie = new Movie();
+
+        movie.setMovieTitle(movieDTO.getMovieTitle());
+        movie.setActor(movieDTO.getActor());
+        movie.setDirector(movieDTO.getDirector());
+        movie.setSummary(movieDTO.getSummary());
+        movie.setGenre(movieDTO.getGenre());
+        movie.setAgeLimit(movieDTO.getAgeLimit());
+
+        return movie;
+    }
+
     public void updateMovie(MovieDTO movieDTO){
         this.movieTitle = movieDTO.getMovieTitle();
         this.actor = movieDTO.getActor();
@@ -46,4 +59,6 @@ public class Movie {
         this.genre = movieDTO.getGenre();
         this.ageLimit = movieDTO.getAgeLimit();
     }
+
+
 }

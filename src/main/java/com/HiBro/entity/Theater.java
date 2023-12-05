@@ -5,6 +5,8 @@ import com.HiBro.dto.TheaterDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "theater")
@@ -26,7 +28,10 @@ public class Theater {
 	@Column(nullable = false)
 	private String theaterType;
 
-	public static Theater createMember(TheaterDTO theaterDTO) {
+	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Seat> seatList = new ArrayList();
+
+	public static Theater createTheater(TheaterDTO theaterDTO) {
 		Theater theater = new Theater();
 		theater.setTheaterImg(theaterDTO.getTheaterImg());
 		theater.setTheaterLocation(theaterDTO.getTheaterLocation());

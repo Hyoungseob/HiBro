@@ -1,0 +1,448 @@
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	font-family: Arial, sans-serif;
+}
+
+ul li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a[href]:focus {
+	outline: 3px solid #c889ff;
+}
+
+h3 {
+	font-size: 26px;
+	color: black;
+	line-height: 1.423em;
+}
+
+.totalview {
+	font-size: 14px;
+	padding: 4px 32px 4px 15px;
+	line-height: 1.429em;
+	background: transparent url("https://img.cgv.co.kr/R2014/images/common/ico/arrowR_8x13.png") calc(100% - 7px) center/8px 13px scroll no-repeat;
+	border: 1px solid #e2e2e2;
+	border-radius: 15px;
+	box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+#video {
+	background-color: black;
+	height: 555px;
+}
+
+.video_wrap {
+	width: 980px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.video_wrap video {
+	width: 100%;
+}
+
+.video_wrap h1 {
+	position: absolute;
+	top: 170px;
+	font-size: 40px;
+	color: white;
+}
+
+.video_wrap span {
+	position: absolute;
+	top: 239px;
+	left: 0;
+	font-size: 20px;
+	color: white;
+}
+
+#video_con {
+	display: flex;
+	position: absolute;
+	top: 315px;
+	left: 3px;
+}
+
+#vdoc1 {
+	padding: 5px 30px 5px 18px;
+	font-size: 14px;
+	color: #c889ff;
+	line-height: 1.429em;
+	background: rgba(255, 255, 255, 0.8) url("https://img.cgv.co.kr/R2014/images/common/ico/arrowR_8x13.png") calc(100% - 11px) center/8px 13px scroll no-repeat;
+	border-radius: 15px;
+}
+
+#vdoc2 {
+	margin-left: 10px;
+	width: 28px;
+	font-size: 0;
+	background: transparent url("https://img.cgv.co.kr/R2014/images/main/ico/pause.png") center/18px scroll no-repeat;
+	border: 1px solid #c889ff;
+	border-radius: 50%;
+}
+
+#vdoc2.clicked {
+	margin-left: 10px;
+	width: 28px;
+	font-size: 0;
+	background: transparent url("https://img.cgv.co.kr/R2014/images/main/ico/play.png") center/18px scroll no-repeat;
+	border: 1px solid #c889ff;
+	border-radius: 50%;
+}
+
+#vdoc3 {
+	margin-left: 10px;
+	width: 28px;
+	font-size: 0;
+	background: transparent url("https://img.cgv.co.kr/R2014/images/main/ico/soundOff.png") center/18px scroll no-repeat;
+	border: 1px solid #c889ff;
+	border-radius: 50%;
+}
+
+#vdoc3.clicked {
+	margin-left: 10px;
+	width: 28px;
+	font-size: 0;
+	background: transparent url("https://img.cgv.co.kr/R2014/images/main/ico/soundOn.png") center/18px scroll no-repeat;
+	border: 1px solid #c889ff;
+	border-radius: 50%;
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+#mainer {
+	background-color: #f6f6f6;
+}
+
+#movieChart {
+	width: 980px;
+	margin: 0 auto;
+	padding: 50px 30px 60px;
+	position: relative;
+}
+
+#chartText {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+#chartText div {
+	display: flex;
+}
+
+#chartText div h3~h3 {
+	position: relative;
+	margin-left: 32px;
+}
+
+#movli {
+	overflow: hidden;
+	position: relative;
+}
+
+#movie_list {
+	display: flex;
+	height: 100%;
+	width: 400%;
+}
+
+#movie_list li:not(:first-child) {
+	margin-left: 32px;
+}
+
+.movlicon {
+	width: 170px;
+	height: 234px;
+	position: relative;
+}
+
+.movlicon:hover img {
+	filter: brightness(70%);
+}
+
+.movlicon:hover .movlink {
+	display: flex;
+}
+
+.movlink {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+	display: none;
+}
+
+.movlink a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 120px;
+	height: 34px;
+	font-size: 13px;
+	border-radius: 4px;
+}
+
+.movlink a:hover {
+	opacity: 0.9;
+}
+
+.movlink a:first-child {
+	color: #c889ff;
+	background-color: #fff;
+}
+
+.movlink a:last-child {
+	color: #fff;
+	background-color: #c889ff;
+	margin-top: 6px;
+}
+
+#movie_list li img {
+	height: 100%;
+	border-radius: 5px;
+	width: 100%;
+}
+
+#movlibtn {
+	width: 980px;
+	margin: 0 auto;
+	position: absolute;
+	top: 50%;
+}
+
+#prevButton {
+	left: -50px;
+	box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
+	background: #c889ff url(https://img.cgv.co.kr/R2014/images/common/ico/arrowL.png) center/9px 13px scroll no-repeat;
+}
+
+#nextButton {
+	right: -50px;
+	background: #c889ff url(https://img.cgv.co.kr/R2014/images/common/ico/arrowL.png) center/9px 13px scroll no-repeat;
+	transform: rotate(-180deg);
+}
+
+.movlibtn {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	font-size: 0;
+	border-radius: 50%;
+	box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
+	display: block;
+	cursor: pointer;
+}
+
+.movlibtn.hidden {
+	display: none;
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+#mainer2 {
+	width: 980px;
+	margin: 0 auto;
+}
+
+#specialHall {
+	padding: 60px 0;
+}
+
+#specialHall_text {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#specialHall_content {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 19px;
+}
+
+#specialHall_content>a span img {
+	width: 500px;
+}
+
+#specialHall_content ul {
+	width: 440px;
+}
+
+#specialHall_content ul li {
+	border: 1px solid transparent;
+	border-top: 1px solid #f6f6f6;
+}
+
+#specialHall_content ul li a {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 19px 25px 19px 19px;
+}
+
+#spchList li a strong {
+	font-weight: 400;
+	font-size: 18px;
+	color: #c889ff;
+	line-height: 1.444em;
+}
+
+#spchList li a span {
+	padding: 2px 7px;
+	font-size: 14px;
+	color: #c889ff;
+	line-height: 1.429em;
+	background-color: #f6f6f6;
+	border-radius: 5px;
+}
+
+#spchList li:last-child {
+	border-bottom: 1px solid #f6f6f6;
+}
+
+#spchList li:hover {
+	border: 1px solid #c889ff;
+	border-radius: 5px;
+}
+
+#spchImg {
+	cursor: pointer;
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+#event {
+	width: 100%;
+	padding-top: 40px;
+}
+
+#event_title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+#event_list {
+	width: 100%;
+	height: 512px;
+}
+
+#event_list>ul {
+	margin-left: -11px;
+}
+
+#event_list>ul li {
+	float: left;
+	margin-left: 9px;
+	margin-bottom: 7px;
+	position: relative;
+}
+
+.eventimg1 {
+	width: 183px;
+	height: 250px;
+}
+
+#eventimg4 {
+	width: 295px;
+	float: right !important;
+	height: 511px;
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+#giftcon {
+	padding: 60px 0 120px;
+}
+
+#giftcon>ul {
+	display: flex;
+}
+
+#giftcon a {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+#giftcon>ul>li {
+	width: 100%;
+	padding: 20px 19px 30px;
+	border: 1px solid #e4e4e4;
+	border-radius: 10px;
+	height: 325px;
+}
+
+#giftcon>ul>li>ul li {
+	margin-bottom: 27px;
+}
+
+.giftcon {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 500;
+	font-size: 20px;
+	color: #222;
+	line-height: 1.45em;
+}
+
+.giftcon a {
+	padding: 2px 15px 3px;
+	font-weight: 400;
+	font-size: 12px;
+	color: #666;
+	line-height: 1.417em;
+	border: 1px solid #f4f4f4;
+	border-radius: 11px;
+}
+
+.giftcon_text {
+	display: inline-flex;
+	flex-direction: column;
+	padding-left: 15px;
+	text-align: left;
+}
+
+.giftcon_img {
+	position: relative;
+	width: 75px;
+	height: 76px;
+	border-radius: 5px;
+}
+
+.giftcon_img img {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transform: translate(0, -50%);
+}
+
+.gftcmg {
+	margin-left: 25px;
+}
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/

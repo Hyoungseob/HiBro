@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+<div layout:fragment="content">
+
+	<div id="ticketing">
+		<div id="step1">
+			<div id="con1">
+				<h3>영화</h3>
+				<ul>
+					<li><a href="#none">오펜하이머</a></li>
+					<li><a href="#none">콘크리트유토피아</a></li>
+					<li><a href="#none">밀수</a></li>
+					<li><a href="#none">보호자</a></li>
+					<li><a href="#none">엘리멘탈</a></li>
+					<li><a href="#none">달짝지근해</a></li>
+					<li><a href="#none">더문</a></li>
+					<li><a href="#none">비공식작전</a></li>
+				</ul>
+			</div>
+			<div id="con2">
+				<h3>극장</h3>
+				<ul>
+					<li>
+						<a href="#none">서울</a>
+						<div class="hidcon2">
+							<ul>
+								<li><a href="#none">강남</a></li>
+								<li><a href="#none">강변</a></li>
+								<li><a href="#none">건대입구</a></li>
+								<li><a href="#none">구로</a></li>
+								<li><a href="#none">대학로</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#none">경기/인천</a>
+						<div class="hidcon2">
+							<ul>
+								<li><a href="#none">경기광주</a></li>
+								<li><a href="#none">고양백석</a></li>
+								<li><a href="#none">고양행신</a></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#none">충청/대전</a>
+						<div class="hidcon2">
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#none">전라/광주</a>
+						<div class="hidcon2">
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#none">경북/대구</a>
+						<div class="hidcon2">
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#none">경남/부산/울산</a>
+						<div class="hidcon2">
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#none">강원/제주</a>
+						<div class="hidcon2">
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div id="con3">
+				<h3>날짜</h3>
+				<div>달력</div>
+				<div id="dlatl2">
+					<span>
+						<span>2D</span>
+						<span>3관 8층</span>
+						<span>(총172석)</span>
+					</span>
+					<ul>
+						<li><a href="#none">08:30</a></li>
+						<li><a href="#none">12:00</a></li>
+						<li><a href="#none">15:30</a></li>
+						<li><a href="#none">19:00</a></li>
+						<li><a href="#none">22:30</a></li>
+					</ul>
+					<span>
+						<span>2D</span>
+						<span>5관 10층</span>
+						<span>(총172석)</span>
+					</span>
+					<ul>
+						<li><a href="#none">09:30</a></li>
+						<li><a href="#none">13:00</a></li>
+						<li><a href="#none">16:30</a></li>
+						<li><a href="#none">20:00</a></li>
+						<li><a href="#none">23:30</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="step2">
+			<div>
+				<div>
+					일반<select id="adult">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
+					청소년<select id="youth">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
+					노인<select id="senior">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
+					우대<select id="special">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
+					<p>총인원: <span id="total1">0</span></p>
+					<p>총액: <span id="total2">0</span></p>
+				</div>
+				<div class="seatContainer">
+					<div class="screen"></div>
+					<div class="row">
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+					</div>
+
+					<div class="row">
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="occupiedSeat"></span>
+						<span class="occupiedSeat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+					</div>
+
+					<div class="row">
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="occupiedSeat"></span>
+						<span class="seat"></span>
+					</div>
+
+					<div class="row">
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="occupiedSeat"></span>
+						<span class="occupiedSeat"></span>
+					</div>
+
+					<div class="row">
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+					</div>
+
+					<div class="row">
+						<span class="seat"></span>
+						<span class="occupiedSeat"></span>
+						<span class="occupiedSeat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="seat"></span>
+						<span class="occupiedSeat"></span>
+						<span class="seat"></span>
+					</div>
+
+					<p class="text">좌석: <span id="count">0</span></p>
+				</div>
+			</div>
+		</div>
+		<div id="step3"></div>
+		<div id="con4">
+			<a href="#none" id="backmovsel">영화선택</a>
+			<div>영화</div>
+			<div class="theater">극장</div>
+			<a href="#none" id="goseatsel">좌석선택</a>
+			<a href="#none" id="gopay">결제</a>
+		</div>
+	</div>
+
+</div>
+
+
+
+</html>

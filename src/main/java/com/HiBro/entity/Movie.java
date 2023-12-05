@@ -14,12 +14,12 @@ import javax.persistence.*;
 public class Movie {
 
     @Id
-    @Column(name="movie_code")
+    @Column(name="movie_movieCode")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long code;
+    private Long movieCode;
 
     @Column(unique = true, nullable = false)
-    private String title;
+    private String movieTitle;
 
     @Column(nullable = false)
     private String actor;
@@ -27,6 +27,7 @@ public class Movie {
     @Column(nullable = false)
     private String director;
 
+    @Lob
     @Column(nullable = false)
     private String summary;
 
@@ -38,7 +39,7 @@ public class Movie {
     private AgeLimit ageLimit;
 
     public void updateMovie(MovieDTO movieDTO){
-        this.title = movieDTO.getTitle();
+        this.movieTitle = movieDTO.getMovieTitle();
         this.actor = movieDTO.getActor();
         this.director = movieDTO.getDirector();
         this.summary = movieDTO.getSummary();

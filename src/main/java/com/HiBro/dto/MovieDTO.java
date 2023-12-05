@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter @Setter
 public class MovieDTO {
     private Long code;
-    private String title;
+    private String movieTitle;
     private String actor;
     private String director;
     private String summary;

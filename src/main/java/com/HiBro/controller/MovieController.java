@@ -2,12 +2,10 @@ package com.HiBro.controller;
 
 import com.HiBro.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
-
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class MovieController {
 

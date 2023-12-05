@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter @Setter
@@ -21,6 +22,6 @@ public class MemberDTO{
     @NotEmpty(message = "이메일 입력은 필수입니다.")
     @Email(message = "이메일 형식으로 입력해주세요.")
     private String email;
-    private Date regDate;
+    private LocalDateTime regDate;
     private Role role;
 }

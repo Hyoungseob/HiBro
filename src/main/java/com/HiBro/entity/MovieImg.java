@@ -14,10 +14,9 @@ import javax.persistence.*;
 public class MovieImg {
 
     @Id
+    @Column(name="movie_img_code")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_movie_code")
-    private String movieCode;
+    private String code;
 
     @Column(nullable = false)
     private String imgName;
@@ -31,6 +30,10 @@ public class MovieImg {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ImgType imgType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_movie_code")
+    private Movie movie;
 
     public void updateItemImg(String oriImgName, String imgName, String imgUrl){
         this.imgName = imgName;

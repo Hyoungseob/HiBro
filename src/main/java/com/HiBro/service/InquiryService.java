@@ -8,7 +8,9 @@ import com.HiBro.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,9 +26,8 @@ public class InquiryService{
         return inquiryRepository.save(inquiry);
     }
     public void deleteInquiry(InquiryDTO inquiryDTO){
-        Inquiry inquiry = inquiryRepository.findByInquiryCode(inquiryDTO.getCode());
-
-        if(inquiry != null)
-            inquiryRepository.delete(inquiry);
+        Inquiry inquiry = inquiryRepository.findById(inquiryDTO.getCode())
+                .orElseThrow(EntityNotFoundException::new);
+        inquiryRepository.delete(inquiry);
     }
 }

@@ -56,8 +56,10 @@ public class InquiryTest{
         Member member = createMember();
         memberService.saveMember(member);
         InquiryDTO inquiryDTO = createInquiryDTO();
-        inquiryService.saveInquiry(inquiryDTO,member.getId());
-
+        System.out.println(member.getId());
+        Inquiry inquiry= inquiryService.saveInquiry(inquiryDTO,member.getId());
+        inquiryDTO.setCode(inquiry.getCode());
+        //inquiryRepository.delete(inquiry);
         inquiryService.deleteInquiry(inquiryDTO);
 
     }

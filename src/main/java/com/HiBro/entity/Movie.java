@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="movie")
@@ -14,9 +16,9 @@ import javax.persistence.*;
 public class Movie {
 
     @Id
-    @Column(name="movie_movieCode")
+    @Column(name="movie_code")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long movieCode;
+    private Long code;
 
     @Column(unique = true, nullable = false)
     private String movieTitle;
@@ -37,6 +39,10 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AgeLimit ageLimit;
+
+    /**@단방향 매핑 처리를 위한 양방향 리스트 주석 처리 */
+    //@OneToMany(mappedBy = "movieCode", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    //private List<MovieImg> orderItems = new ArrayList<>();
 
     public static Movie createMovie(MovieDTO movieDTO){
         Movie movie = new Movie();

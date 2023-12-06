@@ -2,12 +2,14 @@ package com.HiBro.repository;
 
 import com.HiBro.constant.AgeLimit;
 import com.HiBro.entity.Movie;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -18,6 +20,7 @@ public class MovieRepositoryTest {
     MovieRepository movieRepository;
 
     @Test
+    @DisplayName("영화 레파지토리 작동 테스트")
     public void saveMovie() {
         Movie movie = new Movie();
 
@@ -29,5 +32,6 @@ public class MovieRepositoryTest {
         movie.setAgeLimit(AgeLimit.TWELVE);
 
         movieRepository.save(movie);
+        List<Movie> test = movieRepository.findByMovieTitle("아바타");
     }
 }

@@ -1,5 +1,5 @@
 package com.HiBro.constant;
 
-public enum Role{
-    USER,ADMIN
+public enum Role {
+	USER, ADMIN
 }

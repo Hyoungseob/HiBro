@@ -1,8 +1,7 @@
 package com.HiBro.entity;
 
 import com.HiBro.constant.ScreeningTime;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "theater_date")
 @Getter
 @Setter
+@ToString
 public class TheaterDate {
 	@Id
 	@Column(name = "theater_date_code")
@@ -23,4 +23,8 @@ public class TheaterDate {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private ScreeningTime screeningTime;
+
+	@ManyToOne
+	@JoinColumn(name = "theater_id")
+	private Theater theater;
 }

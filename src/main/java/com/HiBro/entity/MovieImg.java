@@ -2,6 +2,7 @@ package com.HiBro.entity;
 
 
 import com.HiBro.constant.ImgType;
+import com.HiBro.dto.MovieImgDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,10 +15,9 @@ import javax.persistence.*;
 public class MovieImg {
 
     @Id
+    @Column(name="movie_img_code")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_movie_code")
-    private String movieCode;
+    private Long code;
 
     @Column(nullable = false)
     private String imgName;
@@ -26,15 +26,27 @@ public class MovieImg {
     private String oriImgName;
 
     @Column(nullable = false)
-    private String ImgUrl;
+    private String imgUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ImgType imgType;
 
-    public void updateItemImg(String oriImgName, String imgName, String imgUrl){
-        this.imgName = imgName;
-        this.oriImgName = oriImgName;
-        this.ImgUrl = imgUrl;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_code")
+    private Movie movie;
+
+    public static MovieImg createMovieImg(MovieImgDTO movieImgDTO){
+
+        MovieImg movieImg = new MovieImg();
+
+        movieImg.setImgName(movieImgDTO.getImgName());
+        movieImg.setOriImgName(movieImgDTO.getOriImgName());
+        movieImg.setImgUrl(movieImgDTO.getImgUrl());
+        movieImg.setImgType(movieImgDTO.getImgType());
+
+        return movieImg;
     }
+
+
 }

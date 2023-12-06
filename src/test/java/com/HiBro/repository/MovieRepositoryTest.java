@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -31,5 +32,6 @@ public class MovieRepositoryTest {
         movie.setAgeLimit(AgeLimit.TWELVE);
 
         movieRepository.save(movie);
+        List<Movie> test = movieRepository.findByMovieTitle("아바타");
     }
 }

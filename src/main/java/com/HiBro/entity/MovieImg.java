@@ -17,7 +17,7 @@ public class MovieImg {
     @Id
     @Column(name="movie_img_code")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String code;
+    private Long code;
 
     @Column(nullable = false)
     private String imgName;

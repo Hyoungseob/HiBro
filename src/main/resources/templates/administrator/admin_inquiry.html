@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout2}">
+<div layout:fragment="content">
+	<!--사용자 창 시작-->
+	<div class="noticeBoard">
+		<div>
+			<h2 class="allMember">전체 멤버<p></p>
+			</h2>
+		</div>
+		<div class="board_list_wrap">
+			<div class="board_list">
+				<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
+					<div class="num">번호</div>
+					<div class="title">제목</div>
+					<div class="writer">글쓴이</div>
+					<div class="date">작성일</div>
+					<div class="count">조회</div>
+				</div>
+				<div>
+					<div class="num">7</div>
+					<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+					<div class="writer">황영섭</div>
+					<div class="date">2023.08.09</div>
+					<div class="count">555</div>
+				</div>
+				<div>
+					<div class="num">6</div>
+					<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+					<div class="writer">글쓴이</div>
+					<div class="date">작성일</div>
+					<div class="count">조회</div>
+				</div>
+				<div>
+					<div class="num">5</div>
+					<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+					<div class="writer">글쓴이</div>
+					<div class="date">작성일</div>
+					<div class="count">조회</div>
+				</div>
+				<div>
+					<div class="num">4</div>
+					<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+					<div class="writer">글쓴이</div>
+					<div class="date">작성일</div>
+					<div class="count">조회</div>
+				</div>
+				<div>
+					<div class="num">3</div>
+					<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+					<div class="writer">글쓴이</div>
+					<div class="date">작성일</div>
+					<div class="count">조회</div>
+				</div>
+				<div>
+					<div class="num">2</div>
+					<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+					<div class="writer">글쓴이</div>
+					<div class="date">작성일</div>
+					<div class="count">조회</div>
+				</div>
+				<div>
+					<div class="num">1</div>
+					<div class="title"><a href="#">글 제목이 들어갑니다.</a></div>
+					<div class="writer">글쓴이</div>
+					<div class="date">작성일</div>
+					<div class="count">조회</div>
+				</div>
+			</div>
+			<div class="board_page">
+				<a href="#" class="bt first">
+					<< </a>
+						<a href="#" class="bt prev">
+							< </a>
+								<a href="#" class="num on">1</a>
+								<a href="#" class="bt">2</a>
+								<a href="#" class="bt">3</a>
+								<a href="#" class="bt">4</a>
+								<a href="#" class="bt">5</a>
+								<a href="#" class="bt next">></a>
+								<a href="#" class="bt last">>></a>
+			</div>
+			<div class="bt_wrap">
+				<a href="#" class="on">목록</a>
+				<a href="#">수정</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+</html>

@@ -1,12 +1,10 @@
 package com.HiBro.entity;
 
-import com.HiBro.constant.ScreeningTime;
 import com.HiBro.dto.TheaterDTO;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "theater")
@@ -28,8 +26,12 @@ public class Theater {
 	@Column(nullable = false)
 	private String theaterType;
 
+	//Order - OrderItem 관계랑 똑같음
 	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Seat> seatList = new ArrayList();
+	private List<Seat> seats = new ArrayList();
+
+	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<TheaterDate> theaterDates = new ArrayList();
 
 	public static Theater createTheater(TheaterDTO theaterDTO) {
 		Theater theater = new Theater();

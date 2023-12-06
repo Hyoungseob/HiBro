@@ -1,8 +1,7 @@
 package com.HiBro.entity;
 
 import com.HiBro.repository.TheaterRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -15,8 +14,8 @@ import java.util.List;
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class TheaterTest {
 
-@Autowired
-TheaterRepository theaterRepository;
+	@Autowired
+	TheaterRepository theaterRepository;
 
 	public void createTheater() {
 

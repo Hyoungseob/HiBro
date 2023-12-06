@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>사이트 푸터</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block layout:fragment="css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,40 +40,35 @@
             font-size: 14px;
         }
     </style>
-</head>
-<body>
+</th:block>
 
-<div class="content">
-    <h1>사이트 컨텐츠</h1>
-    <p>이곳에 사이트 컨텐츠 내용이 들어갑니다.</p>
+<div class="footer" th:fragment="footer">
+    <footer>
+        <div class="footer-links">
+            <a href="#">회사소개</a>
+            <a href="#">지속가능경영</a>
+            <a href="#">IR</a>
+            <a href="#">채용정보</a>
+            <a href="#">광고/제휴/출점문의</a>
+            <a href="#">이용약관</a>
+            <a href="#">편성기준</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">법적고지</a>
+            <a href="#">이메일주소무단수집거부</a>
+            <a href="#">윤리경영</a>
+            <a href="#">사이버감사실</a>
+        </div>
+        <div class="footer-info">
+            <p>(04377)울산광역시 주형로82 버닝폭스빌딩 8층</p>
+            <p>대표이사: 허주형</p>
+            <p>사업자등록번호: 123-45-678910</p>
+            <p>통신판매업신고번호: 2023-서울강남-0662 사업자정보확인</p>
+            <p>호스팅사업자: BURNING FOX 홀리몰리</p>
+            <p>개인정보보호 책임자: 없음</p>
+            <p>대표이메일: h32044@naver.com</p>
+            <p>&copy; BURNING FOX cinema</p>
+        </div>
+    </footer>
 </div>
 
-<footer>
-    <div class="footer-links">
-        <a href="#">회사소개</a>
-        <a href="#">지속가능경영</a>
-        <a href="#">IR</a>
-        <a href="#">채용정보</a>
-        <a href="#">광고/제휴/출점문의</a>
-        <a href="#">이용약관</a>
-        <a href="#">편성기준</a>
-        <a href="#">개인정보처리방침</a>
-        <a href="#">법적고지</a>
-        <a href="#">이메일주소무단수집거부</a>
-        <a href="#">윤리경영</a>
-        <a href="#">사이버감사실</a>
-    </div>
-    <div class="footer-info">
-        <p>(04377)울산광역시 주형로82 버닝폭스빌딩 8층</p>
-        <p>대표이사: 허주형</p>
-        <p>사업자등록번호: 123-45-678910</p>
-        <p>통신판매업신고번호: 2023-서울강남-0662 사업자정보확인</p>
-        <p>호스팅사업자: BURNING FOX 홀리몰리</p>
-        <p>개인정보보호 책임자: 없음</p>
-        <p>대표이메일: h32044@naver.com</p>
-        <p>&copy; BURNING FOX cinema</p>
-    </div>
-</footer>
-
-</body>
 </html>

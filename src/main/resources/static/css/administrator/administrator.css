@@ -283,7 +283,6 @@ main {
 }
 /* 포인트 창 시작 */
 .noticeBoard_point {
-	display: none;
 	position: relative;
 	top: 10%;
 }
@@ -326,7 +325,6 @@ main {
 
 /*문의 내역 창 시작*/
 .noticeBoard_Inquiry_History {
-	display: none;
 	position: relative;
 	top: 10%;
 }

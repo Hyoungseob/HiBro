@@ -14,7 +14,7 @@ public class Seat {
 	@Id
 	@Column(name = "seat_code")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long SeatCode;
+	private Long code;
 
 	@Column(nullable = false)
 	private String SeatRow;

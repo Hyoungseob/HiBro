@@ -3,12 +3,13 @@ package com.HiBro.entity;
 import com.HiBro.dto.ReviewDTO;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "review")
-@Getter @Setter
+@Getter @Setter @ToString
 public class Review{
     @Id
     @Column(name = "review_code")

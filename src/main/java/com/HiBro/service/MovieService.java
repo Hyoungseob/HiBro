@@ -45,7 +45,7 @@ public class MovieService {
     //특정 영화데이터 DB 삭제(영상,이미지 함께 삭제)
     public void deleteMovie(Long movieCode){
 
-        Movie movie = movieRepository.findByMovieCode(movieCode);
+        Movie movie = movieRepository.findByCode(movieCode);
 
         if(checkMovie(movie)){
             movieRepository.delete(movie);

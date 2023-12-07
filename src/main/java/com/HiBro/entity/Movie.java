@@ -20,7 +20,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long code;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String movieTitle;
 
     @Column(nullable = false)

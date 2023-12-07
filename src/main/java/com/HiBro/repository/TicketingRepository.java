@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface TicketingRepository extends JpaRepository<Ticketing, Long> {
 
-    List<Ticketing> findByMemberCodeOrderByTicketingCodeAsc(Long code);
+    List<Ticketing> findByMemberCodeOrderByCodeAsc(Long MemberCode);
 
 }

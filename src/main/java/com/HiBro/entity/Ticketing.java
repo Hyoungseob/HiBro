@@ -28,13 +28,10 @@ public class Ticketing {
     @JoinColumn(name = "member_code")
     private Member member;
 
-    private Ticketing firstCreateTicketing(Member member){
+    public   Ticketing(Member member){
 
-        Ticketing ticketing = new Ticketing();
+        this.member = member;
 
-        ticketing.setMember(member);
-
-        return ticketing;
     }
 
 }

@@ -27,7 +27,7 @@ public class TheaterService {
 	public void deleteTheater(TheaterDTO theaterDTO, String id) {
 		Member member = memberRepository.findById(id);
 		if (member.getRole() == Role.ADMIN) {
-			Theater theater = theaterRepository.findByCode(theaterDTO.getTheaterCode());
+			Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
 			theaterRepository.delete(theater);
 		}
 	}

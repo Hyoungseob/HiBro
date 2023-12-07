@@ -42,7 +42,7 @@ public class TheaterDateTest {
 	public void findByTheaterLocation() {
 		this.createTheaterDate();
 
-		Long theaterCode = theaterRepository.findAll().get(0).getTheaterCode();
+		Long theaterCode = theaterRepository.findAll().get(0).getCode();
 		List<TheaterDate> theaterDates = theaterDateRepository.findTheaterDateByTheaterCode(theaterCode);
 		for (TheaterDate theaterDate : theaterDates) {
 			System.out.println(theaterDate);

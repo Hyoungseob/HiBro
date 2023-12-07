@@ -1,12 +1,18 @@
 package com.HiBro.entity;
 
+import com.HiBro.constant.Role;
+import com.HiBro.dto.*;
 import com.HiBro.repository.TheaterRepository;
+import com.HiBro.service.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -16,40 +22,69 @@ public class TheaterTest {
 
 	@Autowired
 	TheaterRepository theaterRepository;
+	@Autowired
+	PasswordEncoder encoder;
+	@Autowired
+	TheaterService theaterService;
+	@Autowired
+	MemberService memberService;
 
-	public void createTheater() {
+	public Member createMember() {
+		MemberDTO memberDTO = new MemberDTO();
 
+		memberDTO.setId("test");
+		memberDTO.setPassword("1234");
+		memberDTO.setName("테스트");
+		memberDTO.setEmail("a@a");
+		memberDTO.setRole(Role.ADMIN);
+		memberDTO.setRegDate(LocalDateTime.now());
+		return Member.createMember(memberDTO, encoder);
+	}
+
+	public List<TheaterDTO> createTheaterList() {
+
+		Member member = createMember();
+		List<TheaterDTO> theaterDTOList = new ArrayList<>();
 		for (int i = 1; i <= 10; i++) {
-			Theater theater = new Theater();
-			theater.setTheaterImg("임시 이미지");
-			theater.setTheaterLocation("울산 삼산동" + i);
-			theater.setTheaterType("프리미엄" + i);
 
-			theaterRepository.save(theater);
+			TheaterDTO theaterDTO = new TheaterDTO();
+			theaterDTO.setTheaterImg("임시 이미지");
+			theaterDTO.setTheaterLocation("울산 삼산동" + i);
+			theaterDTO.setTheaterType("프리미엄" + i);
+
+			Theater theater =  theaterService.saveTheater(theaterDTO, member.getId());
+
+			theaterDTO.setTheaterCode(theater.getCode());
+
+			theaterDTOList.add(theaterDTO);
 		}
+		return theaterDTOList;
 	}
 
 	@Test
 	@DisplayName("상영관 검색 테스트")
 	public void findByTheaterLocation() {
-		this.createTheater();
+		Member member = createMember();
+		memberService.saveMember(member);
+
+		this.createTheaterList();
 		List<Theater> theaterList = theaterRepository.findByTheaterLocation("울산 삼산동");
 		for (Theater theater : theaterList) {
 			System.out.println(theater);
 		}
 	}
 
-	//삭제 할때 CASCADE : REMOVE 설정 하거나 고아객체로 만들어서 한번에 삭제 가능
-	//Seat 엔터티 ManyToOne
 	@Test
 	@DisplayName("상영관 삭제 테스트")
 	public void deleteTheater() {
-		this.createTheater();
-		Theater theater = theaterRepository.findByTheaterCode(1L);
-		theaterRepository.delete(theater);
-		List<Theater> theaterList = theaterRepository.findByTheaterLocation("울산 삼산동");
-		for (Theater theaters : theaterList) {
-			System.out.println(theaters);
+		Member member = createMember();
+		memberService.saveMember(member);
+
+		TheaterDTO theaterDTO = this.createTheaterList().get(3);
+		theaterService.deleteTheater(theaterDTO, member.getId());
+		List<Theater> theaterList = theaterRepository.findAll();
+		for (Theater theater : theaterList) {
+			System.out.println(theater);
 		}
 	}
 

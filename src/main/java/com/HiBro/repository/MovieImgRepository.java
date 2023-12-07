@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MovieImgRepository extends JpaRepository<MovieImg, Long> {
-    List<MovieImg> findByMovieCodeOrderByMovieCodeAsc(Long movieCode);
+    List<MovieImg> findByMovieCodeOrderByMovieCodeAsc(Long code);
 
-    MovieImg findByMovieCodeAndImgType(Long movieCode, ImgType imgType);
+    MovieImg findByMovieCodeAndImgType(Long code, ImgType imgType);
 
 }

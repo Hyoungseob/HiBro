@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -33,5 +34,8 @@ public class MemberService{
     public void deleteMember(Member member){
         if(!checkMember(member))
             memberRepository.delete(member);
+    }
+    public List<Member> getMemberAll(){
+        return memberRepository.findByAll();
     }
 }

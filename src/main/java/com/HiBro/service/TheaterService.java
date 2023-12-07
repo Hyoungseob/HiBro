@@ -15,20 +15,13 @@ public class TheaterService {
 	private final TheaterRepository theaterRepository;
 	private final MemberRepository memberRepository;
 
-	public Theater saveTheater(TheaterDTO theaterDTO, String id) {
-		Member member = memberRepository.findById(id);
-		if (member.getRole() == Role.ADMIN) {
-			Theater theater = Theater.createTheater(theaterDTO);
-			return theaterRepository.save(theater);
-		}
-		return null;
+	public Theater saveTheater(TheaterDTO theaterDTO) {
+		Theater theater = Theater.createTheater(theaterDTO);
+		return theaterRepository.save(theater);
 	}
 
-	public void deleteTheater(TheaterDTO theaterDTO, String id) {
-		Member member = memberRepository.findById(id);
-		if (member.getRole() == Role.ADMIN) {
-			Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
-			theaterRepository.delete(theater);
-		}
+	public void deleteTheater(TheaterDTO theaterDTO) {
+		Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
+		theaterRepository.delete(theater);
 	}
 }

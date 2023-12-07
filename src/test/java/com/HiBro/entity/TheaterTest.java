@@ -43,7 +43,6 @@ public class TheaterTest {
 
 	public List<TheaterDTO> createTheaterList() {
 
-		Member member = createMember();
 		List<TheaterDTO> theaterDTOList = new ArrayList<>();
 
 		for (int i = 1; i <= 10; i++) {
@@ -52,7 +51,7 @@ public class TheaterTest {
 			theaterDTO.setTheaterLocation("울산 삼산동" + i);
 			theaterDTO.setTheaterType("프리미엄" + i);
 
-			Theater theater = theaterService.saveTheater(theaterDTO, member.getId());
+			Theater theater = theaterService.saveTheater(theaterDTO);
 
 			theaterDTO.setCode(theater.getCode());
 
@@ -77,11 +76,8 @@ public class TheaterTest {
 	@Test
 	@DisplayName("상영관 삭제 테스트")
 	public void deleteTheater() {
-		Member member = createMember();
-		memberService.saveMember(member);
-
 		TheaterDTO theaterDTO = this.createTheaterList().get(3);
-		theaterService.deleteTheater(theaterDTO, member.getId());
+		theaterService.deleteTheater(theaterDTO);
 		List<Theater> theaterList = theaterRepository.findAll();
 		for (Theater theater : theaterList) {
 			System.out.println(theater);

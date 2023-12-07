@@ -47,15 +47,12 @@ public class TheaterDateTest {
 	}
 
 	public Theater createTheater() {
-		Member member = createMember();
-		memberService.saveMember(member);
-
 		TheaterDTO theaterDTO = new TheaterDTO();
 		theaterDTO.setTheaterImg("임시 이미지");
 		theaterDTO.setTheaterLocation("울산 삼산동");
 		theaterDTO.setTheaterType("프리미엄");
 
-		Theater theater = theaterService.saveTheater(theaterDTO, member.getId());
+		Theater theater = theaterService.saveTheater(theaterDTO);
 
 		return theater;
 	}

@@ -1,0 +1,38 @@
+package com.HiBro.service;
+
+import com.HiBro.entity.MovieImg;
+import com.HiBro.entity.MovieVideo;
+import com.HiBro.repository.MovieVideoRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class MovieVideoService {
+
+    MovieVideoRepository movieVideoRepository;
+
+    //동영상 유무 체크
+    public boolean checkVideo(List<MovieVideo> movieVideos){
+
+        if(movieVideos != null){
+            return true;
+        }
+        return false;
+    }
+
+    //동영상 일괄 삭제
+    public void deleteMovieVideo(Long movieCode){
+        List<MovieVideo> findByMovieCodes = movieVideoRepository.findByMovieCode(movieCode);
+
+        if(checkVideo(findByMovieCodes)){
+            for(MovieVideo movieVideo : findByMovieCodes){
+                movieVideoRepository.delete(movieVideo);
+            }
+        }
+    }
+}

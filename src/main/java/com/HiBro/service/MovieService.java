@@ -1,11 +1,14 @@
 package com.HiBro.service;
 
 import com.HiBro.dto.MovieDTO;
+import com.HiBro.entity.Movie;
+import com.HiBro.entity.MovieImg;
+import com.HiBro.entity.MovieVideo;
 import com.HiBro.repository.MovieImgRepository;
+import com.HiBro.repository.MovieRepository;
+import com.HiBro.repository.MovieVideoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -15,7 +18,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieService {
 
-    @Value("")
-    private String movieImgLocation;
-    private final MovieImgRepository movieImgRepository;
+    private final MovieRepository movieRepository;
+
+    public boolean checkMovie(Movie movie){
+
+        if(movie != null){
+            return true;
+        }
+        return false;
+
+    }
+
+    public Movie saveMovie(Long movieCode){
+
+        Movie movie = movieRepository.findByMovieCode(movieCode);
+
+        if(checkMovie(movie)){
+            
+        }
+
+    }
+
 }

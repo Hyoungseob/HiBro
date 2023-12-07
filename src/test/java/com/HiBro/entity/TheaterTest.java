@@ -45,16 +45,16 @@ public class TheaterTest {
 
 		Member member = createMember();
 		List<TheaterDTO> theaterDTOList = new ArrayList<>();
-		for (int i = 1; i <= 10; i++) {
 
+		for (int i = 1; i <= 10; i++) {
 			TheaterDTO theaterDTO = new TheaterDTO();
 			theaterDTO.setTheaterImg("임시 이미지");
 			theaterDTO.setTheaterLocation("울산 삼산동" + i);
 			theaterDTO.setTheaterType("프리미엄" + i);
 
-			Theater theater =  theaterService.saveTheater(theaterDTO, member.getId());
+			Theater theater = theaterService.saveTheater(theaterDTO, member.getId());
 
-			theaterDTO.setTheaterCode(theater.getCode());
+			theaterDTO.setCode(theater.getCode());
 
 			theaterDTOList.add(theaterDTO);
 		}

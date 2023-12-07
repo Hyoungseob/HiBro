@@ -15,7 +15,7 @@ public class TheaterDate {
 	@Id
 	@Column(name = "theater_date_code")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long theaterDateCode;
+	private Long code;
 
 	@Column(nullable = false)
 	private LocalDateTime screeningDateTime;
@@ -25,6 +25,6 @@ public class TheaterDate {
 	private ScreeningTime screeningTime;
 
 	@ManyToOne
-	@JoinColumn(name = "theater_id")
+	@JoinColumn(name = "theater_code")
 	private Theater theater;
 }

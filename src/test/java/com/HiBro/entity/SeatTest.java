@@ -43,7 +43,7 @@ public class SeatTest {
 	@DisplayName("좌석 검색 테스트")
 	public void findByTheaterLocation() {
 		this.createSeat();
-		Long theaterCode = theaterRepository.findAll().get(0).getTheaterCode();
+		Long theaterCode = theaterRepository.findAll().get(0).getCode();
 		List<Seat> seatList = seatRepository.findSeatByTheaterCode(theaterCode);
 		for (Seat seat : seatList) {
 			System.out.println(seat);

@@ -15,7 +15,7 @@ public class Theater {
 	@Id
 	@Column(name = "theater_code")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long theaterCode;
+	private Long code;
 
 	@Column(nullable = false)
 	private String theaterImg;

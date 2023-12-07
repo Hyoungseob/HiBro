@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SeatRepository extends JpaRepository<Seat, Long> {
-	@Query("SELECT s FROM Seat s WHERE s.theater.theaterCode = :theaterCode")
+	@Query("SELECT s FROM Seat s WHERE s.theater.code = :theaterCode")
 	List<Seat> findSeatByTheaterCode(@Param("theaterCode") Long theaterCode);
 }

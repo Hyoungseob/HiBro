@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @Setter
 public class TheaterDTO {
-	private Long theaterCode;
+	private Long code;
 	private String theaterImg;
 	private String theaterLocation;
 	private String theaterType;

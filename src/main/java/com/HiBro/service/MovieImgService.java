@@ -14,6 +14,12 @@ public class MovieImgService {
 
     MovieImgRepository movieImgRepository;
 
+    public MovieImg saveMovieImg(MovieImg movieImg){
+
+        return movieImgRepository.save(movieImg);
+
+    }
+
     //이미지 유무 체크
     public boolean checkImg(List<MovieImg> movieImgs){
 

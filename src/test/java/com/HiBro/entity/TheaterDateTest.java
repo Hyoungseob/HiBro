@@ -1,6 +1,5 @@
 package com.HiBro.entity;
 
-import com.HiBro.constant.Role;
 import com.HiBro.constant.ScreeningTime;
 import com.HiBro.dto.*;
 import com.HiBro.repository.*;
@@ -8,7 +7,6 @@ import com.HiBro.service.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,25 +24,9 @@ public class TheaterDateTest {
 	@Autowired
 	TheaterRepository theaterRepository;
 	@Autowired
-	MemberService memberService;
-	@Autowired
 	TheaterService theaterService;
 	@Autowired
 	TheaterDateService theaterDateService;
-	@Autowired
-	PasswordEncoder encoder;
-
-	public Member createMember() {
-		MemberDTO memberDTO = new MemberDTO();
-
-		memberDTO.setId("test");
-		memberDTO.setPassword("1234");
-		memberDTO.setName("테스트");
-		memberDTO.setEmail("a@a");
-		memberDTO.setRole(Role.ADMIN);
-		memberDTO.setRegDate(LocalDateTime.now());
-		return Member.createMember(memberDTO, encoder);
-	}
 
 	public Theater createTheater() {
 		TheaterDTO theaterDTO = new TheaterDTO();
@@ -68,7 +50,7 @@ public class TheaterDateTest {
 			theaterDateDTO.setScreeningTime(ScreeningTime.MATINEE);
 
 			TheaterDate theaterDate = theaterDateService.saveTheaterDate(theaterDateDTO, theater.getCode());
-
+			//TODO
 			theaterDateDTO.setCode(theaterDate.getCode());
 
 			theaterDateDTOList.add(theaterDateDTO);

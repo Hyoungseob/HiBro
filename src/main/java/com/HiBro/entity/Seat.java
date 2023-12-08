@@ -28,7 +28,7 @@ public class Seat {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theater_code")
-	private Theater theater;
+	private Screen screen;
 
 	public static Seat createSeat(SeatDTO seatDTO) {
 		Seat seat = new Seat();

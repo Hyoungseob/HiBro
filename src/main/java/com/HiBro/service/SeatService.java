@@ -1,11 +1,8 @@
 package com.HiBro.service;
 
 import com.HiBro.dto.SeatDTO;
-import com.HiBro.entity.Seat;
-import com.HiBro.entity.Theater;
-import com.HiBro.entity.TheaterDate;
-import com.HiBro.repository.SeatRepository;
-import com.HiBro.repository.TheaterRepository;
+import com.HiBro.entity.*;
+import com.HiBro.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +12,13 @@ import javax.transaction.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class SeatService {
-	private final TheaterRepository theaterRepository;
+	private final ScreenRepository screenRepository;
 	private final SeatRepository seatRepository;
 
 	public Seat saveSeat(SeatDTO seatDTO, Long theaterCode) {
-		Theater theater = theaterRepository.findByCode(theaterCode);
+		Screen screen = screenRepository.findByCode(theaterCode);
 		Seat seat = Seat.createSeat(seatDTO);
-		seat.setTheater(theater);
+		seat.setScreen(screen);
 		return seatRepository.save(seat);
 	}
 
@@ -29,6 +26,4 @@ public class SeatService {
 		Seat seat = seatRepository.findByCode(seatCode);
 		seatRepository.delete(seat);
 	}
-
-
 }

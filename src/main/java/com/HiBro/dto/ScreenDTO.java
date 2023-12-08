@@ -5,6 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
+@ToString
 public class ScreenDTO {
 	private Long code;
 	private String screenImg;

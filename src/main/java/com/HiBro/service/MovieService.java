@@ -8,6 +8,7 @@ import com.HiBro.repository.MovieImgRepository;
 import com.HiBro.repository.MovieRepository;
 import com.HiBro.repository.MovieVideoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,10 +19,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieService {
 
+    @Autowired
     private final MovieRepository movieRepository;
 
+    @Autowired
     private final MovieImgService movieImgService;
 
+    @Autowired
     private final MovieVideoService movieVideoService;
 
     //영화 DB저장

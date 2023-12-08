@@ -34,9 +34,6 @@ public class MovieService {
         MovieImg movieImg = MovieImg.createMovieImg(movieImgDTO);
         MovieVideo movieVideo = MovieVideo.createMovieVideo(movieVideoDTO);
 
-        movieImgService.saveMovieImg(movieImg);
-        movieVideoService.saveMovieVideo(movieVideo);
-
         //영화 객체 생성
         Movie movie = movieRepository.save(Movie.createMovie(movieDTO));
 
@@ -44,10 +41,12 @@ public class MovieService {
         movieImg.setMovie(movie);
         movieVideo.setMovie(movie);
 
+        movieImgService.saveMovieImg(movieImg);
+        movieVideoService.saveMovieVideo(movieVideo);
+
         return movie;
 
     }
-
 
     //영화 유무 체크
     public boolean checkMovie(Movie movie){

@@ -36,7 +36,7 @@ class MovieVideoRepositoryTest {
         movieDTO.setSummary("핵 연구시설");
         movieDTO.setAgeLimit(AgeLimit.FIFTEEN);
 
-        return movieService.saveMovie(Movie.createMovie(movieDTO));
+        return movieRepository.save(Movie.createMovie(movieDTO));
     }
 
     public MovieVideo 테스트용_영화영상_데이터_생성(){

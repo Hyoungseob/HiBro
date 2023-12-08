@@ -7,6 +7,7 @@ import com.HiBro.dto.MovieImgDTO;
 import com.HiBro.entity.Movie;
 import com.HiBro.entity.MovieImg;
 import com.HiBro.repository.MovieImgRepository;
+import com.HiBro.repository.MovieRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +29,8 @@ class MovieImgServiceTest {
     @Autowired
     MovieImgService movieImgService;
     @Autowired
+    MovieRepository movieRepository;
+    @Autowired
     MovieImgRepository movieImgRepository;
 
     public Movie 테스트용_영화데이터_생성(){
@@ -40,7 +43,8 @@ class MovieImgServiceTest {
         movieDTO.setSummary("핵 연구시설");
         movieDTO.setAgeLimit(AgeLimit.FIFTEEN);
 
-        return movieService.saveMovie(Movie.createMovie(movieDTO));
+        Movie movie = movieRepository.save(Movie.createMovie(movieDTO));
+        return movie;
     }
 
     public MovieImg 테스트용_영화이미지_데이터_생성(){

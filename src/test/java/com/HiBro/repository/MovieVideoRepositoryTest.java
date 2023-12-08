@@ -6,8 +6,8 @@ import com.HiBro.constant.VideoType;
 import com.HiBro.dto.MovieDTO;
 import com.HiBro.dto.MovieVideoDTO;
 import com.HiBro.entity.Movie;
-import com.HiBro.entity.MovieImg;
 import com.HiBro.entity.MovieVideo;
+import com.HiBro.service.MovieService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,11 +15,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import javax.transaction.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
 class MovieVideoRepositoryTest {
+    @Autowired
+    MovieService movieService;
     @Autowired
     MovieRepository movieRepository;
     @Autowired
@@ -35,7 +36,7 @@ class MovieVideoRepositoryTest {
         movieDTO.setSummary("핵 연구시설");
         movieDTO.setAgeLimit(AgeLimit.FIFTEEN);
 
-        return movieRepository.save(Movie.createMovie(movieDTO));
+        return movieService.saveMovie(Movie.createMovie(movieDTO));
     }
 
     public MovieVideo 테스트용_영화영상_데이터_생성(){

@@ -1,0 +1,41 @@
+/* 포인트 창 시작 */
+.noticeBoard_point {
+	position: relative;
+	top: 10%;
+}
+
+.noticeBoard_point_Container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.noticeBoard_Point_Text {
+	height: 30px;
+}
+
+.noticeBoard_Point_Btn {
+	padding: 7px 20px;
+	background-color: var(--main-corlor);
+	color: var(--font-color);
+}
+.board_list .member_code {
+	width: 10%;
+}
+
+.board_list .member_id {
+	width: 20%;
+}
+.board_list .member_name{
+    width: 20%;
+}
+.board_list .member_email {
+	width: 30%;
+}
+
+.board_list .member_point {
+	width: 10%;
+}
+
+.board_list .member_regdate {
+	width: 10%;
+}

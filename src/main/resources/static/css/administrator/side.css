@@ -1,0 +1,70 @@
+.asidePlusMain {
+	display: flex;
+	width: 1100px;
+	margin: auto;
+}
+
+/* 사이드바 시작 */
+aside {
+	width: 25%;
+	background-color: var(--accent-corlor);
+}
+
+.asideMenu {
+	padding-left: 30px;
+}
+.managerProfile {
+	height: 150px;
+	width: 200px;
+}
+
+.memberManagement {
+	height: 170px;
+	line-height: 170px;
+	width: 200px;
+}
+
+.memberManagement li {
+	height: 30px;
+	line-height: 30px;
+}
+
+.memberManagement li:hover {
+	cursor: pointer;
+}
+
+.membership {
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+.contentManagement {
+	height: 250px;
+	line-height: 250px;
+	width: 200px;
+}
+
+.contentManagement li {
+	height: 30px;
+	line-height: 30px;
+}
+
+.contentManagement li:hover {
+	cursor: pointer;
+}
+
+.contentManagementTitle {
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+.logout p {
+	font-weight: bold;
+	font-size: 1.3rem;
+	width: 200px;
+	height: 90px;
+}
+
+.logout p:hover {
+	cursor: pointer;
+}

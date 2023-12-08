@@ -1,6 +1,8 @@
 package com.HiBro.service;
 
 import com.HiBro.dto.MovieDTO;
+import com.HiBro.dto.MovieImgDTO;
+import com.HiBro.dto.MovieVideoDTO;
 import com.HiBro.entity.Movie;
 import com.HiBro.entity.MovieImg;
 import com.HiBro.entity.MovieVideo;
@@ -26,9 +28,23 @@ public class MovieService {
     private final MovieVideoService movieVideoService;
 
     //영화 DB저장
-    public Movie saveMovie(Movie movie){
+    public Movie saveMovie(MovieDTO movieDTO, MovieImgDTO movieImgDTO, MovieVideoDTO movieVideoDTO){
 
-        return movieRepository.save(movie);
+        //이미지, 영상 객체 생성
+        MovieImg movieImg = MovieImg.createMovieImg(movieImgDTO);
+        MovieVideo movieVideo = MovieVideo.createMovieVideo(movieVideoDTO);
+
+        movieImgService.saveMovieImg(movieImg);
+        movieVideoService.saveMovieVideo(movieVideo);
+
+        //영화 객체 생성
+        Movie movie = movieRepository.save(Movie.createMovie(movieDTO));
+
+        //영화 이미지와 영상에 FK 입력, 연관관계 완성
+        movieImg.setMovie(movie);
+        movieVideo.setMovie(movie);
+
+        return movie;
 
     }
 

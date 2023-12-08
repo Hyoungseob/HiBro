@@ -64,9 +64,9 @@ public class MovieService {
         Movie movie = movieRepository.findByCode(movieCode);
 
         if(checkMovie(movie)){
-            movieRepository.delete(movie);
-            movieImgService.deleteMovieImg(movie.getCode());
             movieVideoService.deleteMovieVideo(movie.getCode());
+            movieImgService.deleteMovieImg(movie.getCode());
+            movieRepository.delete(movie);
         }
     }
 }

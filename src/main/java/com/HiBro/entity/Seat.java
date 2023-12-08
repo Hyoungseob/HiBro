@@ -24,6 +24,7 @@ public class Seat {
 	private String SeatColumn;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private SeatStatus seatStatus;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -35,8 +36,6 @@ public class Seat {
 		seat.setSeatRow(seatDTO.getSeatRow());
 		seat.setSeatColumn(seatDTO.getSeatColumn());
 		seat.setSeatStatus(seatDTO.getSeatStatus());
-
 		return seat;
 	}
-
 }

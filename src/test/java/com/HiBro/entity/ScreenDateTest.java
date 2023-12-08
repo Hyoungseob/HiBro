@@ -2,6 +2,7 @@ package com.HiBro.entity;
 
 import com.HiBro.constant.ScreenType;
 import com.HiBro.constant.ScreeningTime;
+import com.HiBro.constant.TheaterStatus;
 import com.HiBro.dto.*;
 import com.HiBro.repository.*;
 import com.HiBro.service.*;
@@ -28,14 +29,29 @@ public class ScreenDateTest {
 	ScreenService screenService;
 	@Autowired
 	ScreenDateService screenDateService;
+	@Autowired
+	TheaterService theaterService;
+
+	public TheaterDTO createTheater() {
+		TheaterDTO theaterDTO = new TheaterDTO();
+		theaterDTO.setTheaterLocation("울산 남구 삼산동");
+		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
+
+		Theater theater = theaterService.saveTheater(theaterDTO);
+
+		theaterDTO.setCode(theater.getCode());
+
+		return theaterDTO;
+	}
 
 	public Screen createScreen() {
+		TheaterDTO theaterDTO = this.createTheater();
 		ScreenDTO screenDTO = new ScreenDTO();
 		screenDTO.setScreenImg("임시 이미지");
 		screenDTO.setScreenLocation("울산 삼산동");
 		screenDTO.setScreenType(ScreenType.NORMAL);
 
-		Screen screen = screenService.saveScreen(screenDTO);
+		Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
 
 		return screen;
 	}

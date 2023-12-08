@@ -21,33 +21,32 @@ public class ScreenTest {
 	@Autowired
 	ScreenRepository screenRepository;
 	@Autowired
-	PasswordEncoder encoder;
-	@Autowired
 	ScreenService screenService;
 	@Autowired
-	MemberService memberService;
+	TheaterService theaterService;
 
-	public Member createMember() {
-		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setId("test");
-		memberDTO.setPassword("1234");
-		memberDTO.setName("테스트");
-		memberDTO.setEmail("a@a");
-		memberDTO.setRole(Role.ADMIN);
-		memberDTO.setRegDate(LocalDateTime.now());
-		return Member.createMember(memberDTO, encoder);
+	public TheaterDTO createTheater() {
+		TheaterDTO theaterDTO = new TheaterDTO();
+		theaterDTO.setTheaterLocation("울산 남구 삼산동");
+		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
+
+		Theater theater = theaterService.saveTheater(theaterDTO);
+
+		theaterDTO.setCode(theater.getCode());
+
+		return theaterDTO;
 	}
 
 	public List<ScreenDTO> createScreenList() {
 		List<ScreenDTO> screenDTOList = new ArrayList<>();
-
+		TheaterDTO theaterDTO = this.createTheater();
 		for (int i = 1; i <= 10; i++) {
 			ScreenDTO screenDTO = new ScreenDTO();
 			screenDTO.setScreenImg("임시 이미지");
 			screenDTO.setScreenLocation("울산 삼산동" + i);
 			screenDTO.setScreenType(ScreenType.NORMAL);
 
-			Screen screen = screenService.saveScreen(screenDTO);
+			Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
 
 			screenDTO.setCode(screen.getCode());
 
@@ -59,8 +58,6 @@ public class ScreenTest {
 	@Test
 	@DisplayName("상영관 검색 테스트")
 	public void findByScreenLocation() {
-		Member member = createMember();
-		memberService.saveMember(member);
 
 		this.createScreenList();
 

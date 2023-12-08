@@ -1,6 +1,7 @@
 package com.HiBro.entity;
 
 import com.HiBro.constant.SeatStatus;
+import com.HiBro.dto.SeatDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,5 +29,14 @@ public class Seat {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theater_code")
 	private Theater theater;
+
+	public static Seat createSeat(SeatDTO seatDTO) {
+		Seat seat = new Seat();
+		seat.setSeatRow(seatDTO.getSeatRow());
+		seat.setSeatColumn(seatDTO.getSeatColumn());
+		seat.setSeatStatus(seatDTO.getSeatStatus());
+
+		return seat;
+	}
 
 }

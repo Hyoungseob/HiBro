@@ -12,7 +12,8 @@ import java.util.List;
 @Transactional
 public class MovieImgService {
 
-    MovieImgRepository movieImgRepository;
+
+    private final MovieImgRepository movieImgRepository;
 
     //이미지 저장
     public MovieImg saveMovieImg(MovieImg movieImg){

@@ -15,6 +15,8 @@ import org.springframework.test.context.TestPropertySource;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
@@ -24,6 +26,8 @@ class MovieVideoServiceTest {
     MovieRepository movieRepository;
     @Autowired
     MovieVideoRepository movieVideoRepository;
+    @Autowired
+    MovieService movieService;
     @Autowired
     MovieVideoService movieVideoService;
 
@@ -37,30 +41,48 @@ class MovieVideoServiceTest {
         movieDTO.setSummary("핵 연구시설");
         movieDTO.setAgeLimit(AgeLimit.FIFTEEN);
 
-        return movieRepository.save(Movie.createMovie(movieDTO));
+        return movieService.saveMovie(Movie.createMovie(movieDTO));
     }
 
     public MovieVideo 테스트용_영화영상_데이터_생성(){
         MovieVideoDTO movieVideoDTO = new MovieVideoDTO();
+
 
         movieVideoDTO.setVideoName("메인 예고편");
         movieVideoDTO.setOriVideoName("몰라몰라");
         movieVideoDTO.setVideoType(VideoType.TRAILER);
         movieVideoDTO.setVideoUrl("sdfagsadg");
 
-        return movieVideoRepository.save(MovieVideo.createMovieVideo(movieVideoDTO));
-    }
-    @Test
-    void saveMovieVideo() {
-        테스트용_영화데이터_생성();
-        movieVideoService.saveMovieVideo(테스트용_영화영상_데이터_생성());
+        Movie movie = 테스트용_영화데이터_생성();
+
+        //영화 데이터에 영상 데이터 연결
+        MovieVideo movieVideo = MovieVideo.createMovieVideo(movieVideoDTO);
+        movieVideo.setMovie(movie);
+
+        return movieVideo;
+
     }
 
     @Test
-    void checkVideo() {
+    void 영화영상_저장_테스트() {
+
+        MovieVideo movieVideo = movieVideoService.saveMovieVideo(테스트용_영화영상_데이터_생성());
+        System.out.println(movieVideo);
+
     }
 
     @Test
-    void deleteMovieVideo() {
+    void 영화영상_삭제_테스트() {
+
+        for(int i=0; i<5; i++) {
+            movieVideoService.saveMovieVideo(테스트용_영화영상_데이터_생성());
+        }
+
+        movieVideoService.deleteMovieVideo(1L);
+
+        List<MovieVideo> movieVideo = movieVideoRepository.findByMovieCode(1L);
+        System.out.println(movieVideo.size());
     }
+
+
 }

@@ -61,7 +61,7 @@
 					<div class="member_regdate">[[${item.regDate}]]</div>
 					<div class="member_deletebtn"><button th:data-code="${item.code}" onclick="deleteMember(this)">삭제</button></div>
 				</div>
-				</div>
+				</th:block>
 			</div>
 			<div class="board_page" th:with="start=${(memberList.number/maxPage)*maxPage+1},end=(${(memberList.totalPages==0)? 1:(start+(maxPage-1)< memberList.totalPages? start+(maxPage-1) : memberList.totalPages)})">
 				<div>

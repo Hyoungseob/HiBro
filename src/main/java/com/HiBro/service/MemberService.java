@@ -1,5 +1,6 @@
 package com.HiBro.service;
 
+import com.HiBro.dto.MemberSearchDTO;
 import com.HiBro.entity.Member;
 import com.HiBro.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +41,11 @@ public class MemberService{
                         .orElseThrow(EntityNotFoundException::new);
         memberRepository.delete(member);
     }
-    public Page<Member> getMemberAll(Pageable pageable){
+    public Page<Member> getMemberAll(MemberSearchDTO memberSearchDTO, Pageable pageable){
+        if(memberSearchDTO.getSearchId() != null){
+            List<Member> member = memberRepository.findByIdContaining(memberSearchDTO.getSearchId());
+            return new PageImpl<>(member,pageable,member.size());
+        }
         return memberRepository.findAll(pageable);
     }
 }

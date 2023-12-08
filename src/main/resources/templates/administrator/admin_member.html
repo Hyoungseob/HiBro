@@ -28,6 +28,12 @@
 				}
 			});
 		}
+		function searchMember(){
+			var searchId = $("#searchId").val();
+
+			location.href="/admin?searchId="+searchId;
+
+		}
 	</script>
 </th:block>
 <div layout:fragment="content">
@@ -36,8 +42,10 @@
 		<div style="margin-top: 20px;">
 			<h2 class="allMember">전체 멤버<p></p></h2>
 			<div class="adNav">
-				<div><input class="navInput" type="text" placeholder="아이디을 입력하세요"></div>
-				<div><input class="inputBtn" type="button" value="검색"></div>
+				<div th:object="${memberSearchDTO}">
+					<div><input class="navInput" th:field="*{searchId}" type="text" placeholder="아이디을 입력하세요"></div>
+					<div><input class="inputBtn" type="button" onclick="searchMember()" value="검색"></div>
+				</div>
 			</div>
 		</div>
 		<div class="board_list_wrap">

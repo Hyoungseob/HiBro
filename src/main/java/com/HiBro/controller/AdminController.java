@@ -1,5 +1,6 @@
 package com.HiBro.controller;
 
+import com.HiBro.dto.MemberSearchDTO;
 import com.HiBro.entity.Member;
 import com.HiBro.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +28,9 @@ public class AdminController{
     private final MemberService memberService;
 
     @GetMapping("/admin")
-    public String admin(Model model, Optional<Integer> page){
+    public String admin(MemberSearchDTO memberSearchDTO, Model model, Optional<Integer> page){
         Pageable pageable = PageRequest.of(page.isPresent()? page.get():0,10);
-        Page<Member> memberList = memberService.getMemberAll(pageable) ;
+        Page<Member> memberList = memberService.getMemberAll(memberSearchDTO,pageable) ;
         model.addAttribute("memberList",memberList);
         model.addAttribute("maxPage",5);
         return "administrator/admin_member";

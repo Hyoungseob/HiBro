@@ -24,8 +24,13 @@ public class Screen {
 	@Column(nullable = false)
 	private String screenLocation;
 
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private ScreenType screenType;
+
+	@ManyToOne
+	@JoinColumn(name = "theater_code")
+	private Theater theater;
 
 	//Order - OrderItem 관계랑 똑같음
 	@OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

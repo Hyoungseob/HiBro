@@ -19,7 +19,7 @@ public class TicketingDTO{
         this.memberCode = ticketing.getMember().getCode();
         this.ticketingCode = ticketing.getCode();
         this.movieTitle = ticketing.getMovie().getMovieTitle();
-        this.theaterCode = ticketing.getTheater().getTheaterCode();
+        this.theaterCode = ticketing.getTheater().getCode();
     }
 
 }

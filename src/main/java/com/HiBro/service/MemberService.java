@@ -3,8 +3,12 @@ package com.HiBro.service;
 import com.HiBro.entity.Member;
 import com.HiBro.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -31,11 +35,12 @@ public class MemberService{
         return true;
     }
 
-    public void deleteMember(Member member){
-        if(!checkMember(member))
-            memberRepository.delete(member);
+    public void deleteMember(Long memberCode){
+        Member member = memberRepository.findById(memberCode)
+                        .orElseThrow(EntityNotFoundException::new);
+        memberRepository.delete(member);
     }
-    public List<Member> getMemberAll(){
-        return memberRepository.findByAll();
+    public Page<Member> getMemberAll(Pageable pageable){
+        return memberRepository.findAll(pageable);
     }
 }

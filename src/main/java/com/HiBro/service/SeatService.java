@@ -15,8 +15,8 @@ public class SeatService {
 	private final ScreenRepository screenRepository;
 	private final SeatRepository seatRepository;
 
-	public Seat saveSeat(SeatDTO seatDTO, Long theaterCode) {
-		Screen screen = screenRepository.findByCode(theaterCode);
+	public Seat saveSeat(SeatDTO seatDTO, Long screenCode) {
+		Screen screen = screenRepository.findByCode(screenCode);
 		Seat seat = Seat.createSeat(seatDTO);
 		seat.setScreen(screen);
 		return seatRepository.save(seat);

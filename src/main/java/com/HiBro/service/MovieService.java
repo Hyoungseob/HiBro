@@ -19,13 +19,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieService {
 
-    @Autowired
     private final MovieRepository movieRepository;
 
-    @Autowired
     private final MovieImgService movieImgService;
 
-    @Autowired
     private final MovieVideoService movieVideoService;
 
     //영화 DB저장

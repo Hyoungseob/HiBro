@@ -14,6 +14,7 @@ public class MovieImgService {
 
     MovieImgRepository movieImgRepository;
 
+    //이미지 저장
     public MovieImg saveMovieImg(MovieImg movieImg){
 
         return movieImgRepository.save(movieImg);

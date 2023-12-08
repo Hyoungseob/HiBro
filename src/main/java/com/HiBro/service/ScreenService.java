@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ScreenService {
 	private final ScreenRepository screenRepository;
-
-	public Screen saveScreen(ScreenDTO screenDTO) {
+	private final TheaterRepository theaterRepository;
+	public Screen saveScreen(ScreenDTO screenDTO, Long code) {
 		Screen screen = Screen.createScreen(screenDTO);
+		Theater theater = theaterRepository.findByCode(code);
+		screen.setTheater(theater);
 		return screenRepository.save(screen);
 	}
 

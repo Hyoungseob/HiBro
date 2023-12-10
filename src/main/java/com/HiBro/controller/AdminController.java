@@ -125,8 +125,7 @@ public class AdminController {
 
 	@GetMapping("/admin/screen/{screenCode}")
 	public String screenDtl(@PathVariable("screenCode") Long screenCode, Model model) {
-		List<Screen> screenList = screenRepository.findAll();
-		model.addAttribute("screenList", screenList);
-		return "administrator/admin_screen";
+		//관계테이블 Date -> Seat ?
+		return "administrator/admin_screenDate";
 	}
 }

@@ -11,7 +11,7 @@
 }
 
 .board_list .member_email {
-	width: 30%;
+	width: 20%;
 }
 
 .board_list .member_point {
@@ -19,4 +19,7 @@
 }
 .board_list .member_regdate{
     width: 30%;
+}
+.board_list .member_deletebtn{
+    width: 10%;
 }

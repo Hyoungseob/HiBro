@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layouts/layout2}">
+	layout:decorate="~{layouts/layout2}">
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
-	<link rel="stylesheet" th:href="@{/css/administrator/member.css}">
+	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
 </th:block>
 <div layout:fragment="content">
 	<!--사용자 창 시작-->
@@ -11,6 +11,7 @@
 		<div>
 			<h2 class="allMember">전체 영화관<p></p>
 			</h2>
+			<div></div>
 		</div>
 		<div class="board_list_wrap">
 			<div class="board_list">
@@ -27,9 +28,9 @@
 			</div>
 			<div class="board_page">
 				<a href="#" class="bt first">
-					<< </a>
+				</a>
 				<a href="#" class="bt prev">
-					< </a>
+				</a>
 				<a href="#" class="num on">1</a>
 				<a href="#" class="bt">2</a>
 				<a href="#" class="bt">3</a>

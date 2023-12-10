@@ -1,8 +1,12 @@
 package com.HiBro.controller;
 
+import com.HiBro.constant.TheaterStatus;
 import com.HiBro.dto.MemberSearchDTO;
+import com.HiBro.dto.TheaterDTO;
 import com.HiBro.entity.Member;
+import com.HiBro.entity.Theater;
 import com.HiBro.service.MemberService;
+import com.HiBro.service.TheaterService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.internal.util.Members;
 import org.springframework.data.domain.Page;
@@ -13,11 +17,10 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +29,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminController {
 	private final MemberService memberService;
+	private final TheaterService theaterService;
 
 	@GetMapping("/admin")
 	public String admin(MemberSearchDTO memberSearchDTO, Model model, Optional<Integer> page) {
@@ -54,6 +58,30 @@ public class AdminController {
 
 	@GetMapping("/admin/theater")
 	public String theater() {
+		return "administrator/admin_theater";
+	}
+
+	@GetMapping("/admin/theater/new")
+	public String theaterForm(Model model) {
+		model.addAttribute("theaterDTO", new TheaterDTO());
+		model.addAttribute("theaterStatus", TheaterStatus.values());
+		return "administrator/admin_theater_form";
+	}
+
+	@PostMapping("/admin/theater/new")
+	public String theaterForm(@RequestParam("theaterStatus") TheaterStatus theaterStatus , TheaterDTO theaterDTO, BindingResult bindingResult, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			return "administrator/admin_theater_form";
+		}
+
+		try {
+			theaterService.saveTheater(theaterDTO);
+		} catch (IllegalStateException e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "administrator/admin_theater_form";
+		}
+
 		return "administrator/admin_theater";
 	}
 }

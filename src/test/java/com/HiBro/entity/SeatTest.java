@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @SpringBootTest
@@ -19,13 +20,15 @@ public class SeatTest {
 	@Autowired
 	SeatRepository seatRepository;
 	@Autowired
-	ScreenRepository screenRepository;
+	ScreenDateRepository screenDateRepository;
 	@Autowired
 	ScreenService screenService;
 	@Autowired
 	SeatService seatService;
 	@Autowired
 	TheaterService theaterService;
+	@Autowired
+	ScreenDateService screenDateService;
 
 	public TheaterDTO createTheater() {
 		TheaterDTO theaterDTO = new TheaterDTO();
@@ -48,8 +51,19 @@ public class SeatTest {
 		return screenService.saveScreen(screenDTO, theaterDTO.getCode());
 	}
 
-	public List<SeatDTO> createSeatList() {
+	public ScreenDateDTO createScreenDate() {
 		Screen screen = createScreen();
+		ScreenDateDTO screenDateDTO = new ScreenDateDTO();
+		screenDateDTO.setScreeningDateTime(LocalDateTime.now());
+		screenDateDTO.setScreeningTime(ScreeningTime.MATINEE);
+		ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screen.getCode());
+		screenDateDTO.setCode(screenDate.getCode());
+
+		return screenDateDTO;
+	}
+
+	public List<SeatDTO> createSeatList() {
+		ScreenDateDTO screenDateDTO = this.createScreenDate();
 
 		List<SeatDTO> seatList = new ArrayList<>();
 
@@ -58,7 +72,7 @@ public class SeatTest {
 			seatDTO.setSeatRow("1행");
 			seatDTO.setSeatColumn(i + "열");
 			seatDTO.setSeatStatus(SeatStatus.SELL);
-			Seat seat = seatService.saveSeat(seatDTO, screen.getCode());
+			Seat seat = seatService.saveSeat(seatDTO, screenDateDTO.getCode());
 			seatDTO.setCode(seat.getCode());
 			seatList.add(seatDTO);
 		}
@@ -70,8 +84,8 @@ public class SeatTest {
 	public void findByScreenLocation() {
 		this.createSeatList();
 
-		Long screenCode = screenRepository.findAll().get(0).getCode();
-		List<Seat> seatList = seatRepository.findSeatByScreenCode(screenCode);
+		Long screenCode = screenDateRepository.findAll().get(0).getCode();
+		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenCode);
 
 		for (Seat seat : seatList) {
 			System.out.println(seat);
@@ -83,10 +97,10 @@ public class SeatTest {
 	public void deleteScreenDate() {
 		SeatDTO seatDTO = this.createSeatList().get(4);
 
-		Long screenCode = screenRepository.findAll().get(0).getCode();
+		Long screenDateCode = screenDateRepository.findAll().get(0).getCode();
 
 		seatService.deleteSeat(seatDTO);
-		List<Seat> seats = seatRepository.findSeatByScreenCode(screenCode);
+		List<Seat> seats = seatRepository.findSeatByScreenDateCode(screenDateCode);
 
 		for (Seat seat : seats) {
 			System.out.println(seat);

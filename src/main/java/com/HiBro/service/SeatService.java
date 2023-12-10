@@ -13,13 +13,13 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class SeatService {
-	private final ScreenRepository screenRepository;
+	private final ScreenDateRepository screenDateRepository;
 	private final SeatRepository seatRepository;
 
-	public Seat saveSeat(SeatDTO seatDTO, Long screenCode) {
-		Screen screen = screenRepository.findByCode(screenCode);
+	public Seat saveSeat(SeatDTO seatDTO, Long screenDateCode) {
+		ScreenDate screenDate = screenDateRepository.findByCode(screenDateCode);
 		Seat seat = Seat.createSeat(seatDTO);
-		seat.setScreen(screen);
+		seat.setScreenDate(screenDate);
 		return seatRepository.save(seat);
 	}
 
@@ -28,8 +28,8 @@ public class SeatService {
 		seatRepository.delete(seat);
 	}
 
-	public void deleteSeatList(Screen screen) {
-		List<Seat> seatList = seatRepository.findSeatByScreenCode(screen.getCode());
+	public void deleteSeatList(ScreenDate screenDate) {
+		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenDate.getCode());
 		for (Seat seat : seatList) {
 			seatRepository.delete(seat);
 		}

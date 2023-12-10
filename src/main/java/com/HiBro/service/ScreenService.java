@@ -16,7 +16,6 @@ import java.util.List;
 public class ScreenService {
 	private final ScreenRepository screenRepository;
 	private final TheaterRepository theaterRepository;
-	private final SeatService seatService;
 	private final ScreenDateService screenDateService;
 
 	public Screen saveScreen(ScreenDTO screenDTO, Long theaterCode) {
@@ -28,7 +27,6 @@ public class ScreenService {
 
 	public void deleteScreen(ScreenDTO screenDTO) {
 		Screen screen = screenRepository.findByCode(screenDTO.getCode());
-		seatService.deleteSeatList(screen);
 		screenDateService.deleteScreenDateList(screen);
 		screenRepository.delete(screen);
 	}
@@ -36,7 +34,6 @@ public class ScreenService {
 	public void deleteScreenList(TheaterDTO theaterDTO) {
 		List<Screen> screenList = screenRepository.findScreenByTheaterCode(theaterDTO.getCode());
 		for (Screen screen : screenList) {
-			seatService.deleteSeatList(screen);
 			screenDateService.deleteScreenDateList(screen);
 			screenRepository.delete(screen);
 		}

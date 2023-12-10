@@ -16,6 +16,7 @@ public class ScreenDateService {
 
 	private final ScreenRepository screenRepository;
 	private final ScreenDateRepository screenDateRepository;
+	private final SeatService seatService;
 
 	public ScreenDate saveScreenDate(ScreenDateDTO screenDateDTO, Long screenCode) {
 		Screen screen = screenRepository.findByCode(screenCode);
@@ -26,12 +27,14 @@ public class ScreenDateService {
 
 	public void deleteScreenDate(ScreenDateDTO screenDateDTO) {
 		ScreenDate screenDate = screenDateRepository.findByCode(screenDateDTO.getCode());
+		seatService.deleteSeatList(screenDate);
 		screenDateRepository.delete(screenDate);
 	}
 
 	public void deleteScreenDateList(Screen screen) {
 		List<ScreenDate> screenDateList = screenDateRepository.findScreenDateByScreenCode(screen.getCode());
 		for (ScreenDate screenDate : screenDateList) {
+			seatService.deleteSeatList(screenDate);
 			screenDateRepository.delete(screenDate);
 		}
 	}

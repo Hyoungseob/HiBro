@@ -32,10 +32,6 @@ public class Screen {
 	@JoinColumn(name = "theater_code")
 	private Theater theater;
 
-	//Order - OrderItem 관계랑 똑같음
-	@OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Seat> seats = new ArrayList();
-
 	@OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ScreenDate> screenDates = new ArrayList();
 

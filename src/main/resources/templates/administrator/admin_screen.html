@@ -9,7 +9,7 @@
 	<!--사용자 창 시작-->
 	<div class="noticeBoard">
 		<div>
-			<h2 class="allMember">전체 영화관<p></p>
+			<h2 class="allMember">울산 남구 삼산동 상영관<p></p>
 			</h2>
 			<div></div>
 		</div>
@@ -18,14 +18,13 @@
 				<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
 					<div class="theater_code">번호</div>
 					<div class="theater_location">위치</div>
-					<div class="theater_status">상태</div>
+					<div class="theater_type">타입</div>
 				</div>
-				<th:block th:each="theater, status:${theaterList}">
+				<th:block th:each="screen, status:${screenList}">
 					<div>
-						<div class="theater_code">[[${theater.getCode}]]</div>
-						<div class="theater_location"><a th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterLocation}]]</a>
-						</div>
-						<div class="theater_status">[[${theater.getTheaterStatus}]]</div>
+						<div class="theater_code">[[${screen.code}]]</div>
+						<div class="theater_location"><a th:href="'/admin/screen/'+${screen.code}">[[${screen.getScreenLocation}]]</a></div>
+						<div class="theater_status">[[${screen.screenType}]]</div>
 					</div>
 				</th:block>
 			</div>

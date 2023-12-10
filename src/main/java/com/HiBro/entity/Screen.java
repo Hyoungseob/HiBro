@@ -18,7 +18,7 @@ public class Screen {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long code;
 
-	@Column(nullable = false)
+	@Column
 	private String screenImg;
 
 	@Column(nullable = false)

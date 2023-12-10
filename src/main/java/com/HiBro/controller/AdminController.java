@@ -1,12 +1,17 @@
 package com.HiBro.controller;
 
+import com.HiBro.constant.ScreenType;
 import com.HiBro.constant.TheaterStatus;
 import com.HiBro.dto.MemberSearchDTO;
+import com.HiBro.dto.ScreenDTO;
 import com.HiBro.dto.TheaterDTO;
 import com.HiBro.entity.Member;
+import com.HiBro.entity.Screen;
 import com.HiBro.entity.Theater;
+import com.HiBro.repository.ScreenRepository;
 import com.HiBro.repository.TheaterRepository;
 import com.HiBro.service.MemberService;
+import com.HiBro.service.ScreenService;
 import com.HiBro.service.TheaterService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.internal.util.Members;
@@ -31,7 +36,9 @@ import java.util.Optional;
 public class AdminController {
 	private final MemberService memberService;
 	private final TheaterService theaterService;
+	private final ScreenService screenService;
 	private final TheaterRepository theaterRepository;
+	private final ScreenRepository screenRepository;
 
 	@GetMapping("/admin")
 	public String admin(MemberSearchDTO memberSearchDTO, Model model, Optional<Integer> page) {
@@ -74,19 +81,52 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/theater/new")
-	public String theaterForm(@RequestParam("theaterStatus") TheaterStatus theaterStatus , TheaterDTO theaterDTO, BindingResult bindingResult, Model model) {
-
+	public String theaterForm(@RequestParam("theaterStatus") TheaterStatus theaterStatus, TheaterDTO theaterDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_theater_form";
 		}
-
 		try {
 			theaterService.saveTheater(theaterDTO);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "administrator/admin_theater_form";
 		}
-
 		return "administrator/admin_theater";
+	}
+
+	@GetMapping("/admin/theater/{theaterCode}")
+	public String theaterDtl(@PathVariable("theaterCode") Long theaterCode, Model model) {
+		List<Screen> screenList = screenRepository.findScreenByTheaterCode(theaterCode);
+		model.addAttribute("screenList", screenList);
+		return "administrator/admin_screen";
+	}
+
+	@GetMapping("/admin/theater/{theaterCode}/new")
+	public String screenForm(@PathVariable("theaterCode") Long theaterCode, Model model) {
+		model.addAttribute("screenDTO", new ScreenDTO());
+		model.addAttribute("theaterCode", theaterCode);
+		model.addAttribute("screenType", ScreenType.values());
+		return "administrator/admin_screen_form";
+	}
+
+	@PostMapping("/admin/theater/{theaterCode}/new")
+	public String screenForm(@RequestParam("theaterCode") String theaterCode, @RequestParam("screenType") ScreenType screenType, ScreenDTO screenDTO, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "administrator/admin_screen_form";
+		}
+		try {
+			screenService.saveScreen(screenDTO, Long.valueOf(theaterCode));
+		} catch (IllegalStateException e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "administrator/admin_screen_form";
+		}
+		return "administrator/admin_screen";
+	}
+
+	@GetMapping("/admin/screen/{screenCode}")
+	public String screenDtl(@PathVariable("screenCode") Long screenCode, Model model) {
+		List<Screen> screenList = screenRepository.findAll();
+		model.addAttribute("screenList", screenList);
+		return "administrator/admin_screen";
 	}
 }

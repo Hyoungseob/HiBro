@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout2}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
+	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
+</th:block>
+<div layout:fragment="content">
+	<!--사용자 창 시작-->
+	<div class="noticeBoard">
+		<div>
+			<h2 class="allMember">상영관 상세정보(임시)<p></p>
+			</h2>
+			<div></div>
+		</div>
+		<div class="board_list_wrap">
+			<div class="board_list">
+				<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
+					<div class="theater_code">번호</div>
+					<div class="theater_location">상영시간</div>
+					<div class="theater_type">조조/일반/심야</div>
+				</div>
+				<th:block th:each="screenDate, status:${screenDate}">
+					<div>
+						<div class="theater_code">[[${screenDate.code}]]</div>
+						<div class="theater_location"><a th:href="'/admin/screen/'+${screen.code}">[[${screenDate.screeningDateTime}]]</a></div>
+						<div class="theater_status">[[${screenDate.screeningTime}]]</div>
+					</div>
+				</th:block>
+			</div>
+			<div class="board_page">
+				<a href="#" class="bt first">
+				</a>
+				<a href="#" class="bt prev">
+				</a>
+				<a href="#" class="num on">1</a>
+				<a href="#" class="bt">2</a>
+				<a href="#" class="bt">3</a>
+				<a href="#" class="bt">4</a>
+				<a href="#" class="bt">5</a>
+				<a href="#" class="bt next">></a>
+				<a href="#" class="bt last">>></a>
+			</div>
+			<div class="bt_wrap">
+				<a href="#" class="on">목록</a>
+				<a href="#">수정</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+</html>

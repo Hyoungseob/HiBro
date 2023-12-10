@@ -1,6 +1,7 @@
 package com.HiBro.entity;
 
 import com.HiBro.constant.SeatStatus;
+import com.HiBro.dto.SeatDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,10 +24,18 @@ public class Seat {
 	private String SeatColumn;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private SeatStatus seatStatus;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "theater_code")
-	private Theater theater;
+	@JoinColumn(name = "screen_date_code")
+	private ScreenDate screenDate;
 
+	public static Seat createSeat(SeatDTO seatDTO) {
+		Seat seat = new Seat();
+		seat.setSeatRow(seatDTO.getSeatRow());
+		seat.setSeatColumn(seatDTO.getSeatColumn());
+		seat.setSeatStatus(seatDTO.getSeatStatus());
+		return seat;
+	}
 }

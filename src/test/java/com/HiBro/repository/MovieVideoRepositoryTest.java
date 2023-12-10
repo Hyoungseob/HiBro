@@ -15,6 +15,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import javax.transaction.Transactional;
 
+import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")

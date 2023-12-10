@@ -2,10 +2,14 @@ package com.HiBro.repository;
 
 import com.HiBro.constant.AgeLimit;
 import com.HiBro.constant.Role;
+<<<<<<< HEAD
 import com.HiBro.entity.Member;
 import com.HiBro.entity.Movie;
 import com.HiBro.entity.Theater;
 import com.HiBro.entity.Ticketing;
+=======
+import com.HiBro.entity.*;
+>>>>>>> theater
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

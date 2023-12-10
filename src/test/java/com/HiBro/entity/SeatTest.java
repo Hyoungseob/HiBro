@@ -1,51 +1,108 @@
 package com.HiBro.entity;
 
-import com.HiBro.constant.SeatStatus;
+import com.HiBro.constant.*;
+import com.HiBro.dto.*;
 import com.HiBro.repository.*;
+import com.HiBro.service.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @SpringBootTest
 @Transactional
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class SeatTest {
-
 	@Autowired
 	SeatRepository seatRepository;
-
 	@Autowired
-	TheaterRepository theaterRepository;
+	ScreenDateRepository screenDateRepository;
+	@Autowired
+	ScreenService screenService;
+	@Autowired
+	SeatService seatService;
+	@Autowired
+	TheaterService theaterService;
+	@Autowired
+	ScreenDateService screenDateService;
 
-	public void createSeat() {
+	public TheaterDTO createTheater() {
+		TheaterDTO theaterDTO = new TheaterDTO();
+		theaterDTO.setTheaterLocation("울산 남구 삼산동");
+		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
 
-		Theater theater = new Theater();
-		theater.setTheaterImg("임시 이미지");
-		theater.setTheaterLocation("울산 삼산동");
-		theater.setTheaterType("프리미엄");
-		theaterRepository.save(theater);
+		Theater theater = theaterService.saveTheater(theaterDTO);
+
+		theaterDTO.setCode(theater.getCode());
+
+		return theaterDTO;
+	}
+
+	public Screen createScreen() {
+		TheaterDTO theaterDTO = this.createTheater();
+		ScreenDTO screenDTO = new ScreenDTO();
+		screenDTO.setScreenImg("임시 이미지");
+		screenDTO.setScreenLocation("울산 삼산동");
+		screenDTO.setScreenType(ScreenType.NORMAL);
+		return screenService.saveScreen(screenDTO, theaterDTO.getCode());
+	}
+
+	public ScreenDateDTO createScreenDate() {
+		Screen screen = createScreen();
+		ScreenDateDTO screenDateDTO = new ScreenDateDTO();
+		screenDateDTO.setScreeningDateTime(LocalDateTime.now());
+		screenDateDTO.setScreeningTime(ScreeningTime.MATINEE);
+		ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screen.getCode());
+		screenDateDTO.setCode(screenDate.getCode());
+
+		return screenDateDTO;
+	}
+
+	public List<SeatDTO> createSeatList() {
+		ScreenDateDTO screenDateDTO = this.createScreenDate();
+
+		List<SeatDTO> seatList = new ArrayList<>();
 
 		for (int i = 1; i <= 10; i++) {
-			Seat seat = new Seat();
-			seat.setSeatRow("1행");
-			seat.setSeatColumn(i + "열");
-			seat.setSeatStatus(SeatStatus.SELL);
-			seat.setTheater(theater);
-			seatRepository.save(seat);
+			SeatDTO seatDTO = new SeatDTO();
+			seatDTO.setSeatRow("1행");
+			seatDTO.setSeatColumn(i + "열");
+			seatDTO.setSeatStatus(SeatStatus.SELL);
+			Seat seat = seatService.saveSeat(seatDTO, screenDateDTO.getCode());
+			seatDTO.setCode(seat.getCode());
+			seatList.add(seatDTO);
 		}
+		return seatList;
 	}
 
 	@Test
 	@DisplayName("좌석 검색 테스트")
-	public void findByTheaterLocation() {
-		this.createSeat();
-		Long theaterCode = theaterRepository.findAll().get(0).getCode();
-		List<Seat> seatList = seatRepository.findSeatByTheaterCode(theaterCode);
+	public void findByScreenLocation() {
+		this.createSeatList();
+
+		Long screenCode = screenDateRepository.findAll().get(0).getCode();
+		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenCode);
+
 		for (Seat seat : seatList) {
+			System.out.println(seat);
+		}
+	}
+
+	@Test
+	@DisplayName("좌석 삭제 테스트")
+	public void deleteScreenDate() {
+		SeatDTO seatDTO = this.createSeatList().get(4);
+
+		Long screenDateCode = screenDateRepository.findAll().get(0).getCode();
+
+		seatService.deleteSeat(seatDTO);
+		List<Seat> seats = seatRepository.findSeatByScreenDateCode(screenDateCode);
+
+		for (Seat seat : seats) {
 			System.out.println(seat);
 		}
 	}

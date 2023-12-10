@@ -5,6 +5,7 @@ import com.HiBro.dto.MemberSearchDTO;
 import com.HiBro.dto.TheaterDTO;
 import com.HiBro.entity.Member;
 import com.HiBro.entity.Theater;
+import com.HiBro.repository.TheaterRepository;
 import com.HiBro.service.MemberService;
 import com.HiBro.service.TheaterService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ import java.util.Optional;
 public class AdminController {
 	private final MemberService memberService;
 	private final TheaterService theaterService;
+	private final TheaterRepository theaterRepository;
 
 	@GetMapping("/admin")
 	public String admin(MemberSearchDTO memberSearchDTO, Model model, Optional<Integer> page) {
@@ -57,7 +59,10 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/theater")
-	public String theater() {
+	public String theater(Model model) {
+		//repository 말고 service로 처리?
+		List<Theater> theaterList = theaterRepository.findAll();
+		model.addAttribute("theaterList", theaterList);
 		return "administrator/admin_theater";
 	}
 

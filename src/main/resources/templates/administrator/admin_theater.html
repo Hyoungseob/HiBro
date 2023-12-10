@@ -20,11 +20,13 @@
 					<div class="theater_location">위치</div>
 					<div class="theater_status">상태</div>
 				</div>
-				<div>
-					<div class="theater_code">1</div>
-					<div class="theater_location">울산 남구 삼산동</div>
-					<div class="theater_status">OPEN</div>
-				</div>
+				<th:block th:each="theater, status:${theaterList}">
+					<div>
+						<div class="theater_code">[[${theater.getCode}]]</div>
+						<div class="theater_location">[[${theater.getTheaterLocation}]]</div>
+						<div class="theater_status">[[${theater.getTheaterStatus}]]</div>
+					</div>
+				</th:block>
 			</div>
 			<div class="board_page">
 				<a href="#" class="bt first">

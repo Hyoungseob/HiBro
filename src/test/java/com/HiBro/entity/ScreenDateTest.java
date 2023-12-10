@@ -67,7 +67,6 @@ public class ScreenDateTest {
 			screenDateDTO.setScreeningTime(ScreeningTime.MATINEE);
 
 			ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screen.getCode());
-			//TODO
 			screenDateDTO.setCode(screenDate.getCode());
 
 			screenDateDTOList.add(screenDateDTO);
@@ -94,7 +93,7 @@ public class ScreenDateTest {
 
 		Long ScreenCode = screenRepository.findAll().get(0).getCode();
 
-		screenDateService.deleteScreenDate(screenDateDTO.getCode());
+		screenDateService.deleteScreenDate(screenDateDTO);
 		List<ScreenDate> screenDates = screenDateRepository.findScreenDateByScreenCode(ScreenCode);
 		for (ScreenDate screenDate : screenDates) {
 			System.out.println(screenDate);

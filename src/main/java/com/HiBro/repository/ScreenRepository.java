@@ -9,6 +9,9 @@ import java.util.List;
 public interface ScreenRepository extends JpaRepository<Screen, Long> {
 	Screen findByCode(Long screenCode);
 
+	@Query("SELECT S FROM Screen S WHERE S.theater.code = :theaterCode")
+	List<Screen> findScreenByTheaterCode(@Param("theaterCode") Long theaterCode);
+
 	@Query("SELECT S FROM Screen S WHERE S.screenLocation LIKE %:screenLocation% ORDER BY S.code DESC")
 	List<Screen> findByScreenLocation(@Param("screenLocation") String screenLocation);
 

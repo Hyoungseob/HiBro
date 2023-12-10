@@ -85,7 +85,7 @@ public class SeatTest {
 
 		Long screenCode = screenRepository.findAll().get(0).getCode();
 
-		seatService.deleteSeat(seatDTO.getCode());
+		seatService.deleteSeat(seatDTO);
 		List<Seat> seats = seatRepository.findSeatByScreenCode(screenCode);
 
 		for (Seat seat : seats) {

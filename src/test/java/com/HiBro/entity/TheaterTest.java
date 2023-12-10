@@ -1,22 +1,17 @@
 package com.HiBro.entity;
 
-import com.HiBro.constant.ScreenType;
-import com.HiBro.constant.TheaterStatus;
-import com.HiBro.dto.ScreenDTO;
-import com.HiBro.dto.TheaterDTO;
-import com.HiBro.repository.ScreenRepository;
+import com.HiBro.constant.*;
+import com.HiBro.dto.*;
 import com.HiBro.repository.TheaterRepository;
-import com.HiBro.service.ScreenService;
-import com.HiBro.service.TheaterService;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.HiBro.service.*;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @SpringBootTest
 @Transactional
@@ -28,18 +23,11 @@ public class TheaterTest {
 	TheaterRepository theaterRepository;
 	@Autowired
 	ScreenService screenService;
+	@Autowired
+	SeatService seatService;
+	@Autowired
+	ScreenDateService screenDateService;
 
-	public ScreenDTO createScreen(TheaterDTO theaterDTO) {
-		ScreenDTO screenDTO = new ScreenDTO();
-		screenDTO.setScreenImg("임시 이미지");
-		screenDTO.setScreenLocation("울산 삼산동");
-		screenDTO.setScreenType(ScreenType.NORMAL);
-
-		Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
-		screenDTO.setCode(screen.getCode());
-
-		return screenDTO;
-	}
 
 	public List<TheaterDTO> createTheaterList() {
 		List<TheaterDTO> theaterDTOList = new ArrayList<>();
@@ -58,6 +46,55 @@ public class TheaterTest {
 		return theaterDTOList;
 	}
 
+	public List<ScreenDTO> createScreenList(TheaterDTO theaterDTO) {
+		List<ScreenDTO> screenDTOList = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			ScreenDTO screenDTO = new ScreenDTO();
+			screenDTO.setScreenImg("임시 이미지");
+			screenDTO.setScreenLocation("울산 삼산동");
+			screenDTO.setScreenType(ScreenType.NORMAL);
+
+			Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
+			screenDTO.setCode(screen.getCode());
+			screenDTOList.add(screenDTO);
+		}
+		return screenDTOList;
+	}
+
+	public List<SeatDTO> createSeatList(ScreenDTO screenDTO) {
+
+		List<SeatDTO> seatList = new ArrayList<>();
+
+		for (int i = 1; i <= 10; i++) {
+			SeatDTO seatDTO = new SeatDTO();
+			seatDTO.setSeatRow("1행");
+			seatDTO.setSeatColumn(i + "열");
+			seatDTO.setSeatStatus(SeatStatus.SELL);
+			Seat seat = seatService.saveSeat(seatDTO, screenDTO.getCode());
+			seatDTO.setCode(seat.getCode());
+			seatList.add(seatDTO);
+		}
+		return seatList;
+	}
+
+	public List<ScreenDateDTO> createScreenDateList(ScreenDTO screenDTO) {
+
+		List<ScreenDateDTO> screenDateDTOList = new ArrayList<>();
+
+		for (int i = 1; i <= 10; i++) {
+			ScreenDateDTO screenDateDTO = new ScreenDateDTO();
+			screenDateDTO.setScreeningDateTime(LocalDateTime.now());
+			screenDateDTO.setScreeningTime(ScreeningTime.MATINEE);
+
+			ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screenDTO.getCode());
+			screenDateDTO.setCode(screenDate.getCode());
+
+			screenDateDTOList.add(screenDateDTO);
+		}
+		return screenDateDTOList;
+	}
+
+
 	@Test
 	@DisplayName("영화관 검색")
 	public void findTheater() {
@@ -70,8 +107,11 @@ public class TheaterTest {
 	@DisplayName("영화관 삭제")
 	public void deleteTheater() {
 		TheaterDTO theaterDTO = this.createTheaterList().get(3);
-		ScreenDTO screenDTO = this.createScreen(theaterDTO);
-		theaterService.deleteTheater(theaterDTO, screenDTO);
+		List<ScreenDTO> screenDTOList = this.createScreenList(theaterDTO);
+		ScreenDTO screenDTO = screenDTOList.get(3);
+		this.createSeatList(screenDTO);
+		this.createScreenDateList(screenDTO);
+		theaterService.deleteTheater(theaterDTO);
 
 		List<Theater> theaterList = theaterRepository.findAll();
 		for (Theater theater : theaterList) {

@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -22,8 +24,15 @@ public class ScreenDateService {
 		return screenDateRepository.save(screenDate);
 	}
 
-	public void deleteScreenDate(Long screenDateCode) {
-		ScreenDate screenDate = screenDateRepository.findByCode(screenDateCode);
+	public void deleteScreenDate(ScreenDateDTO screenDateDTO) {
+		ScreenDate screenDate = screenDateRepository.findByCode(screenDateDTO.getCode());
 		screenDateRepository.delete(screenDate);
+	}
+
+	public void deleteScreenDateList(Screen screen) {
+		List<ScreenDate> screenDateList = screenDateRepository.findScreenDateByScreenCode(screen.getCode());
+		for (ScreenDate screenDate : screenDateList) {
+			screenDateRepository.delete(screenDate);
+		}
 	}
 }

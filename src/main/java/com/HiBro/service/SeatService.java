@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -22,8 +23,15 @@ public class SeatService {
 		return seatRepository.save(seat);
 	}
 
-	public void deleteSeat(Long seatCode) {
-		Seat seat = seatRepository.findByCode(seatCode);
+	public void deleteSeat(SeatDTO seatDTO) {
+		Seat seat = seatRepository.findByCode(seatDTO.getCode());
 		seatRepository.delete(seat);
+	}
+
+	public void deleteSeatList(Screen screen) {
+		List<Seat> seatList = seatRepository.findSeatByScreenCode(screen.getCode());
+		for (Seat seat : seatList) {
+			seatRepository.delete(seat);
+		}
 	}
 }

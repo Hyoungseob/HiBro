@@ -19,8 +19,8 @@ public class TheaterService {
 		Theater theater = Theater.createTheater(theaterDTO);
 		return theaterRepository.save(theater);
 	}
-	public void deleteTheater(TheaterDTO theaterDTO, ScreenDTO screenDTO) {
-		screenService.deleteScreen(screenDTO);
+	public void deleteTheater(TheaterDTO theaterDTO) {
+		screenService.deleteScreenList(theaterDTO);
 
 		Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
 		theaterRepository.delete(theater);

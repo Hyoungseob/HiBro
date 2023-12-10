@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class TheaterService {
 	private final TheaterRepository theaterRepository;
-	private final ScreenRepository screenRepository;
 	private final ScreenService screenService;
 
 	public Theater saveTheater(TheaterDTO theaterDTO) {
@@ -21,7 +20,6 @@ public class TheaterService {
 		return theaterRepository.save(theater);
 	}
 	public void deleteTheater(TheaterDTO theaterDTO, ScreenDTO screenDTO) {
-		screenRepository.findByCode(screenDTO.getCode());
 		screenService.deleteScreen(screenDTO);
 
 		Theater theater = theaterRepository.findByCode(theaterDTO.getCode());

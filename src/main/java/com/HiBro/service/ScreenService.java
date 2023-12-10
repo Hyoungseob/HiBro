@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class ScreenService {
 	private final ScreenRepository screenRepository;
 	private final TheaterRepository theaterRepository;
-	public Screen saveScreen(ScreenDTO screenDTO, Long code) {
+	public Screen saveScreen(ScreenDTO screenDTO, Long theaterCode) {
 		Screen screen = Screen.createScreen(screenDTO);
-		Theater theater = theaterRepository.findByCode(code);
+		Theater theater = theaterRepository.findByCode(theaterCode);
 		screen.setTheater(theater);
 		return screenRepository.save(screen);
 	}

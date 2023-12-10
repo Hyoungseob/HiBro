@@ -28,8 +28,6 @@ public class TheaterTest {
 	TheaterRepository theaterRepository;
 	@Autowired
 	ScreenService screenService;
-	@Autowired
-	ScreenRepository screenRepository;
 
 	public ScreenDTO createScreen(TheaterDTO theaterDTO) {
 		ScreenDTO screenDTO = new ScreenDTO();
@@ -37,7 +35,8 @@ public class TheaterTest {
 		screenDTO.setScreenLocation("울산 삼산동");
 		screenDTO.setScreenType(ScreenType.NORMAL);
 
-		screenService.saveScreen(screenDTO, theaterDTO.getCode());
+		Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
+		screenDTO.setCode(screen.getCode());
 
 		return screenDTO;
 	}
@@ -72,20 +71,11 @@ public class TheaterTest {
 	public void deleteTheater() {
 		TheaterDTO theaterDTO = this.createTheaterList().get(3);
 		ScreenDTO screenDTO = this.createScreen(theaterDTO);
-		Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
 		theaterService.deleteTheater(theaterDTO, screenDTO);
 
 		List<Theater> theaterList = theaterRepository.findAll();
-		List<Screen> screenList = screenRepository.findAll();
-
-		for (Screen screens : screenList) {
-			System.out.println(screen);
-		}
-
 		for (Theater theater : theaterList) {
 			System.out.println(theater);
 		}
 	}
-
-
 }

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.board_list .theater_code {
+	width: 10%;
+}
+
+.board_list .theater_location {
+    width: 70%;
+}
+
+.board_list .theater_status{
+    width: 20%;
+}

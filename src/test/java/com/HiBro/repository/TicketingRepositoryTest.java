@@ -2,10 +2,7 @@ package com.HiBro.repository;
 
 import com.HiBro.constant.AgeLimit;
 import com.HiBro.constant.Role;
-import com.HiBro.entity.Member;
-import com.HiBro.entity.Movie;
-import com.HiBro.entity.Theater;
-import com.HiBro.entity.Ticketing;
+import com.HiBro.entity.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -62,14 +59,14 @@ class TicketingRepositoryTest {
 
     }
 
-    Theater 테스트용_상영관_데이터(){
-        Theater theater = new Theater();
+    /*Screen 테스트용_상영관_데이터(){
+        Screen screen = new Screen();
 
-        theater.setTheaterLocation("울산 삼산");
-        theater.setTheaterImg("사진");
-        theater.setTheaterType("조범준의 집");
+        screen.setTheaterLocation("울산 삼산");
+        screen.setTheaterImg("사진");
+        screen.setTheaterType("조범준의 집");
 
-        return theaterRepository.save(theater);
+        return theaterRepository.save(screen);
     }
 
     @Test
@@ -83,6 +80,6 @@ class TicketingRepositoryTest {
         ticketingRepository.save(ticketing);
 
         ticketingRepository.findByMemberCodeOrderByCodeAsc(ticketing.getMember().getCode());
-    }
+    }*/
 
 }

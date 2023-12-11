@@ -1,12 +1,12 @@
 package com.HiBro.dto;
 
+import com.HiBro.constant.TheaterStatus;
 import lombok.*;
 
 @Getter
 @Setter
 public class TheaterDTO {
 	private Long code;
-	private String theaterImg;
 	private String theaterLocation;
-	private String theaterType;
+	private TheaterStatus theaterStatus;
 }

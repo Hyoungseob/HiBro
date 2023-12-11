@@ -18,10 +18,10 @@ public class Seat {
 	private Long code;
 
 	@Column(nullable = false)
-	private String SeatRow;
+	private String seatRow;
 
 	@Column(nullable = false)
-	private String SeatColumn;
+	private String seatColumn;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)

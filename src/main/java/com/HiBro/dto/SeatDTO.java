@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 public class SeatDTO {
 	private Long code;
-	private String SeatRow;
-	private String SeatColumn;
+	private String seatColumn;
+	private String seatRow;
 	private SeatStatus seatStatus;
 }

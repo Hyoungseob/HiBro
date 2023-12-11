@@ -23,3 +23,6 @@
 .board_list .member_deletebtn{
     width: 10%;
 }
+.search{
+	display: flex;
+}

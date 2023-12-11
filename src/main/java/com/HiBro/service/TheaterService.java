@@ -21,6 +21,7 @@ public class TheaterService {
 	}
 	public void deleteTheater(Long theaterCode) {
 		Theater theater = theaterRepository.findByCode(theaterCode);
+		screenService.deleteScreenList(theaterCode);
 		theaterRepository.delete(theater);
 	}
 }

@@ -9,7 +9,7 @@
 	<!--사용자 창 시작-->
 	<div class="noticeBoard">
 		<div>
-			<h2 class="allMember">상영관 상세정보(임시)<p></p>
+			<h2 class="allMember">상영일 좌석 정보<p></p>
 			</h2>
 			<div></div>
 		</div>
@@ -17,14 +17,16 @@
 			<div class="board_list">
 				<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
 					<div class="theater_code">번호</div>
-					<div class="theater_location">상영시간</div>
-					<div class="theater_type">조조/일반/심야</div>
+					<div class="theater_location">행</div>
+					<div class="theater_type">열</div>
+					<div class="theater_type">상태</div>
 				</div>
-				<th:block th:each="screenDate, status:${screenDateList}">
+				<th:block th:each="seat, status:${seatList}">
 					<div>
-						<div class="theater_code">[[${screenDate.code}]]</div>
-						<div class="theater_location"><a th:href="'/admin/screenDate/'+${screenDate.code}">[[${screenDate.screeningDateTime}]]</a></div>
-						<div class="theater_status">[[${screenDate.screeningTime}]]</div>
+						<div class="theater_code">[[${seat.code}]]</div>
+						<div class="theater_location">[[${seat.seatColumn}]]</div>
+						<div class="theater_status">[[${seat.seatRow}]]</div>
+						<div class="theater_status">[[${seat.seatStatus}]]</div>
 					</div>
 				</th:block>
 			</div>

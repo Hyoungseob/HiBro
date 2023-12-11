@@ -13,7 +13,6 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class ScreenDateService {
-
 	private final ScreenRepository screenRepository;
 	private final ScreenDateRepository screenDateRepository;
 	private final SeatService seatService;

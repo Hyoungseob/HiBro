@@ -1,23 +1,22 @@
 package com.HiBro.controller;
 
 import com.HiBro.constant.ScreenType;
+import com.HiBro.constant.ScreeningTime;
+import com.HiBro.constant.SeatStatus;
 import com.HiBro.constant.TheaterStatus;
-import com.HiBro.dto.MemberSearchDTO;
-import com.HiBro.dto.ScreenDTO;
-import com.HiBro.dto.TheaterDTO;
-import com.HiBro.entity.Member;
-import com.HiBro.entity.Screen;
-import com.HiBro.entity.Theater;
+import com.HiBro.dto.*;
+import com.HiBro.entity.*;
+import com.HiBro.repository.ScreenDateRepository;
 import com.HiBro.repository.ScreenRepository;
+import com.HiBro.repository.SeatRepository;
 import com.HiBro.repository.TheaterRepository;
-import com.HiBro.service.MemberService;
-import com.HiBro.service.ScreenService;
-import com.HiBro.service.TheaterService;
+import com.HiBro.service.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.internal.util.Members;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +36,12 @@ public class AdminController {
 	private final MemberService memberService;
 	private final TheaterService theaterService;
 	private final ScreenService screenService;
+	private final ScreenDateService screenDateService;
+	private final SeatService seatService;
 	private final TheaterRepository theaterRepository;
 	private final ScreenRepository screenRepository;
+	private final ScreenDateRepository screenDateRepository;
+	private final SeatRepository seatRepository;
 
 	@GetMapping("/admin")
 	public String admin(MemberSearchDTO memberSearchDTO, Model model, Optional<Integer> page) {
@@ -125,7 +128,59 @@ public class AdminController {
 
 	@GetMapping("/admin/screen/{screenCode}")
 	public String screenDtl(@PathVariable("screenCode") Long screenCode, Model model) {
-		//관계테이블 Date -> Seat ?
+		List<ScreenDate> screenDateList = screenDateRepository.findScreenDateByScreenCode(screenCode);
+		model.addAttribute("screenDateList", screenDateList);
 		return "administrator/admin_screenDate";
+	}
+
+	@GetMapping("/admin/screen/{screenCode}/new")
+	public String screenDateForm(@PathVariable("screenCode") Long screenCode, Model model) {
+		model.addAttribute("screenDateDTO", new ScreenDateDTO());
+		model.addAttribute("screenCode", screenCode);
+		model.addAttribute("screeningTime", ScreeningTime.values());
+		return "administrator/admin_screenDate_form";
+	}
+
+	@PostMapping("/admin/screen/{screenCode}/new")
+	public String screenDateForm(@RequestParam("screenCode") String screenCode, @RequestParam("screeningTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ScreeningTime screeningTime, ScreenDateDTO screenDateDTO, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "administrator/admin_screenDate_form";
+		}
+		try {
+			screenDateService.saveScreenDate(screenDateDTO, Long.valueOf(screenCode));
+		} catch (IllegalStateException e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "administrator/admin_screenDate_form";
+		}
+		return "administrator/admin_screenDate";
+	}
+
+	@GetMapping("/admin/screenDate/{screenDateCode}")
+	public String screenDateDtl(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
+		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenDateCode);
+		model.addAttribute("seatList", seatList);
+		return "administrator/admin_seat";
+	}
+
+	@GetMapping("/admin/screenDate/{screenDateCode}/new")
+	public String seatForm(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
+		model.addAttribute("seatDTO", new SeatDTO());
+		model.addAttribute("screenDateCode", screenDateCode);
+		model.addAttribute("seatStatus", SeatStatus.values());
+		return "administrator/admin_seat_form";
+	}
+
+	@PostMapping("/admin/screenDate/{screenDateCode}/new")
+	public String seatForm(@RequestParam("screenDateCode") String screenDateCode, @RequestParam("seatStatus") SeatStatus seatStatus, SeatDTO seatDTO, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "administrator/admin_seat_form";
+		}
+		try {
+			seatService.saveSeat(seatDTO, Long.valueOf(screenDateCode));
+		} catch (IllegalStateException e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "administrator/admin_seat_form";
+		}
+		return "administrator/admin_seat";
 	}
 }

@@ -28,11 +28,46 @@
 				}
 			});
 		}
+		function updateMember(obj){
+			var member_code = obj.dataset.code;
+			var url = "/admin/member/"+member_code;
+
+			$.ajax({
+				url:url,
+				type:"UPDATE",
+				dataType:"json",
+				cache:false,
+				success:function(result,status){
+					location.href="/admin";
+				},
+				error:function(jqXHR,status,error){
+					if(jqXHR=='401'){
+						alert("로그인 하세요");
+					}else{
+						alert(jqXHR.responseJSON.message);
+					}
+				}
+			});
+		}
 		function searchMember(){
 			var searchId = $("#searchId").val();
 
 			location.href="/admin?searchId="+searchId;
 
+		}
+		function isUpdate(obj){
+			var code = obj.dataset.code;
+			var on = document.getElementsByClassName("on"+code);
+			var off = document.getElementsByClassName("off"+code);
+
+			for(var i =0; i<on.length;i++){
+				on[i].classList.remove("on");
+				on[i].classList.add("off");
+			}
+			for(var i=0;i<off.length;i++){
+				off[i].classList.remove("off");
+				off[i].classList.add("on");
+			}
 		}
 	</script>
 </th:block>
@@ -58,6 +93,7 @@
 					<div class="member_point">포인트</div>
 					<div class="member_regdate">가입날짜</div>
 					<div class="member_deletebtn"></div>
+					<div class="member_updatebtn"></div>
 				</div>
 				<th:block th:each="item, status:${memberList.getContent()}">
 				<div>
@@ -65,8 +101,15 @@
 					<div class="member_id">[[${item.id}]]</div>
 					<div class="member_name">[[${item.name}]]</div>
 					<div class="member_email">[[${item.email}]]</div>
-					<div class="member_point">[[${item.point}]]</div>
+					<div class="member_point">
+						<p th:class="on+${item.code} + ' on'" >[[${item.point}]]</p>
+						<input th:class="off+${item.code} + ' off'" type="text" th:placeholder="${item.point}">
+					</div>
 					<div class="member_regdate">[[${item.regDate}]]</div>
+					<div class="member_updatebtn">
+						<button th:class="on+${item.code} + ' on'"  th:data-code="${item.code}" onclick="isUpdate(this)" >수정</button>
+						<button th:class="off+${item.code} + ' off'" th:data-code="${item.code}" th:data-point="10" onclick="updateMember(this)">수정</button>
+					</div>
 					<div class="member_deletebtn"><button th:data-code="${item.code}" onclick="deleteMember(this)">삭제</button></div>
 				</div>
 				</th:block>

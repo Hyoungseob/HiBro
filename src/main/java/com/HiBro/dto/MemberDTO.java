@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -23,6 +24,6 @@ public class MemberDTO{
     @Email(message = "이메일 형식으로 입력해주세요.")
     private String email;
     private Integer point;
-    private LocalDateTime regDate;
+    private LocalDate regDate;
     private Role role;
 }

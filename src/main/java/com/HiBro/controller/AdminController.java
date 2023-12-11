@@ -36,14 +36,11 @@ public class AdminController {
 	public String admin(MemberSearchDTO memberSearchDTO, Model model, Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Page<Member> memberList = memberService.getMemberAll(memberSearchDTO, pageable);
+
+
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("maxPage", 5);
 		return "administrator/admin_member";
-	}
-
-	@GetMapping("/admin/point")
-	public String point() {
-		return "administrator/admin_point";
 	}
 
 	@GetMapping("/admin/inquiry")

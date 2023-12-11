@@ -103,6 +103,11 @@ public class AdminController {
 		model.addAttribute("screenList", screenList);
 		return "administrator/admin_screen";
 	}
+	@DeleteMapping("/admin/theater/{theaterCode}")
+	public String deleteTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
+		theaterService.deleteTheater(theaterCode);
+		return "administrator/admin_screen";
+	}
 
 	@GetMapping("/admin/theater/{theaterCode}/new")
 	public String screenForm(@PathVariable("theaterCode") Long theaterCode, Model model) {

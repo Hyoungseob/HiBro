@@ -111,7 +111,7 @@ public class TheaterTest {
 		ScreenDTO screenDTO = screenDTOList.get(3);
 		this.createSeatList(screenDTO);
 		this.createScreenDateList(screenDTO);
-		theaterService.deleteTheater(theaterDTO);
+		theaterService.deleteTheater(theaterDTO.getCode());
 
 		List<Theater> theaterList = theaterRepository.findAll();
 		for (Theater theater : theaterList) {

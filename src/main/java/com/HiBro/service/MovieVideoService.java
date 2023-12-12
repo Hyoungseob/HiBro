@@ -1,11 +1,10 @@
 package com.HiBro.service;
 
-import com.HiBro.entity.MovieImg;
+import com.HiBro.entity.Movie;
 import com.HiBro.entity.MovieVideo;
 import com.HiBro.repository.MovieVideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +28,22 @@ public class MovieVideoService {
     private FileService fileService;
 
     //동영상 저장
-    public void saveMovieVideo(MovieVideo movieVideo, MultipartFile movieVideoFile){
+    public List<MultipartFile> saveMovieVideo(Movie movie, List<MultipartFile> movieVideoFile){
+
+        MovieVideo movieVideo = MovieVideo.createMovieVideo();
+
+        movieVideo.setMovie(movie);
+
+        for(MultipartFile movieVideoFilesaved :  movieVideoFile){
+
+            saveMovieVideoFile(movieVideo, movieVideoFilesaved);
+        }
+
+        return movieVideoFile;
+    }
+
+    //동영상 파일 저장
+    public void saveMovieVideoFile(MovieVideo movieVideo, MultipartFile movieVideoFile){
 
         String oriVideoName = movieVideoFile.getOriginalFilename();
         String videoName = "";
@@ -42,9 +56,8 @@ public class MovieVideoService {
                 //Url 처리 하기
                 videoUrl = "/videos/movie/" + videoName;
 
-                movieVideo.setOriVideoName(oriVideoName);
-                movieVideo.setVideoName(videoName);
-                movieVideo.setVideoUrl(videoUrl);
+               movieVideo.updateMovieVideo(oriVideoName, videoName, videoUrl);
+               movieVideoRepository.save(movieVideo);
             }
         }catch (IOException e) {
             //TODO 예외 처리

@@ -15,7 +15,7 @@ import java.util.UUID;
 public class FileService {
 
     //파일 업로드 처리 메서드
-    public String uploadImgFile(String uploadPath, String originalFileName, byte[] fileData){
+    public String uploadFile(String uploadPath, String originalFileName, byte[] fileData){
 
         UUID uuid = UUID.randomUUID();
 

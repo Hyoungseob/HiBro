@@ -48,5 +48,11 @@ public class MovieImg {
         return movieImg;
     }
 
+    public void updateMovieImg(String oriImgName, String imgName, String imgUrl){
+        this.oriImgName = oriImgName;
+        this.imgName = imgName;
+        this.imgUrl = imgUrl;
+    }
+
 
 }

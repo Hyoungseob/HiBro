@@ -35,6 +35,10 @@ public class MovieVideo {
     @JoinColumn(name = "movie_code")
     private Movie movie;
 
+    public static MovieVideo createMovieVideo(){
+        return new MovieVideo();
+    }
+
     public static MovieVideo createMovieVideo(MovieVideoDTO movieVideoDTO){
 
         MovieVideo movieVideo = new MovieVideo();

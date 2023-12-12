@@ -22,7 +22,6 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
-	private final MemberService memberService;
 	private final TheaterService theaterService;
 	private final ScreenService screenService;
 	private final ScreenDateService screenDateService;
@@ -31,28 +30,6 @@ public class AdminController {
 	private final ScreenRepository screenRepository;
 	private final ScreenDateRepository screenDateRepository;
 	private final SeatRepository seatRepository;
-
-	@GetMapping("/admin")
-	public String admin(MemberSearchDTO memberSearchDTO, Model model, Optional<Integer> page) {
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
-		Page<Member> memberList = memberService.getMemberAll(memberSearchDTO, pageable);
-
-
-		model.addAttribute("memberList", memberList);
-		model.addAttribute("maxPage", 5);
-		return "administrator/admin_member";
-	}
-
-	@GetMapping("/admin/inquiry")
-	public String inquiry() {
-		return "administrator/admin_inquiry";
-	}
-
-	@DeleteMapping("/admin/member/{member_code}")
-	public @ResponseBody ResponseEntity deleteMember(@PathVariable("member_code") Long memberCode, Principal principal) {
-		memberService.deleteMember(memberCode);
-		return new ResponseEntity<Long>(memberCode, HttpStatus.OK);
-	}
 
 	@GetMapping("/admin/theater")
 	public String theater(Model model) {

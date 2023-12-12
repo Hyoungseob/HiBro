@@ -6,10 +6,13 @@ import com.HiBro.entity.Member;
 import com.HiBro.repository.InquiryRepository;
 import com.HiBro.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,5 +32,11 @@ public class InquiryService{
         Inquiry inquiry = inquiryRepository.findById(inquiryDTO.getCode())
                 .orElseThrow(EntityNotFoundException::new);
         inquiryRepository.delete(inquiry);
+    }
+    public Page<Inquiry> getInquiryAll(Pageable pageable){
+        return inquiryRepository.findAll(pageable);
+    }
+    public Inquiry getInqury(Long code){
+        return inquiryRepository.findById(code).orElseThrow(EntityNotFoundException::new);
     }
 }

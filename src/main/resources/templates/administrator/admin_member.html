@@ -9,7 +9,7 @@
 	<script th:inline="javascript">
 		function deleteMember(obj){
 			var member_code = obj.dataset.code;
-			var url = "/admin/member/"+member_code;
+			var url = "/admin/member/delete/"+member_code;
 
 			$.ajax({
 				url:url,
@@ -30,11 +30,12 @@
 		}
 		function updateMember(obj){
 			var member_code = obj.dataset.code;
-			var url = "/admin/member/"+member_code;
+			var input = document.getElementsByClassName("off"+member_code)[0].value;
+			var url = "/admin/member/update/"+member_code+"?point="+input;
 
 			$.ajax({
 				url:url,
-				type:"UPDATE",
+				type:"PATCH",
 				dataType:"json",
 				cache:false,
 				success:function(result,status){
@@ -103,7 +104,7 @@
 					<div class="member_email">[[${item.email}]]</div>
 					<div class="member_point">
 						<p th:class="on+${item.code} + ' on'" >[[${item.point}]]</p>
-						<input th:class="off+${item.code} + ' off'" type="text" th:placeholder="${item.point}">
+						<input th:class="off+${item.code} + ' off'" style="width:100%;" type="text" th:placeholder="${item.point}">
 					</div>
 					<div class="member_regdate">[[${item.regDate}]]</div>
 					<div class="member_updatebtn">

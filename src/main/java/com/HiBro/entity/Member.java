@@ -45,7 +45,7 @@ public class Member{
         member.setName(memberDTO.getName());
         member.setEmail(memberDTO.getEmail());
         member.setPoint(0);
-        member.setRegDate(memberDTO.getRegDate());
+        member.setRegDate(LocalDateTime.now().toLocalDate());
         member.setRole(memberDTO.getRole());
         return member;
     }

@@ -36,6 +36,12 @@ public class MovieImg {
     @JoinColumn(name = "movie_code")
     private Movie movie;
 
+    public static MovieImg createMovieImg(){
+        MovieImg movieImg = new MovieImg();
+
+        return movieImg;
+    }
+
     public static MovieImg createMovieImg(MovieImgDTO movieImgDTO){
 
         MovieImg movieImg = new MovieImg();

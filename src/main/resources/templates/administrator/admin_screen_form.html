@@ -6,6 +6,7 @@
 	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
 </th:block>
 <div layout:fragment="content">
+	<h1>상영관 추가</h1>
 	<form action="/admin/theater/{theaterCode}/new" role="form" method="post" th:object="${screenDTO}">
 		<input type="hidden" name="theaterCode" th:value="${theaterCode}">
 		<div class="form-group">

@@ -42,7 +42,7 @@
 		<div style="margin-top: 20px;">
 			<h2 class="allMember">전체 멤버<p></p></h2>
 			<div class="adNav">
-				<div th:object="${memberSearchDTO}">
+				<div class="search" th:object="${memberSearchDTO}">
 					<div><input class="navInput" th:field="*{searchId}" type="text" placeholder="아이디을 입력하세요"></div>
 					<div><input class="inputBtn" type="button" onclick="searchMember()" value="검색"></div>
 				</div>

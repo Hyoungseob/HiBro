@@ -89,9 +89,12 @@ public class MovieVideoService {
     //동영상 일괄 삭제
     public void deleteMovieVideo(Long movieCode){
         List<MovieVideo> findByMovieCodes = movieVideoRepository.findByMovieCode(movieCode);
+
         if(checkVideo(findByMovieCodes)){
+
             for(MovieVideo movieVideo : findByMovieCodes){
                 movieVideoRepository.delete(movieVideo);
+                fileService.deleteFile(movieVideoLocation + "/" + movieVideo.getVideoName());
             }
         }
     }

@@ -29,7 +29,7 @@ public class MovieVideoService {
     private FileService fileService;
 
     //동영상 저장
-    public MovieVideo saveMovieVideo(MovieVideo movieVideo, MultipartFile movieVideoFile){
+    public void saveMovieVideo(MovieVideo movieVideo, MultipartFile movieVideoFile){
 
         String oriVideoName = movieVideoFile.getOriginalFilename();
         String videoName = "";
@@ -46,12 +46,10 @@ public class MovieVideoService {
                 movieVideo.setVideoName(videoName);
                 movieVideo.setVideoUrl(videoUrl);
             }
-        }catch (IOException e){
+        }catch (IOException e) {
             //TODO 예외 처리
             log.info("비디오 파일 저장 과정에서 에러가 발생하였습니다.");
         }
-
-        return movieVideoRepository.save(movieVideo);
 
     }
 

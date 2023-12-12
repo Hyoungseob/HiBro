@@ -28,7 +28,7 @@ public class MovieImgService {
     private final FileService fileService;
 
     //이미지 저장
-    public MovieImg saveMovieImg(MovieImg movieImg, MultipartFile movieImgFile){
+    public void saveMovieImg(MovieImg movieImg, MultipartFile movieImgFile){
 
         String oriImgName = movieImgFile.getOriginalFilename();
         String imgName = "";
@@ -45,12 +45,10 @@ public class MovieImgService {
                 movieImg.setImgName(imgName);
                 movieImg.setImgUrl(imgUrl);
             }
-        }catch (IOException e){
+        }catch (IOException e) {
             //TODO 나중 예외 처리
             log.info("이미지 파일 저장 과정에서 에러가 발생하였습니다.");
         }
-
-        return movieImgRepository.save(movieImg);
 
     }
 

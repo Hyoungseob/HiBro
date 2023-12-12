@@ -46,4 +46,10 @@ public class MovieVideo {
 
         return movieVideo;
     }
+
+    public void updateMovieVideo(String oriVideoName, String videoName, String videoUrl){
+        this.oriVideoName = oriVideoName;
+        this.videoName = videoName;
+        this.videoUrl = videoUrl;
+    }
 }

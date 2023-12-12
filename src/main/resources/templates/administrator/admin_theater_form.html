@@ -9,9 +9,16 @@
 	<form action="/admin/theater/new" role="form" method="post" th:object="${theaterDTO}">
 
 		<div class="form-group">
-			<label th:for="location">위치</label>
-			<input type="text" th:field="*{theaterLocation}" class="form-control" placeholder="위치를 입력해주세요">
+			<label th:for="location">이름</label>
+			<input type="text" th:field="*{theaterName}" class="form-control" placeholder="이름를 입력해주세요">
 			<!--<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>-->
+		</div>
+		<div class="form-group">
+			<label th:for="location">위치</label>
+			<select id="location" th:field="*{location}">
+				<option th:each="status : ${T(com.HiBro.constant.Location).values()}" th:value="${status}"
+						th:text="${#strings.capitalize(status.name())}"></option>
+			</select>
 		</div>
 		<div class="form-group">
 			<label th:for="status">상태</label>

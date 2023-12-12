@@ -44,14 +44,15 @@
 			<div class="board_list">
 				<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
 					<div class="theater_code">번호</div>
+					<div class="theater_location">이름</div>
 					<div class="theater_location">위치</div>
 					<div class="theater_status">상태</div>
 				</div>
 				<th:block th:each="theater, status:${theaterList}">
 					<div>
 						<div class="theater_code">[[${theater.getCode}]]</div>
-						<div class="theater_location"><a th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterLocation}]]</a>
-						</div>
+						<div class="theater_code"><a th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterName}]]</a></div>
+						<div class="theater_location">[[${theater.getLocation}]]</div>
 						<div class="theater_status">[[${theater.getTheaterStatus}]]</div>
 						<button type="button" class="close" aria-label="Close">
 										<span aria-hidden="true" th:data-id="${theater.getCode}"

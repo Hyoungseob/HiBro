@@ -10,7 +10,6 @@ import com.HiBro.repository.MovieImgRepository;
 import com.HiBro.repository.MovieRepository;
 import com.HiBro.repository.MovieVideoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,25 +26,12 @@ public class MovieService {
 
     private final MovieVideoService movieVideoService;
 
-    //영화 DB저장
-    public Movie saveMovie(MovieDTO movieDTO, MovieImgDTO movieImgDTO, MovieVideoDTO movieVideoDTO){
+    //영화 객체 생성 및 id 값 생성
+    public Movie saveMovie(MovieDTO movieDTO){
 
-        //이미지, 영상 객체 생성
-        MovieImg movieImg = MovieImg.createMovieImg(movieImgDTO);
-        MovieVideo movieVideo = MovieVideo.createMovieVideo(movieVideoDTO);
-
-        //영화 객체 생성
         Movie movie = movieRepository.save(Movie.createMovie(movieDTO));
 
-        //영화 이미지와 영상에 FK 입력, 연관관계 완성
-        movieImg.setMovie(movie);
-        movieVideo.setMovie(movie);
-
-        movieImgService.saveMovieImg(movieImg);
-        movieVideoService.saveMovieVideo(movieVideo);
-
         return movie;
-
     }
 
     //영화 유무 체크

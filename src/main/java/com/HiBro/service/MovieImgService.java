@@ -1,5 +1,6 @@
 package com.HiBro.service;
 
+import com.HiBro.entity.Movie;
 import com.HiBro.entity.MovieImg;
 import com.HiBro.repository.MovieImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,21 @@ public class MovieImgService {
     private final FileService fileService;
 
     //이미지 저장
-    public void saveMovieImg(MovieImg movieImg, MultipartFile movieImgFile){
+    public List<MultipartFile> saveMovieImg(Movie movie, List<MultipartFile> movieImgFile){
+
+        MovieImg movieImg = MovieImg.createMovieImg();
+        movieImg.setMovie(movie);
+
+        for(MultipartFile movieImgFilesaved : movieImgFile){
+
+            saveMovieImgFile(movieImg, movieImgFilesaved);
+        }
+
+        return movieImgFile;
+    }
+
+    //이미지 파일 저장
+    public void saveMovieImgFile(MovieImg movieImg, MultipartFile movieImgFile){
 
         String oriImgName = movieImgFile.getOriginalFilename();
         String imgName = "";
@@ -41,9 +56,8 @@ public class MovieImgService {
                 //Url 처리 하기
                 imgUrl = "/images/movie/" + imgName;
 
-                movieImg.setOriImgName(oriImgName);
-                movieImg.setImgName(imgName);
-                movieImg.setImgUrl(imgUrl);
+               movieImg.updateMovieImg(oriImgName, imgName, imgUrl);
+               movieImgRepository.save(movieImg);
             }
         }catch (IOException e) {
             //TODO 나중 예외 처리

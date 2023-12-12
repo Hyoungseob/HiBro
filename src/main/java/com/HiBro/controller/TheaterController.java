@@ -8,6 +8,6 @@ public class TheaterController {
 	@GetMapping("/theater")
 	public String theater() {
 
-		return "theater/theaterList";
+		return "ticketing";
 	}
 }

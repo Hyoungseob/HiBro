@@ -36,19 +36,19 @@ public class MovieImgService {
 
         try {
             if (!StringUtils.isEmpty(oriImgName)) {
-                imgName = fileService.uploadImgFile(movieImgLocation, oriImgName, movieImgFile.getBytes());
+                imgName = fileService.uploadFile(movieImgLocation, oriImgName, movieImgFile.getBytes());
 
                 //Url 처리 하기
                 imgUrl = "/images/movie/" + imgName;
+
+                movieImg.setOriImgName(oriImgName);
+                movieImg.setImgName(imgName);
+                movieImg.setImgUrl(imgUrl);
             }
         }catch (IOException e){
             //TODO 나중 예외 처리
             log.info("이미지 파일 저장 과정에서 에러가 발생하였습니다.");
         }
-
-        movieImg.setOriImgName(oriImgName);
-        movieImg.setImgName(imgName);
-        movieImg.setImgUrl(imgUrl);
 
         return movieImgRepository.save(movieImg);
 
@@ -66,7 +66,7 @@ public class MovieImgService {
 
             try{
                 String oriImgName = movieImgFile.getOriginalFilename();
-                String imgName = fileService.uploadImgFile(movieImgLocation, oriImgName, movieImgFile.getBytes());
+                String imgName = fileService.uploadFile(movieImgLocation, oriImgName, movieImgFile.getBytes());
                 //Url 처리 하기
                 String imgUrl = "/images/movie/" + imgName;
 

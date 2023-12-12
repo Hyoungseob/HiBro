@@ -94,6 +94,7 @@ public class MovieImgService {
 
             for(MovieImg movieImg : movieImgs){
                 movieImgRepository.delete(movieImg);
+                fileService.deleteFile(movieImgLocation + "/" + movieImg.getImgName());
             }
         }
     }

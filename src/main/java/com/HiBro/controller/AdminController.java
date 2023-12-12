@@ -104,9 +104,9 @@ public class AdminController {
 		return "administrator/admin_screen";
 	}
 	@DeleteMapping("/admin/theater/{theaterCode}")
-	public String deleteTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
+	public @ResponseBody ResponseEntity deleteTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
 		theaterService.deleteTheater(theaterCode);
-		return "administrator/admin_screen";
+		return new ResponseEntity(theaterCode,HttpStatus.OK);
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}/new")

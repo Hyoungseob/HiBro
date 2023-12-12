@@ -34,4 +34,8 @@ public class Theater {
 		theater.setTheaterStatus(theaterDTO.getTheaterStatus());
 		return theater;
 	}
+	public void updateTheater(TheaterDTO theaterDTO) {
+		this.theaterLocation = theaterDTO.getTheaterLocation();
+		this.theaterStatus = theaterDTO.getTheaterStatus();
+	}
 }

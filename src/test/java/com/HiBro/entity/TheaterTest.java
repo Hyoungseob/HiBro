@@ -28,6 +28,14 @@ public class TheaterTest {
 	@Autowired
 	ScreenDateService screenDateService;
 
+	public TheaterDTO createTheater() {
+		TheaterDTO theaterDTO = new TheaterDTO();
+		theaterDTO.setTheaterLocation("울산 남구 삼산동");
+		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
+		Theater theater = theaterService.saveTheater(theaterDTO);
+		theaterDTO.setCode(theater.getCode());
+		return theaterDTO;
+	}
 
 	public List<TheaterDTO> createTheaterList() {
 		List<TheaterDTO> theaterDTOList = new ArrayList<>();
@@ -117,5 +125,17 @@ public class TheaterTest {
 		for (Theater theater : theaterList) {
 			System.out.println(theater);
 		}
+	}
+
+	@Test
+	@DisplayName("영화관 수정")
+	public void updateTheater() {
+		TheaterDTO theaterDTO = this.createTheater();
+		Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
+		System.out.println(theater);
+		theaterDTO.setTheaterLocation("바뀜");
+		theaterDTO.setTheaterStatus(TheaterStatus.CLOSE);
+		theater.updateTheater(theaterDTO);
+		System.out.println(theater);
 	}
 }

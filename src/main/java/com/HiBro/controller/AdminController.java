@@ -1,9 +1,6 @@
 package com.HiBro.controller;
 
-import com.HiBro.constant.ScreenType;
-import com.HiBro.constant.ScreeningTime;
-import com.HiBro.constant.SeatStatus;
-import com.HiBro.constant.TheaterStatus;
+import com.HiBro.constant.*;
 import com.HiBro.dto.*;
 import com.HiBro.entity.*;
 import com.HiBro.repository.ScreenDateRepository;
@@ -79,12 +76,11 @@ public class AdminController {
 	@GetMapping("/admin/theater/new")
 	public String theaterForm(Model model) {
 		model.addAttribute("theaterDTO", new TheaterDTO());
-		model.addAttribute("theaterStatus", TheaterStatus.values());
 		return "administrator/admin_theater_form";
 	}
 
 	@PostMapping("/admin/theater/new")
-	public String theaterForm(@RequestParam("theaterStatus") TheaterStatus theaterStatus, TheaterDTO theaterDTO, BindingResult bindingResult, Model model) {
+	public String theaterForm(TheaterDTO theaterDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_theater_form";
 		}
@@ -94,7 +90,7 @@ public class AdminController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "administrator/admin_theater_form";
 		}
-		return "administrator/admin_theater";
+		return "redirect:/admin/theater";
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}")
@@ -113,7 +109,6 @@ public class AdminController {
 	public String screenForm(@PathVariable("theaterCode") Long theaterCode, Model model) {
 		model.addAttribute("screenDTO", new ScreenDTO());
 		model.addAttribute("theaterCode", theaterCode);
-		model.addAttribute("screenType", ScreenType.values());
 		return "administrator/admin_screen_form";
 	}
 

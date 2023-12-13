@@ -28,10 +28,5 @@ public class Ticketing {
     @JoinColumn(name = "member_code")
     private Member member;
 
-    public   Ticketing(Member member){
-
-        this.member = member;
-
-    }
 
 }

@@ -40,9 +40,11 @@ public class Movie {
     @Column(nullable = false)
     private AgeLimit ageLimit;
 
-    /**@단방향 매핑 처리를 위한 양방향 리스트 주석 처리 */
-    //@OneToMany(mappedBy = "movieCode", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    //private List<MovieImg> orderItems = new ArrayList<>();
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<MovieImg> movieImgs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<MovieVideo> movieVideos = new ArrayList<>();
 
     public static Movie createMovie(MovieDTO movieDTO){
         Movie movie = new Movie();

@@ -29,12 +29,18 @@ public class MovieImg {
     private String imgUrl;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private ImgType imgType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_code")
     private Movie movie;
+
+    public static MovieImg createMovieImg(){
+        MovieImg movieImg = new MovieImg();
+
+        return movieImg;
+    }
 
     public static MovieImg createMovieImg(MovieImgDTO movieImgDTO){
 
@@ -46,6 +52,12 @@ public class MovieImg {
         movieImg.setImgType(movieImgDTO.getImgType());
 
         return movieImg;
+    }
+
+    public void updateMovieImg(String oriImgName, String imgName, String imgUrl){
+        this.oriImgName = oriImgName;
+        this.imgName = imgName;
+        this.imgUrl = imgUrl;
     }
 
 

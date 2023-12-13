@@ -1,25 +1,23 @@
 package com.HiBro.service;
 
 import com.HiBro.constant.AgeLimit;
-import com.HiBro.constant.ImgType;
-import com.HiBro.constant.VideoType;
 import com.HiBro.dto.MovieDTO;
-import com.HiBro.dto.MovieImgDTO;
-import com.HiBro.dto.MovieVideoDTO;
 import com.HiBro.entity.Movie;
-import com.HiBro.entity.MovieImg;
-import com.HiBro.entity.MovieVideo;
 import com.HiBro.repository.MovieImgRepository;
 import com.HiBro.repository.MovieRepository;
 import com.HiBro.repository.MovieVideoRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -34,8 +32,40 @@ class MovieServiceTest {
     MovieVideoRepository movieVideoRepository;
     @Autowired
     MovieService movieService;
+    @Autowired
+    MovieImgService movieImgService;
+    @Autowired
+    MovieVideoService movieVideoService;
 
-    public MovieDTO 테스트용_영화데이터_생성DTO(){
+    List<MultipartFile> createImgMultipartFiles()throws Exception{
+
+        List<MultipartFile> multipartFileList = new ArrayList<>();
+
+        for(int i=0; i<5; i++){
+            String path = movieImgService.getMovieImgLocation();
+            String imageName = "image" + i + ".txt";
+
+            MockMultipartFile multipartFile = new MockMultipartFile(path, imageName, "image/jpg",  new byte[]{1,2,3,4});
+            multipartFileList.add(multipartFile);
+        }
+        return multipartFileList;
+    }
+
+    List<MultipartFile> createVideoMultipartFiles()throws Exception{
+
+        List<MultipartFile> multipartFileList = new ArrayList<>();
+
+        for(int i=0; i<5; i++){
+            String path = movieVideoService.getMovieVideoLocation();
+            String videoName = "video" + i + ".txt";
+
+            MockMultipartFile multipartFile = new MockMultipartFile(path, videoName, "video/mp4",  new byte[]{1,2,3,4});
+            multipartFileList.add(multipartFile);
+        }
+        return multipartFileList;
+    }
+
+    public Movie 테스트용_영화데이터_생성(){
         MovieDTO movieDTO = new MovieDTO();
 
         movieDTO.setMovieTitle("오펜하이머");
@@ -45,71 +75,54 @@ class MovieServiceTest {
         movieDTO.setSummary("핵 연구시설");
         movieDTO.setAgeLimit(AgeLimit.FIFTEEN);
 
-        movieRepository.save(Movie.createMovie(movieDTO));
-
-        return movieDTO;
+        return movieRepository.save(Movie.createMovie(movieDTO));
     }
 
-    public MovieImgDTO 테스트용_영화이미지_데이터_생성DTO(){
-        MovieImgDTO movieImgDTO = new MovieImgDTO();
+    public List<MultipartFile> 테스트용_영화이미지_데이터_생성(Movie movie)throws Exception{
 
-        movieImgDTO.setImgType(ImgType.POSTER);
-        movieImgDTO.setImgUrl("hi");
-        movieImgDTO.setOriImgName("ㅎㅇ");
-        movieImgDTO.setImgName("하이");
+        List<MultipartFile> ImgmultipartFileList = createImgMultipartFiles();
 
-        Movie movie = movieRepository.save(Movie.createMovie(테스트용_영화데이터_생성DTO()));
+        movieImgService.saveMovieImg(movie, ImgmultipartFileList);
 
-        //영화 데이터에 영상 데이터 연결
-        MovieImg movieImg = MovieImg.createMovieImg(movieImgDTO);
-        movieImg.setMovie(movie);
-
-        return movieImgDTO;
+        return ImgmultipartFileList;
     }
 
-    public MovieVideoDTO 테스트용_영화영상_데이터_생성DTO(){
-        MovieVideoDTO movieVideoDTO = new MovieVideoDTO();
+    public List<MultipartFile> 테스트용_영화영상_데이터_생성(Movie movie)throws Exception{
 
+        List<MultipartFile> VodeomultipartFileList = createVideoMultipartFiles();
 
-        movieVideoDTO.setVideoName("메인 예고편");
-        movieVideoDTO.setOriVideoName("몰라몰라");
-        movieVideoDTO.setVideoType(VideoType.TRAILER);
-        movieVideoDTO.setVideoUrl("sdfagsadg");
+        movieVideoService.saveMovieVideo(movie, VodeomultipartFileList);
 
-        Movie movie = movieRepository.save(Movie.createMovie(테스트용_영화데이터_생성DTO()));
-
-        //영화 데이터에 영상 데이터 연결
-        MovieVideo movieVideo = MovieVideo.createMovieVideo(movieVideoDTO);
-        movieVideo.setMovie(movie);
-
-        return movieVideoDTO;
-
-    }
-
-
-    @Test
-    void 영화서비스_저장기능_테스트() {
-
-        MovieDTO movieDTO = 테스트용_영화데이터_생성DTO();
-        MovieImgDTO movieImgDTO = 테스트용_영화이미지_데이터_생성DTO();
-        MovieVideoDTO movieVideoDTO = 테스트용_영화영상_데이터_생성DTO();
-
-        Movie movie =movieService.saveMovie(movieDTO, movieImgDTO, movieVideoDTO);
-
-        System.out.println(movie);
-        System.out.println(movieImgRepository.findByMovieCodeOrderByMovieCodeAsc(movie.getCode()));
-        System.out.println(movieVideoRepository.findByMovieCode(movie.getCode()));
+        return VodeomultipartFileList;
 
     }
 
     @Test
-    void 영화서비스_삭제기능_테스트() {
+    void 영화서비스_저장기능_테스트() throws Exception{
 
-        MovieDTO movieDTO = 테스트용_영화데이터_생성DTO();
-        MovieImgDTO movieImgDTO = 테스트용_영화이미지_데이터_생성DTO();
-        MovieVideoDTO movieVideoDTO = 테스트용_영화영상_데이터_생성DTO();
+        Movie movie = 테스트용_영화데이터_생성();
+        테스트용_영화이미지_데이터_생성(movie);
+        테스트용_영화영상_데이터_생성(movie);
 
-        Movie movie = movieService.saveMovie(movieDTO, movieImgDTO, movieVideoDTO);
+        Movie reposiMovieData = movieRepository.findByCode(movie.getCode());
+
+        Assertions.assertThat(reposiMovieData.getMovieTitle()).isEqualTo(movie.getMovieTitle());
+        Assertions.assertThat(reposiMovieData.getActor()).isEqualTo(movie.getActor());
+        Assertions.assertThat(reposiMovieData.getGenre()).isEqualTo(movie.getGenre());
+        Assertions.assertThat(reposiMovieData.getDirector()).isEqualTo(movie.getDirector());
+        Assertions.assertThat(reposiMovieData.getSummary()).isEqualTo(movie.getSummary());
+        Assertions.assertThat(reposiMovieData.getAgeLimit()).isEqualTo(movie.getAgeLimit());
+
+    }
+
+    @Test
+    void 영화서비스_삭제기능_테스트() throws Exception{
+
+        Movie movie = 테스트용_영화데이터_생성();
+
+        List<MultipartFile> movieImgList = 테스트용_영화이미지_데이터_생성(movie);
+        List<MultipartFile> movieVideoList = 테스트용_영화영상_데이터_생성(movie);
+
 
         movieService.deleteMovie(movie.getCode());
 

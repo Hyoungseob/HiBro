@@ -1,19 +1,11 @@
 package com.HiBro.service;
 
 import com.HiBro.dto.MovieDTO;
-import com.HiBro.dto.MovieImgDTO;
-import com.HiBro.dto.MovieVideoDTO;
 import com.HiBro.entity.Movie;
-import com.HiBro.entity.MovieImg;
-import com.HiBro.entity.MovieVideo;
-import com.HiBro.repository.MovieImgRepository;
 import com.HiBro.repository.MovieRepository;
-import com.HiBro.repository.MovieVideoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional

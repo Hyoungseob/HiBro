@@ -28,7 +28,7 @@ public class MovieVideo {
     private String videoUrl;
 
     @Enumerated
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private VideoType videoType;
 
     @ManyToOne(fetch = FetchType.LAZY)

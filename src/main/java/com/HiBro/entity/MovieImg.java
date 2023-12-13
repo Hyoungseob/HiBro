@@ -29,7 +29,7 @@ public class MovieImg {
     private String imgUrl;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private ImgType imgType;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -10,6 +10,28 @@
 				alert(errorMessage);
 			}
 		});
+		function validateForm() {
+			var id = document.getElementById("id").value;
+			var password = document.getElementById("password").value;
+			var password2 = document.getElementById("password2").value;
+			var email = document.getElementById("email").value;
+			var idPattern = /^[a-zA-Z0-9]{4,15}$/;
+			var emailPattern = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+
+			if (!idPattern.test(id)) {
+				alert("아이디는 영어 대소문자와 숫자를 포함한 4~12자까지만 가능합니다.");
+				return false;
+			}
+
+			if (password !== password2) {
+				alert("비밀번호 확인이 일치하지 않습니다.");
+				return false;
+			}
+			if (!emailPattern.test(email)) {
+				alert("올바른 이메일 주소를 입력하세요.");
+				return false;
+			}
+		}
 	</script>
 </th:block>
 
@@ -28,8 +50,8 @@
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
 		</div>
 		<div class="form-group">
-			<label th:for="password">비밀번호 확인</label>
-			<input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호 재입력">
+			<label th:for="password2">비밀번호 확인</label>
+			<input type="password" id="password2" class="form-control" placeholder="비밀번호 재입력">
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
 		</div>
 		<div class="form-group">
@@ -39,11 +61,12 @@
 		</div>
 		<div class="form-group">
 			<label th:for="email">이메일</label>
-			<input type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
+			<input type="email" th:field="*{email}" class="form-control" placeholder="example@example.xxx(xx.xx)">
 			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
 		</div>
 		<div style="text-align: center">
-			<button type="submit" class="btn btn-primary" style="">제출</button>
+			<button type="submit" class="btn btn-primary" onclick="return validateForm()">제출</button>
+			<input type="hidden" th:name="role" th:value="${T(com.HiBro.constant.Role).USER}">
 		</div>
 		<!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
 	</form>

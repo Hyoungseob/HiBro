@@ -1,0 +1,23 @@
+.board_list .inquiry_code {
+	width: 10%;
+}
+.board_list .inquiry_title {
+	width: 60%;
+	text-align: center;
+}
+
+.board_list.top.title {
+	text-align: center;
+}
+
+.board_list .inquiry_member {
+	width: 10%;
+}
+
+.board_list .inquiry_regdate {
+	width: 10%;
+}
+
+.board_list .inquiry_status {
+	width: 10%;
+}

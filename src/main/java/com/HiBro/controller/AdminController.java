@@ -88,6 +88,8 @@ public class AdminController {
 	@GetMapping("/admin/theater/{theaterCode}")
 	public String theaterDtl(@PathVariable("theaterCode") Long theaterCode, Model model) {
 		List<Screen> screenList = screenRepository.findScreenByTheaterCode(theaterCode);
+		Theater theater = theaterRepository.findByCode(theaterCode);
+		model.addAttribute(theater);
 		model.addAttribute("screenList", screenList);
 		return "administrator/admin_screen";
 	}
@@ -121,7 +123,11 @@ public class AdminController {
 	@GetMapping("/admin/screen/{screenCode}")
 	public String screenDtl(@PathVariable("screenCode") Long screenCode, Model model) {
 		List<ScreenDate> screenDateList = screenDateRepository.findScreenDateByScreenCode(screenCode);
+		Screen screen = screenRepository.findByCode(screenCode);
+		Theater theater = screen.getTheater();
 		model.addAttribute("screenDateList", screenDateList);
+		model.addAttribute(screen);
+		model.addAttribute(theater);
 		return "administrator/admin_screenDate";
 	}
 
@@ -150,6 +156,12 @@ public class AdminController {
 	@GetMapping("/admin/screenDate/{screenDateCode}")
 	public String screenDateDtl(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
 		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenDateCode);
+		ScreenDate screenDate = screenDateRepository.findByCode(screenDateCode);
+		Screen screen = screenDate.getScreen();
+		Theater theater = screen.getTheater();
+		model.addAttribute(theater);
+		model.addAttribute(screen);
+		model.addAttribute(screenDate);
 		model.addAttribute("seatList", seatList);
 		return "administrator/admin_seat";
 	}

@@ -3,7 +3,9 @@ package com.HiBro.service;
 import com.HiBro.entity.Movie;
 import com.HiBro.entity.MovieVideo;
 import com.HiBro.repository.MovieVideoRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,21 +19,21 @@ import java.util.List;
 
 @Log
 @Service
+@Getter @Setter
 @Transactional
 @RequiredArgsConstructor
 public class MovieVideoService {
 
     @Value("${movieVideoLocation}")
     private String movieVideoLocation;
-    MovieVideoRepository movieVideoRepository;
+    private final MovieVideoRepository movieVideoRepository;
 
-    private FileService fileService;
+    private final FileService fileService;
 
     //동영상 저장
-    public List<MultipartFile> saveMovieVideo(Movie movie, List<MultipartFile> movieVideoFile){
+    public Long saveMovieVideo(Movie movie, List<MultipartFile> movieVideoFile){
 
         MovieVideo movieVideo = MovieVideo.createMovieVideo();
-
         movieVideo.setMovie(movie);
 
         for(MultipartFile movieVideoFilesaved :  movieVideoFile){
@@ -39,10 +41,11 @@ public class MovieVideoService {
             saveMovieVideoFile(movieVideo, movieVideoFilesaved);
         }
 
-        return movieVideoFile;
+        return movie.getCode();
     }
 
     //동영상 파일 저장
+    //TODO 컨트롤러 및 뷰에서 Type 지정할 것
     public void saveMovieVideoFile(MovieVideo movieVideo, MultipartFile movieVideoFile){
 
         String oriVideoName = movieVideoFile.getOriginalFilename();
@@ -51,7 +54,7 @@ public class MovieVideoService {
 
         try {
             if(!StringUtils.isEmpty(oriVideoName)){
-                videoName = fileService.uploadFile(movieVideoLocation, oriVideoName,movieVideoFile.getBytes());
+                videoName = fileService.uploadFile(movieVideoLocation, oriVideoName, movieVideoFile.getBytes());
 
                 //Url 처리 하기
                 videoUrl = "/videos/movie/" + videoName;
@@ -103,12 +106,10 @@ public class MovieVideoService {
     public void deleteMovieVideo(Long movieCode){
         List<MovieVideo> findByMovieCodes = movieVideoRepository.findByMovieCode(movieCode);
 
-        if(checkVideo(findByMovieCodes)){
-
             for(MovieVideo movieVideo : findByMovieCodes){
                 movieVideoRepository.delete(movieVideo);
                 fileService.deleteFile(movieVideoLocation + "/" + movieVideo.getVideoName());
             }
-        }
+
     }
 }

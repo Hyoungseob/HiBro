@@ -3,7 +3,9 @@ package com.HiBro.service;
 import com.HiBro.entity.Movie;
 import com.HiBro.entity.MovieImg;
 import com.HiBro.repository.MovieImgRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 @Log
+@Getter @Setter
 public class MovieImgService {
 
     @Value("${movieImgLocation}")
@@ -29,7 +32,7 @@ public class MovieImgService {
     private final FileService fileService;
 
     //이미지 저장
-    public List<MultipartFile> saveMovieImg(Movie movie, List<MultipartFile> movieImgFile){
+    public Long saveMovieImg(Movie movie, List<MultipartFile> movieImgFile){
 
         MovieImg movieImg = MovieImg.createMovieImg();
         movieImg.setMovie(movie);
@@ -39,10 +42,11 @@ public class MovieImgService {
             saveMovieImgFile(movieImg, movieImgFilesaved);
         }
 
-        return movieImgFile;
+        return movie.getCode();
     }
 
     //이미지 파일 저장
+    //TODO 컨트롤러 및 뷰에서 Type 지정할 것
     public void saveMovieImgFile(MovieImg movieImg, MultipartFile movieImgFile){
 
         String oriImgName = movieImgFile.getOriginalFilename();
@@ -104,12 +108,10 @@ public class MovieImgService {
     public void deleteMovieImg(Long movieCode){
         List<MovieImg> movieImgs = movieImgRepository.findByMovieCodeOrderByMovieCodeAsc(movieCode);
 
-        if(checkImg(movieImgs)){
-
             for(MovieImg movieImg : movieImgs){
                 movieImgRepository.delete(movieImg);
                 fileService.deleteFile(movieImgLocation + "/" + movieImg.getImgName());
             }
-        }
+
     }
 }

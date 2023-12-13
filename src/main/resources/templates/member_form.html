@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function () {
+			var errorMessage = /*[[${errorMessage}]]*/ "";
+			if (errorMessage != null) {
+				alert(errorMessage);
+			}
+		});
+	</script>
+</th:block>
+
 <div layout:fragment="content">
 
 	<form action="/member/new" role="form" method="post" class="member_form" th:object="${memberDTO}">
@@ -11,8 +23,8 @@
 			<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="fieldError">Incorrect data</p>
 		</div>
 		<div class="form-group">
-			<label th:for="email">비밀번호</label>
-			<input type="email" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요">
+			<label th:for="password">비밀번호</label>
+			<input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요">
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
 		</div>
 		<div class="form-group">

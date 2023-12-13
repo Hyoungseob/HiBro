@@ -39,4 +39,10 @@ public class InquiryService{
     public Inquiry getInqury(Long code){
         return inquiryRepository.findById(code).orElseThrow(EntityNotFoundException::new);
     }
+    public void deleteMemberInquiry(Long memberCode){
+        List<Inquiry> inquirieList = inquiryRepository.findByMember(memberCode);
+        for(Inquiry i : inquirieList){
+            inquiryRepository.delete(i);
+        }
+    }
 }

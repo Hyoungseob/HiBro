@@ -1,7 +1,11 @@
 package com.HiBro.entity;
 
+import com.HiBro.dto.AnswerDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 
@@ -16,12 +20,26 @@ public class Answer{
     @Column(nullable = false)
     private String content;
 
+    //TODO @OnDelete 부분이 on delete cascade가 되는게 아님 저거에대한거 좀더검색해봐야됨
     @ManyToOne
     @JoinColumn(name = "member_code")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @OneToOne
     @JoinColumn(name = "inquiry_code")
     private Inquiry inquiry;
 
+    private static ModelMapper modelMapper = new ModelMapper();
+    public static Answer createAnswer(AnswerDTO answerDTO){
+        Answer answer = new Answer();
+        answer.setContent(answerDTO.getContent());
+        return answer;
+    }
+    public static AnswerDTO of(Answer answer){
+        if(answer !=null){
+            return modelMapper.map(answer, AnswerDTO.class);
+        }
+        return new AnswerDTO();
+    }
 }

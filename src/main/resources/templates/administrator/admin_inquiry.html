@@ -33,15 +33,24 @@
         <div class="content">
             <p class="right">문의내용</p>
             <div class="left">
-                <div class ="inquiry_content" th:text="${inquiry.content}"></div>
+                <div class="inquiry_content" th:text="${inquiry.content}"></div>
             </div>
         </div>
-        <div class="inquiry_footer">
-            <textarea class="answer"></textarea>
-            <!-- 제출하면 inquiryStatus 문의 완료로 바꾸기 -->
-            <div>
-                <button class="btn">제출</button>
-                <button class="btn">취소</button>
+        <div th:object="${answerDTO}">
+            <form class="inquiry_footer" action="/admin/inquiry_answer/new" role="form" method="post"
+                th:if="${#strings.isEmpty(answerDTO.content)}">
+                <textarea class="answer" th:field="*{content}"></textarea>
+                <!-- 제출하면 inquiryStatus 문의 완료로 바꾸기 -->
+                <div>
+                    <button class="btn" type="submit">제출</button>
+                    <button class="btn">취소</button>
+                </div>
+            </form>
+            <div class="inquiry_footer_answer" th:unless="${#strings.isEmpty(answerDTO.content)}">
+                <p class="right" th:text="${answerDTO.member.name}">이름</p>
+                <div class="left">
+                    <div class="inquiry_content" th:text="${answerDTO.content}">답변</div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,8 +1,11 @@
 package com.HiBro.controller;
 
+import com.HiBro.dto.AnswerDTO;
 import com.HiBro.dto.MemberSearchDTO;
+import com.HiBro.entity.Answer;
 import com.HiBro.entity.Inquiry;
 import com.HiBro.entity.Member;
+import com.HiBro.service.AnswerService;
 import com.HiBro.service.InquiryService;
 import com.HiBro.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,7 @@ import java.util.Optional;
 public class MemberManagementController{
     private final MemberService memberService;
     private final InquiryService inquiryService;
+    private final AnswerService answerService;
 
     @GetMapping("/admin")
     public String getMemberList(MemberSearchDTO memberSearchDTO, Model model, Optional<Integer> page) {
@@ -35,6 +39,7 @@ public class MemberManagementController{
     }
     @DeleteMapping("/admin/member/delete/{member_code}")
     public @ResponseBody ResponseEntity deleteMember(@PathVariable("member_code") Long memberCode, Principal principal) {
+        inquiryService.deleteMemberInquiry(memberCode);
         memberService.deleteMember(memberCode);
         return new ResponseEntity<Long>(memberCode, HttpStatus.OK);
     }
@@ -56,7 +61,13 @@ public class MemberManagementController{
     public String getInquiry(@PathVariable("inquiry_code") Long inquirycode, Model model){
         Inquiry inquiry=inquiryService.getInqury(inquirycode);
         model.addAttribute("inquiry",inquiry);
+        Answer answer = answerService.getAnswer(inquirycode);
+        AnswerDTO answerDTO= Answer.of(answer);
+        model.addAttribute("answerDTO",answerDTO);
         return "administrator/admin_inquiry";
     }
-
+    @PostMapping("/admin/inquiry_answer/new")
+    public String saveAnswer(AnswerDTO answerDTO,Principal principal){
+        return "redirect:/admin/inquiry";
+    }
 }

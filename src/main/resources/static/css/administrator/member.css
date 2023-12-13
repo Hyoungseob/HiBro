@@ -28,6 +28,7 @@
 }
 .search{
 	display: flex;
+	align-items: center;
 }
 .on{
 	display: inline-block;

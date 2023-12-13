@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout2}">
+    layout:decorate="~{layouts/layout2}">
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/administrator/board.css}">
     <link rel="stylesheet" th:href="@{/css/administrator/inquiry.css}">
 </th:block>
 <div layout:fragment="content">
-    <div class="inquiry_header" th:object="${inquiry}">
-        <div class="title" th:text="${inquiry.title}">title</div>
-        <div class="regDate" th:text="${inquiry.regDate}">regDate</div>
-        <div class="writer" th:text="${inquiry.member.id}"></div>
-        <div class="status"th:text="${inquiry.inquiryStatus}">inquiryStatus</div>
-    </div>
-    <div class="content" th:text="${inquiry.content}"></div>
-    <div class="inquiry_footer">
-        <textarea class="answer"></textarea>
-        <!-- 제출하면 inquiryStatus 문의 완료로 바꾸기 -->
-        <button>제출</button>
-        <button>취소</button>
+    <div class="noticeBoard_Inquiry_History">
+        <div>
+            <h2 class="allMember">문의 내용<p></p>
+            </h2>
+        </div>
+        <div class="inquiry_header" th:object="${inquiry}">
+            <div class="title">
+                <p class="right">제목</p>
+                <div class="left" th:text="${inquiry.title}"></div>
+                <div class="status">
+                    <p>답변여부</p>
+                    <div th:text="${inquiry.inquiryStatus}"></div>
+                </div>
+            </div>
+            <div class="regDate">
+                <p class="right">날짜</p>
+                <div class="left" th:text="${inquiry.regDate}"></div>
+            </div>
+            <div class="writer">
+                <p class="right">아이디</p>
+                <div class="left" th:text="${inquiry.member.id}"></div>
+            </div>
+
+        </div>
+        <div class="content">
+            <p class="right">문의내용</p>
+            <div class="left">
+                <div class ="inquiry_content" th:text="${inquiry.content}"></div>
+            </div>
+        </div>
+        <div class="inquiry_footer">
+            <textarea class="answer"></textarea>
+            <!-- 제출하면 inquiryStatus 문의 완료로 바꾸기 -->
+            <div>
+                <button class="btn">제출</button>
+                <button class="btn">취소</button>
+            </div>
+        </div>
     </div>
 </div>
 

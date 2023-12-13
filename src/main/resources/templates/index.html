@@ -1,270 +1,268 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout1}">
+	  layout:decorate="~{layouts/layout1}">
 <div layout:fragment="content">
-	<div class="content">
-		<div id="main">
-			<div id="video">
-				<div class="video_wrap">
-					<video id="videoPlayer" autoplay muted>
-						<source src="" type="video/mp4" />
-					</video>
-					<h1 id="videoTitle"></h1>
-					<span id="videoContent"></span>
-					<div id="video_con">
-						<a href="#" id="vdoc1">상세보기</a>
-						<a href="#" id="vdoc2">일시정지</a>
-						<a href="#" id="vdoc3">음소거 해제</a>
-					</div>
+	<div id="main">
+		<div id="video">
+			<div class="video_wrap">
+				<video id="videoPlayer" autoplay muted>
+					<source src="" type="video/mp4"/>
+				</video>
+				<h1 id="videoTitle"></h1>
+				<span id="videoContent"></span>
+				<div id="video_con">
+					<a href="#" id="vdoc1">상세보기</a>
+					<a href="#" id="vdoc2">일시정지</a>
+					<a href="#" id="vdoc3">음소거 해제</a>
 				</div>
 			</div>
+		</div>
 
-			<div id="mainer">
-				<div id="movieChart">
-					<div id="chartText">
-						<div>
-							<h3>무비차트</h3>
-						</div>
-					</div>
-
-					<div id="movli">
-						<ul id="movie_list">
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트1.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트2.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트3.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트4.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트5.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트6.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트7.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트8.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트9.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트10.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트11.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트12.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트13.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트14.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트15.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트16.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트17.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트18.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트19.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="movlicon">
-									<img src="img/리스트20.jpg" />
-									<div class="movlink">
-										<a href="#">상세보기</a>
-										<a href="#">예매하기</a>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div id="movlibtn">
-						<div id="prevButton" class="movlibtn">이전</div>
-						<div id="nextButton" class="movlibtn">다음</div>
+		<div id="mainer">
+			<div id="movieChart">
+				<div id="chartText">
+					<div>
+						<h3>무비차트</h3>
 					</div>
 				</div>
+
+				<div id="movli">
+					<ul id="movie_list">
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트1.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트2.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트3.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트4.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트5.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트6.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트7.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트8.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트9.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트10.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트11.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트12.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트13.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트14.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트15.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트16.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트17.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트18.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트19.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="movlicon">
+								<img src="img/리스트20.jpg"/>
+								<div class="movlink">
+									<a href="#">상세보기</a>
+									<a href="#">예매하기</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id="movlibtn">
+					<div id="prevButton" class="movlibtn">이전</div>
+					<div id="nextButton" class="movlibtn">다음</div>
+				</div>
 			</div>
+		</div>
 
-			<div id="mainer2">
-				<div id="specialHall">
-					<div id="specialHall_text">
-						<h3>특별관</h3>
-						<a class="totalview">전체보기</a>
-					</div>
+		<div id="mainer2">
+			<div id="specialHall">
+				<div id="specialHall_text">
+					<h3>특별관</h3>
+					<a class="totalview">전체보기</a>
+				</div>
 
-					<div id="specialHall_content">
-						<a class="hrefinp">
+				<div id="specialHall_content">
+					<a class="hrefinp">
 							<span>
-								<img id="spchImg" src="img/특별관1.png" />
+								<img id="spchImg" src="img/특별관1.png"/>
 							</span>
-						</a>
-						<ul id="spchList">
-							<li class="spchList" data-image="img/특별관1.png">
-								<a href="http://www.cgv.co.kr/theaters/special/defaultDetailNew.aspx?idx=7">
-									<strong>SUITE CINEMA</strong>
-									<span>#호텔 컨셉의 프리미엄관</span>
-								</a>
-							</li>
-							<li class="spchList" data-image="img/특별관2.png">
-								<a href="http://www.cgv.co.kr/theaters/special/defaultDetailNew.aspx?idx=14">
-									<strong>CINE&amp;LIVINGROOM</strong>
-									<span>#신개념 소셜 상영관</span>
-								</a>
-							</li>
-							<li class="spchList" data-image="img/특별관3.png">
-								<a href="http://www.cgv.co.kr/theaters/special/defaultDetailNew.aspx?idx=2">
-									<strong>4DX</strong>
-									<span>#모션시트 #오감체험</span>
-								</a>
-							</li>
-							<li class="spchList" data-image="img/특별관4.png">
-								<a href="http://www.cgv.co.kr/theaters/special/defaultDetailNew.aspx?idx=8">
-									<strong>CINE de CHEF</strong>
-									<span>#쉐프가 있는 영화관</span>
-								</a>
-							</li>
-						</ul>
-					</div>
+					</a>
+					<ul id="spchList">
+						<li class="spchList" data-image="img/특별관1.png">
+							<a href="http://www.cgv.co.kr/theaters/special/defaultDetailNew.aspx?idx=7">
+								<strong>SUITE CINEMA</strong>
+								<span>#호텔 컨셉의 프리미엄관</span>
+							</a>
+						</li>
+						<li class="spchList" data-image="img/특별관2.png">
+							<a href="http://www.cgv.co.kr/theaters/special/defaultDetailNew.aspx?idx=14">
+								<strong>CINE&amp;LIVINGROOM</strong>
+								<span>#신개념 소셜 상영관</span>
+							</a>
+						</li>
+						<li class="spchList" data-image="img/특별관3.png">
+							<a href="http://www.cgv.co.kr/theaters/special/defaultDetailNew.aspx?idx=2">
+								<strong>4DX</strong>
+								<span>#모션시트 #오감체험</span>
+							</a>
+						</li>
+						<li class="spchList" data-image="img/특별관4.png">
+							<a href="http://www.cgv.co.kr/theaters/special/defaultDetailNew.aspx?idx=8">
+								<strong>CINE de CHEF</strong>
+								<span>#쉐프가 있는 영화관</span>
+							</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
-		<div id="hidcon">
-			<a href="#" id="gotop"><img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png"
-					alt="최상단으로 이동" /></a>
-		</div>
+	</div>
+	<div id="hidcon">
+		<a href="#" id="gotop"><img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png"
+									alt="최상단으로 이동"/></a>
 	</div>
 </div>
 

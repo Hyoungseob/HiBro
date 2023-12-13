@@ -20,17 +20,37 @@
 	<script th:src="@{/js/ticketing.js}"></script>
 
 	<th:block layout:fragment="script"></th:block>
-	<th:block layout:fragment="css"></th:block>
+	<th:block layout:fragment="css">
+		<style>
+			html, body {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+			}
+			.contentWrap {
+				min-height: 100%;
+    			position: relative;
+			}
+
+			.content {
+				padding-bottom: 362px;
+			}
+
+			.footer {
+				overflow: hidden;
+			}
+		</style>
+	</th:block>
 </head>
 
 <body>
 
-	<!-- th:replace="[파일 경로 :: 조각 이름]" -->
-	<div th:replace="~{fragments/header::header}"></div>
+<!-- th:replace="[파일 경로 :: 조각 이름]" -->
+<div th:replace="~{fragments/header::header}"></div>
 
-	<div layout:fragment="content" class="content"></div>
+<div layout:fragment="content" class="contentWrap"></div>
 
-	<div th:replace="~{fragments/footer::footer}"></div>
+<div th:replace="~{fragments/footer::footer}"></div>
 
 </body>
 

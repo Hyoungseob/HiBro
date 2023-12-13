@@ -18,11 +18,23 @@
 	width: 10%;
 }
 .board_list .member_regdate{
-    width: 30%;
+    width: 20%;
 }
 .board_list .member_deletebtn{
     width: 10%;
 }
+.board_list .member_updatebtn{
+	width: 10%;
+}
 .search{
 	display: flex;
+	align-items: center;
+}
+.on{
+	display: inline-block;
+	margin:0;
+}
+.off{
+	display: none;
+	margin:0;
 }

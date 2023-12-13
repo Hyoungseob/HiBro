@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,7 +21,7 @@ public class Inquiry{
     private String title;
     @Column(nullable = false)
     private String content;
-    private LocalDateTime regDate;
+    private LocalDate regDate;
     private InquiryStatus inquiryStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,7 +32,7 @@ public class Inquiry{
         Inquiry inquiry = new Inquiry();
         inquiry.setTitle(inquiryDTO.getTitle());
         inquiry.setContent(inquiryDTO.getContent());
-        inquiry.setRegDate(LocalDateTime.now());
+        inquiry.setRegDate(LocalDateTime.now().toLocalDate());
         inquiry.setInquiryStatus(InquiryStatus.ING);
         return inquiry;
     }

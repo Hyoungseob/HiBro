@@ -8,7 +8,9 @@ import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -31,7 +33,7 @@ public class Member{
 
     private Integer point;
     @Column(nullable = false)
-    private LocalDateTime regDate;
+    private LocalDate regDate;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -43,7 +45,7 @@ public class Member{
         member.setName(memberDTO.getName());
         member.setEmail(memberDTO.getEmail());
         member.setPoint(0);
-        member.setRegDate(memberDTO.getRegDate());
+        member.setRegDate(LocalDateTime.now().toLocalDate());
         member.setRole(memberDTO.getRole());
         return member;
     }

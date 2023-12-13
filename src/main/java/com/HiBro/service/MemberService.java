@@ -35,7 +35,11 @@ public class MemberService{
         }
         return true;
     }
-
+    public void updateMember(Long memberCode,Integer point){
+        Member findMember = memberRepository.findById(memberCode)
+                .orElseThrow(EntityNotFoundException::new);
+        findMember.setPoint(point);
+    }
     public void deleteMember(Long memberCode){
         Member member = memberRepository.findById(memberCode)
                         .orElseThrow(EntityNotFoundException::new);

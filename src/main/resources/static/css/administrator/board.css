@@ -73,13 +73,19 @@
 .board_list > div:last-child {
 	border-bottom: 1px solid #000;
 }
-.board_list > div > div {
+.board_list  div  div {
 	display: inline-block;
 	padding: 15px 0;
 	font-size: 1.4rem;
 	text-align: center;
 }
+.board_list > div > div>a{
+	display: inline-block;
+	padding: 0;
+	font-size: 1.4rem;
+	text-align: center;
 
+}
 .board_list > div.top > div {
 	text-align: center;
 	font-weight: 600; /*폰트 굵기*/

@@ -15,39 +15,37 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/")
+//                .permitAll();
+//        http.csrf()
+//                .disable();
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        /*http.authorizeRequests()
-                .antMatchers("/")
-                .permitAll();
-        http.csrf()
-                .disable();*/
+		http.formLogin()
+				.loginPage("/member/login")
+				.defaultSuccessUrl("/")
+				.usernameParameter("id")
+				.failureUrl("/member/login/error")
+				.and()
+				.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+				.logoutSuccessUrl("/");
 
-        http.formLogin()
-                .loginPage("/member/login")
-                .defaultSuccessUrl("/")
-                .usernameParameter("id")
-                .failureUrl("/member/login/error")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                .logoutSuccessUrl("/");
+		http.authorizeRequests()
+				.mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
+				.mvcMatchers("/", "/member/**").permitAll()
+				.mvcMatchers("/admin/**").hasRole("ADMIN")
+				.anyRequest().authenticated();
 
-        http.authorizeRequests()
-                .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .mvcMatchers("/", "/member/**").permitAll()
-                .mvcMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated();
+		http.exceptionHandling()
+				.authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+		return http.build();
+	}
 
-        http.exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
-        return http.build();
-    }
-
-
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

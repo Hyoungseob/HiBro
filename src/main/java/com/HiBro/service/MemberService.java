@@ -1,5 +1,6 @@
 package com.HiBro.service;
 
+import com.HiBro.constant.Role;
 import com.HiBro.dto.MemberSearchDTO;
 import com.HiBro.entity.Member;
 import com.HiBro.repository.MemberRepository;
@@ -51,5 +52,12 @@ public class MemberService{
             return new PageImpl<>(member,pageable,member.size());
         }
         return memberRepository.findAll(pageable);
+    }
+    public Page<Member> getAdminAll(Pageable pageable){
+        List<Member> memberList=memberRepository.findByRole(Role.ADMIN);
+        return new PageImpl<>(memberList,pageable, memberList.size());
+    }
+    public Member getMember(Long memberCode){
+        return memberRepository.findById(memberCode).get();
     }
 }

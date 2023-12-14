@@ -1,0 +1,22 @@
+.board_list .member_code {
+	width: 10%;
+}
+.board_list .member_id {
+	width: 20%;
+	text-align: center;
+}
+
+.board_list .member_name {
+	width: 10%;
+}
+
+.board_list .member_email {
+	width: 20%;
+}
+
+.board_list .member_point {
+	width: 10%;
+}
+.board_list .member_regdate{
+    width: 30%;
+}

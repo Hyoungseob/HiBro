@@ -70,4 +70,19 @@ public class MemberManagementController{
     public String saveAnswer(AnswerDTO answerDTO,Principal principal){
         return "redirect:/admin/inquiry";
     }
+    @GetMapping("/admin/adminlist")
+    public String adminList( Model model, Optional<Integer> page){
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+        Page<Member> memberList = memberService.getAdminAll(pageable);
+
+        model.addAttribute("memberList", memberList);
+        model.addAttribute("maxPage", 5);
+        return "administrator/adminList";
+    }
+    @GetMapping("/admin/setting/{member_code}")
+    public String getAdmin(@PathVariable("member_code") Long memberCode, Model model){
+        Member member = memberService.getMember(memberCode);
+        model.addAttribute("member",member);
+        return "administrator/admin_setting";
+    }
 }

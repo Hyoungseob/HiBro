@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout2}">
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/administrator/board.css}">
+    <link rel="stylesheet" th:href="@{/css/administrator/adminList.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+    </script>
+</th:block>
+<div layout:fragment="content">
+    <div class="noticeBoard">
+        <div style="margin-top: 20px;">
+            <h2 class="allMember">관리자 계정<p></p></h2>
+        </div>
+        <div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
+                    <div class="member_code">번호</div>
+                    <div class="member_id">아이디</div>
+                    <div class="member_name">이름</div>
+                    <div class="member_email">이메일</div>
+                    <div class="member_point">포인트</div>
+                    <div class="member_regdate">가입날짜</div>
+                </div>
+                <th:block th:each="item, status:${memberList.getContent()}">
+                    <div>
+                        <div class="member_code">[[${item.code}]]</div>
+                        <div class="member_id"><a th:href="@{'/admin/setting/'+${item.code}}">[[${item.id}]]</a></div>
+                        <div class="member_name">[[${item.name}]]</div>
+                        <div class="member_email">[[${item.email}]]</div>
+                        <div class="member_point">[[${item.point}]]</div>
+                        <div class="member_regdate">[[${item.regDate}]]</div>
+                    </div>
+                </th:block>
+            </div>
+            <div class="board_page" th:with="start=${(memberList.number/maxPage)*maxPage+1},end=(${(memberList.totalPages==0)? 1:(start+(maxPage-1)< memberList.totalPages? start+(maxPage-1) : memberList.totalPages)})">
+                <div>
+                    <a th:href="@{'?page=0'}" class="bt first"><<</a>
+                    <a th:href="@{'?page='+${memberList.number==0? 0:memberList.number-1}}" class="bt prev"><</a>
+                    <th:block th:each="page : ${#numbers.sequence(start,end)}" th:classappend="${memberList.number eq page-1}?'active':''">
+                        <a th:href="@{'?page='+${page-1}}"th:inline="text">[[${page}]]</a>
+                    </th:block>
+                    <a th:href="@{'?page='+${memberList.number==memberList.totalPages-1? memberList.totalPages-1:memberList.number+1}}" class="bt next">></a>
+                    <a th:href="@{'?page='+${memberList.totalPages-1}}" class="bt last">>></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

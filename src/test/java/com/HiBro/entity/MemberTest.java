@@ -34,7 +34,7 @@ public class MemberTest {
 		memberDTO.setName("테스트");
 		memberDTO.setEmail("a@a");
 		memberDTO.setRole(Role.USER);
-		memberDTO.setRegDate(LocalDateTime.now());
+		memberDTO.setRegDate(LocalDateTime.now().toLocalDate());
 
 		Member member = Member.createMember(memberDTO, encoder);
 		System.out.println(".. ");

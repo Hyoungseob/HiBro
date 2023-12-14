@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,7 +20,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberService{
+public class MemberService implements UserDetailsService  {
     private final MemberRepository memberRepository;
 
     public Member saveMember(Member member){
@@ -51,5 +55,20 @@ public class MemberService{
             return new PageImpl<>(member,pageable,member.size());
         }
         return memberRepository.findAll(pageable);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        Member member = memberRepository.findById(id);
+
+        if (member == null) {
+            throw new UsernameNotFoundException(id);
+        }
+
+        return User.builder()
+                .username(member.getId())
+                .password(member.getPassword())
+                .roles(member.getRole().toString())
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.HiBro.service;
 
 import com.HiBro.constant.Role;
+import com.HiBro.dto.MemberDTO;
 import com.HiBro.dto.MemberSearchDTO;
 import com.HiBro.entity.Member;
 import com.HiBro.repository.MemberRepository;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -19,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService{
     private final MemberRepository memberRepository;
-
+    private final PasswordEncoder passwordEncoder;
     public Member saveMember(Member member){
         if(checkMember(member)){
             return memberRepository.save(member);
@@ -59,5 +61,14 @@ public class MemberService{
     }
     public Member getMember(Long memberCode){
         return memberRepository.findById(memberCode).get();
+    }
+    public void updateMember(MemberDTO memberDTO){
+        if(memberDTO.getCode() != null){
+            Member member = memberRepository.findById(memberDTO.getCode()).get();
+            System.out.println(member+"멤버");
+            member.setName(memberDTO.getName());
+            member.setEmail(memberDTO.getEmail());
+            member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
+        }
     }
 }

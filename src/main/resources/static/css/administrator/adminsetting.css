@@ -1,0 +1,78 @@
+.noticeBoard {
+	position: relative;
+}
+
+.allMember {
+	font-weight: bold;
+	font-size: 25px;
+	display: inline-block;
+}
+
+.right{
+    width:20%;
+    text-align: center;
+    margin: 10px 0;
+    font-size: 12px;
+    border-right: 1px solid #bababa67;
+}
+.left{
+    width:50%;
+    font-size: 12px;
+}
+.admin_form>div{
+    font-size: 12px;
+}
+.admin_form .title{
+    width:100%;
+    display: flex;
+    border-top: 2px solid #000000;
+    border-bottom: 1px solid #bababa67;
+    align-items: center;
+    justify-content: space-between;
+}
+.admin_form .regDate{
+    width:100%;
+    display: flex;
+    border-bottom: 1px solid #bababa67;
+    align-items: center;
+    justify-content: space-between;
+}
+.admin_form .writer{
+    width:100%;
+    display: flex;
+    border-bottom: 1px solid #bababa67;
+    align-items: center;
+    justify-content: space-between;
+}
+.admin_form .email{
+    width:100%;
+    display: flex;
+    border-bottom: 2px solid #000000;
+    align-items: center;
+    justify-content: space-between;
+}
+.status{
+    width:5%;
+    border-left: 1px solid #bababa67;
+    text-align: center;
+}
+.status>p{
+    font-size: 12px;
+}
+.status>input{
+    font-size:12px;
+}
+.content{
+    height:100%;
+}
+
+.btn{
+    padding: 7px 20px;
+	background-color: var(--main-corlor);
+	color: var(--font-color);
+}
+.btns{
+    display: flex;
+    justify-content: center;
+    margin-top:15px;
+}

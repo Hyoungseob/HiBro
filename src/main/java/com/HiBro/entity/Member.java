@@ -1,10 +1,12 @@
 package com.HiBro.entity;
 
 import com.HiBro.constant.Role;
+import com.HiBro.dto.AnswerDTO;
 import com.HiBro.dto.MemberDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -38,6 +40,7 @@ public class Member{
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private static ModelMapper modelMapper = new ModelMapper();
     public static Member createMember(MemberDTO memberDTO, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setId(memberDTO.getId());
@@ -48,5 +51,11 @@ public class Member{
         member.setRegDate(LocalDateTime.now().toLocalDate());
         member.setRole(memberDTO.getRole());
         return member;
+    }
+    public static MemberDTO of(Member member){
+        if(member !=null){
+            return modelMapper.map(member, MemberDTO.class);
+        }
+        return new MemberDTO();
     }
 }

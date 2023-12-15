@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout2}">
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/administrator/adminsetting.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        function passwordCheck(){
+            var password = document.getElementById("password").value;
+            var password2 = document.getElementById("password2").value;
+            if(password == password2){
+                return true;
+            }
+            alert("비밀번호를 확인하세요");
+            return false;
+        }
+    </script>
+</th:block>
+<div layout:fragment="content">
+    <div class="noticeBoard">
+        <div style="margin-top: 20px;">
+            <h2 class="allMember">관리자 계정 설정<p></p>
+            </h2>
+        </div>
+        <form role="form" method="post" action="/admin/setting" class="admin_form"  th:object="${memberDTO}">
+            <input type="hidden" th:field="*{code}">
+            <div class="title">
+                <p class="right">아이디</p>
+                <input class="left" th:field="*{id}" readonly></input>
+                <div class="status">
+                    <p>번호</p>
+                    <div>[[${memberDTO.code}]]</div>
+                </div>
+            </div>
+            <div class="regDate">
+                <p class="right">이름</p>
+                <input class="left" th:field="*{name}"></input>
+                <div class="status"></div>
+            </div>
+            <div class="writer">
+                <p class="right">비밀번호</p>
+                <input th:type="password" th:field="*{password}" class="left" placeholder="비밀번호를 입력하세요"></input>
+                <div class="status"></div>
+            </div>
+            <div class="writer">
+                <p class="right">비밀번호 확인</p>
+                <input th:type="password" class="left" id="password2" placeholder="비밀번호를 다시 입력하세요"></input>
+                <div class="status"></div>
+            </div>
+            <div class="email">
+                <p class="right">이메일</p>
+                <input type="email" class="left" th:field="*{email}" th:placeholder="${memberDTO.email}"></input>
+                <div class="status"></div>
+            </div>
+            <div class="btns">
+                <div>
+                    <button type="submit" class="btn" onclick="return passwordCheck()">저장</button>
+                    <button class="btn">취소</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</html>

@@ -1,6 +1,7 @@
 package com.HiBro.controller;
 
 import com.HiBro.dto.AnswerDTO;
+import com.HiBro.dto.MemberDTO;
 import com.HiBro.dto.MemberSearchDTO;
 import com.HiBro.entity.Answer;
 import com.HiBro.entity.Inquiry;
@@ -77,12 +78,18 @@ public class MemberManagementController{
 
         model.addAttribute("memberList", memberList);
         model.addAttribute("maxPage", 5);
-        return "administrator/adminList";
+        return "administrator/admin_List";
     }
     @GetMapping("/admin/setting/{member_code}")
     public String getAdmin(@PathVariable("member_code") Long memberCode, Model model){
         Member member = memberService.getMember(memberCode);
-        model.addAttribute("member",member);
-        return "administrator/admin_setting";
+        MemberDTO memberDTO = Member.of(member);
+        model.addAttribute("memberDTO",memberDTO);
+        return "administrator/admin_setting.html";
+    }
+    @PostMapping("/admin/setting")
+    public String setAdmin(MemberDTO memberDTO){
+        memberService.updateMember(memberDTO);
+        return "redirect:/admin/adminlist";
     }
 }

@@ -31,4 +31,7 @@ public class AnswerService{
         answer.setMember(member);;
         answerRepository.save(answer);
     }
+    public void deleteAnswer(Answer answer){
+        answerRepository.delete(answer);
+    }
 }

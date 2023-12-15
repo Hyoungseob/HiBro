@@ -3,6 +3,7 @@ package com.HiBro.dto;
 import com.HiBro.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -11,8 +12,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter @Setter
+@Getter @Setter @ToString
 public class MemberDTO{
+    private Long code;
     @NotEmpty(message = "아이디 입력은 필수입니다.")
     private String id;
     @NotEmpty(message = "비밀번호 입력은 필수입니다.")

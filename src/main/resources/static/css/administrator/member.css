@@ -38,3 +38,15 @@
 	display: none;
 	margin:0;
 }
+.member_updatebtn>button{
+	padding: 2px 2px;
+    border: none;
+	background-color: var(--main-corlor);
+	color: var(--font-color);
+}
+.member_deletebtn>button{
+	padding: 2px 2px;
+    border: none;
+	background-color: var(--main-corlor);
+	color: var(--font-color);
+}

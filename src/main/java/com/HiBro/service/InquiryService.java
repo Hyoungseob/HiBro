@@ -1,6 +1,7 @@
 package com.HiBro.service;
 
 import com.HiBro.dto.InquiryDTO;
+import com.HiBro.entity.Answer;
 import com.HiBro.entity.Inquiry;
 import com.HiBro.entity.Member;
 import com.HiBro.repository.InquiryRepository;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class InquiryService{
     private final InquiryRepository inquiryRepository;
     private final MemberRepository memberRepository;
+    private final AnswerService answerService;
     public Inquiry saveInquiry(InquiryDTO inquiryDTO, String id){
         Inquiry inquiry = Inquiry.createInquiry(inquiryDTO);
         Member member = memberRepository.findById(id);
@@ -40,8 +42,11 @@ public class InquiryService{
         return inquiryRepository.findById(code).orElseThrow(EntityNotFoundException::new);
     }
     public void deleteMemberInquiry(Long memberCode){
-        List<Inquiry> inquirieList = inquiryRepository.findByMember(memberCode);
+        List<Inquiry> inquirieList = inquiryRepository.findByMemberCode(memberCode);
         for(Inquiry i : inquirieList){
+            Answer answer = answerService.getAnswer(i.getCode());
+            if(answer != null)
+                answerService.deleteAnswer(answer);
             inquiryRepository.delete(i);
         }
     }

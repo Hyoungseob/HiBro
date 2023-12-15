@@ -20,7 +20,6 @@ public class Answer{
     @Column(nullable = false)
     private String content;
 
-    //TODO @OnDelete 부분이 on delete cascade가 되는게 아님 저거에대한거 좀더검색해봐야됨
     @ManyToOne
     @JoinColumn(name = "member_code")
     @OnDelete(action = OnDeleteAction.CASCADE)

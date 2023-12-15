@@ -31,8 +31,8 @@ public class ScreenService {
 		screenRepository.delete(screen);
 	}
 
-	public void deleteScreenList(TheaterDTO theaterDTO) {
-		List<Screen> screenList = screenRepository.findScreenByTheaterCode(theaterDTO.getCode());
+	public void deleteScreenList(Long theaterCode) {
+		List<Screen> screenList = screenRepository.findScreenByTheaterCode(theaterCode);
 		for (Screen screen : screenList) {
 			screenDateService.deleteScreenDateList(screen);
 			screenRepository.delete(screen);

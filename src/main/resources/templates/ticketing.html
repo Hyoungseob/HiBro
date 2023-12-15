@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout1}">
+	  layout:decorate="~{layouts/layout1}">
 <div layout:fragment="content">
 
 	<div id="ticketing">
@@ -20,92 +20,29 @@
 			</div>
 			<div id="con2">
 				<h3>극장</h3>
-				<ul>
-					<li>
-						<a href="#none">서울</a>
-						<div class="hidcon2">
-							<ul>
-								<li><a href="#none">강남</a></li>
-								<li><a href="#none">강변</a></li>
-								<li><a href="#none">건대입구</a></li>
-								<li><a href="#none">구로</a></li>
-								<li><a href="#none">대학로</a></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#none">경기/인천</a>
-						<div class="hidcon2">
-							<ul>
-								<li><a href="#none">경기광주</a></li>
-								<li><a href="#none">고양백석</a></li>
-								<li><a href="#none">고양행신</a></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#none">충청/대전</a>
-						<div class="hidcon2">
-							<ul>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#none">전라/광주</a>
-						<div class="hidcon2">
-							<ul>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#none">경북/대구</a>
-						<div class="hidcon2">
-							<ul>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#none">경남/부산/울산</a>
-						<div class="hidcon2">
-							<ul>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#none">강원/제주</a>
-						<div class="hidcon2">
-							<ul>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-					</li>
-				</ul>
+				<th:block th:each="location, status:${T(com.HiBro.constant.Location).values()}">
+					<ul>
+						<li>
+							<div th:switch="${location}">
+								<div th:case="${T(com.HiBro.constant.Location).SEOUL}">서울</div>
+								<div th:case="${T(com.HiBro.constant.Location).INCHEON}">경기/인천</div>
+								<div th:case="${T(com.HiBro.constant.Location).DAEJEON}">충천/대전</div>
+								<div th:case="${T(com.HiBro.constant.Location).GWANGJU}">전라/광주</div>
+								<div th:case="${T(com.HiBro.constant.Location).DAEGU}">경북/대구</div>
+								<div th:case="${T(com.HiBro.constant.Location).BUSAN}">경남/울산/부산</div>
+								<div th:case="${T(com.HiBro.constant.Location).JEJU}">강원/제주</div>
+								<div class="hidcon2">
+									<ul>
+										<th:block th:each="theater, status:${theaterList}">
+											<li th:if="${theater.getLocation == location}">[[${theater.theaterName}]]</li>
+
+										</th:block>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</th:block>
 			</div>
 			<div id="con3">
 				<h3>날짜</h3>
@@ -143,49 +80,49 @@
 			<div>
 				<div>
 					일반<select id="adult">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-					</select>
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+				</select>
 					청소년<select id="youth">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-					</select>
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+				</select>
 					노인<select id="senior">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-					</select>
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+				</select>
 					우대<select id="special">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-					</select>
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+				</select>
 					<p>총인원: <span id="total1">0</span></p>
 					<p>총액: <span id="total2">0</span></p>
 				</div>
@@ -272,7 +209,6 @@
 	</div>
 
 </div>
-
 
 
 </html>

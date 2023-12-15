@@ -40,7 +40,7 @@ class TicketingRepositoryTest {
         member.setPoint(100);
         member.setRole(Role.USER);
         member.setPassword("sdfsf");
-        member.setRegDate(LocalDateTime.now());
+        member.setRegDate(LocalDateTime.now().toLocalDate());
 
         return memberRepository.save(member);
     }

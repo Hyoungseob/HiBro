@@ -42,12 +42,11 @@ public class AdminController {
 	@GetMapping("/admin/theater/new")
 	public String theaterForm(Model model) {
 		model.addAttribute("theaterDTO", new TheaterDTO());
-		model.addAttribute("theaterStatus", TheaterStatus.values());
 		return "administrator/admin_theater_form";
 	}
 
 	@PostMapping("/admin/theater/new")
-	public String theaterForm(@RequestParam("theaterStatus") TheaterStatus theaterStatus, TheaterDTO theaterDTO, BindingResult bindingResult, Model model) {
+	public String theaterForm(TheaterDTO theaterDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_theater_form";
 		}
@@ -57,21 +56,27 @@ public class AdminController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "administrator/admin_theater_form";
 		}
-		return "administrator/admin_theater";
+		return "redirect:/admin/theater";
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}")
 	public String theaterDtl(@PathVariable("theaterCode") Long theaterCode, Model model) {
 		List<Screen> screenList = screenRepository.findScreenByTheaterCode(theaterCode);
+		Theater theater = theaterRepository.findByCode(theaterCode);
+		model.addAttribute(theater);
 		model.addAttribute("screenList", screenList);
 		return "administrator/admin_screen";
+	}
+	@DeleteMapping("/admin/theater/{theaterCode}")
+	public @ResponseBody ResponseEntity deleteTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
+		theaterService.deleteTheater(theaterCode);
+		return new ResponseEntity(theaterCode,HttpStatus.OK);
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}/new")
 	public String screenForm(@PathVariable("theaterCode") Long theaterCode, Model model) {
 		model.addAttribute("screenDTO", new ScreenDTO());
 		model.addAttribute("theaterCode", theaterCode);
-		model.addAttribute("screenType", ScreenType.values());
 		return "administrator/admin_screen_form";
 	}
 
@@ -92,7 +97,11 @@ public class AdminController {
 	@GetMapping("/admin/screen/{screenCode}")
 	public String screenDtl(@PathVariable("screenCode") Long screenCode, Model model) {
 		List<ScreenDate> screenDateList = screenDateRepository.findScreenDateByScreenCode(screenCode);
+		Screen screen = screenRepository.findByCode(screenCode);
+		Theater theater = screen.getTheater();
 		model.addAttribute("screenDateList", screenDateList);
+		model.addAttribute(screen);
+		model.addAttribute(theater);
 		return "administrator/admin_screenDate";
 	}
 
@@ -121,6 +130,12 @@ public class AdminController {
 	@GetMapping("/admin/screenDate/{screenDateCode}")
 	public String screenDateDtl(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
 		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenDateCode);
+		ScreenDate screenDate = screenDateRepository.findByCode(screenDateCode);
+		Screen screen = screenDate.getScreen();
+		Theater theater = screen.getTheater();
+		model.addAttribute(theater);
+		model.addAttribute(screen);
+		model.addAttribute(screenDate);
 		model.addAttribute("seatList", seatList);
 		return "administrator/admin_seat";
 	}

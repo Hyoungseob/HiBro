@@ -18,9 +18,6 @@ public class Screen {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long code;
 
-	@Column
-	private String screenImg;
-
 	@Column(nullable = false)
 	private String screenLocation;
 
@@ -37,7 +34,6 @@ public class Screen {
 
 	public static Screen createScreen(ScreenDTO screenDTO) {
 		Screen screen = new Screen();
-		screen.setScreenImg(screenDTO.getScreenImg());
 		screen.setScreenLocation(screenDTO.getScreenLocation());
 		screen.setScreenType(screenDTO.getScreenType());
 		return screen;

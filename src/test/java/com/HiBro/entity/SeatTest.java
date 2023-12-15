@@ -32,7 +32,7 @@ public class SeatTest {
 
 	public TheaterDTO createTheater() {
 		TheaterDTO theaterDTO = new TheaterDTO();
-		theaterDTO.setTheaterLocation("울산 남구 삼산동");
+//		theaterDTO.setTheaterLocation("울산 남구 삼산동");
 		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
 
 		Theater theater = theaterService.saveTheater(theaterDTO);
@@ -45,7 +45,7 @@ public class SeatTest {
 	public Screen createScreen() {
 		TheaterDTO theaterDTO = this.createTheater();
 		ScreenDTO screenDTO = new ScreenDTO();
-		screenDTO.setScreenImg("임시 이미지");
+//		screenDTO.setScreenImg("임시 이미지");
 		screenDTO.setScreenLocation("울산 삼산동");
 		screenDTO.setScreenType(ScreenType.NORMAL);
 		return screenService.saveScreen(screenDTO, theaterDTO.getCode());

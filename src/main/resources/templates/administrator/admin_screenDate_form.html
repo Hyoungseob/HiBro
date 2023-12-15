@@ -6,6 +6,7 @@
 	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
 </th:block>
 <div layout:fragment="content">
+	<h1>상영일자 추가</h1>
 	<form action="/admin/screen/{screenCode}/new" role="form" method="post" th:object="${screenDateDTO}">
 		<input type="hidden" name="screenCode" th:value="${screenCode}">
 		<div class="form-group">

@@ -28,13 +28,21 @@ public class TheaterTest {
 	@Autowired
 	ScreenDateService screenDateService;
 
+	public TheaterDTO createTheater() {
+		TheaterDTO theaterDTO = new TheaterDTO();
+//		theaterDTO.setTheaterLocation("울산 남구 삼산동");
+		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
+		Theater theater = theaterService.saveTheater(theaterDTO);
+		theaterDTO.setCode(theater.getCode());
+		return theaterDTO;
+	}
 
 	public List<TheaterDTO> createTheaterList() {
 		List<TheaterDTO> theaterDTOList = new ArrayList<>();
 
 		for (int i = 0; i < 10; i++) {
 			TheaterDTO theaterDTO = new TheaterDTO();
-			theaterDTO.setTheaterLocation("울산 남구 삼산동");
+//			theaterDTO.setTheaterLocation("울산 남구 삼산동");
 			theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
 
 			Theater theater = theaterService.saveTheater(theaterDTO);
@@ -50,7 +58,7 @@ public class TheaterTest {
 		List<ScreenDTO> screenDTOList = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			ScreenDTO screenDTO = new ScreenDTO();
-			screenDTO.setScreenImg("임시 이미지");
+//			screenDTO.setScreenImg("임시 이미지");
 			screenDTO.setScreenLocation("울산 삼산동");
 			screenDTO.setScreenType(ScreenType.NORMAL);
 
@@ -111,11 +119,23 @@ public class TheaterTest {
 		ScreenDTO screenDTO = screenDTOList.get(3);
 		this.createSeatList(screenDTO);
 		this.createScreenDateList(screenDTO);
-		theaterService.deleteTheater(theaterDTO);
+		theaterService.deleteTheater(theaterDTO.getCode());
 
 		List<Theater> theaterList = theaterRepository.findAll();
 		for (Theater theater : theaterList) {
 			System.out.println(theater);
 		}
+	}
+
+	@Test
+	@DisplayName("영화관 수정")
+	public void updateTheater() {
+		TheaterDTO theaterDTO = this.createTheater();
+		Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
+		System.out.println(theater);
+//		theaterDTO.setTheaterLocation("바뀜");
+		theaterDTO.setTheaterStatus(TheaterStatus.CLOSE);
+		theater.updateTheater(theaterDTO);
+		System.out.println(theater);
 	}
 }

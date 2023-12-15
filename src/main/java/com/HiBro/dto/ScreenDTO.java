@@ -8,7 +8,6 @@ import lombok.*;
 @ToString
 public class ScreenDTO {
 	private Long code;
-	private String screenImg;
 	private String screenLocation;
 	private ScreenType screenType;
 }

@@ -6,16 +6,16 @@
     border-bottom: 1px solid #000000a3;
     flex-direction: column;
 }
-.right{
+.left{
     width:20%;
     text-align: center;
     margin: 10px 0;
-    font-size: 12px;
+    font-size: 18px;
     border-right: 1px solid #bababa67;
 }
-.left{
+.right{
     width:70%;
-    font-size: 12px;
+    font-size: 15px;
 }
 .inquiry_header>div{
     font-size: 12px;
@@ -62,7 +62,7 @@
 }
 .content .inquiry_content{
     margin:10px;
-    font-size:12px;
+    font-size:15px;
 }
 
 .inquiry_footer{

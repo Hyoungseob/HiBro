@@ -38,4 +38,7 @@ public class Inquiry{
         inquiry.setInquiryStatus(InquiryStatus.ING);
         return inquiry;
     }
+    public void changeStatus(){
+        this.setInquiryStatus(InquiryStatus.END);
+    }
 }

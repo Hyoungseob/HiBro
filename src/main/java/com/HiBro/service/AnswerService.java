@@ -23,12 +23,12 @@ public class AnswerService{
     public Answer getAnswer(Long inquiryCode){
         return answerRepository.findByInquiryCode(inquiryCode);
     }
-    public void saveAnswer(AnswerDTO answerDTO,Long inquiryCode){
+    public void saveAnswer(AnswerDTO answerDTO){
         Answer answer = Answer.createAnswer(answerDTO);
-        Inquiry inquiry = inquiryRepository.findById(inquiryCode).get();
-        Member member = memberRepository.findById(inquiry.getMember().getCode()).get();
+        Inquiry inquiry = inquiryRepository.findById(answerDTO.getInquiry_code()).get();
+        inquiry.changeStatus();
         answer.setInquiry(inquiry);
-        answer.setMember(member);;
+        answer.setMember(answerDTO.getMember());
         answerRepository.save(answer);
     }
     public void deleteAnswer(Answer answer){

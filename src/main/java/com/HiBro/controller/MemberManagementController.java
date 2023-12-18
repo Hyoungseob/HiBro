@@ -69,6 +69,12 @@ public class MemberManagementController{
     }
     @PostMapping("/admin/inquiry_answer/new")
     public String saveAnswer(AnswerDTO answerDTO,Principal principal){
+        String id=principal.getName();
+        Member member=memberService.getMember(id);
+        System.out.println(answerDTO.toString());
+        answerDTO.setMember(member);
+        answerService.saveAnswer(answerDTO);
+
         return "redirect:/admin/inquiry";
     }
     @GetMapping("/admin/adminlist")

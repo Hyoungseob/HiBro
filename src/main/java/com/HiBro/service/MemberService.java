@@ -66,6 +66,9 @@ public class MemberService implements UserDetailsService  {
     public Member getMember(Long memberCode){
         return memberRepository.findById(memberCode).get();
     }
+    public Member getMember(String memberId){
+        return memberRepository.findById(memberId);
+    }
     public void updateMember(MemberDTO memberDTO){
         if(memberDTO.getCode() != null){
             Member member = memberRepository.findById(memberDTO.getCode()).get();

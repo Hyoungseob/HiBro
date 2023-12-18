@@ -6,49 +6,51 @@
     <link rel="stylesheet" th:href="@{/css/administrator/inquiry.css}">
 </th:block>
 <div layout:fragment="content">
-    <div class="noticeBoard_Inquiry_History">
+    <div class="noticeBoard_Inquiry_History" th:object="${inquiry}">
         <div>
             <h2 class="allMember">문의 내용<p></p>
             </h2>
         </div>
-        <div class="inquiry_header" th:object="${inquiry}">
+        <div class="inquiry_header" >
             <div class="title">
-                <p class="right">제목</p>
-                <div class="left" th:text="${inquiry.title}"></div>
+                <p class="left">제목</p>
+                <div class="right" th:text="${inquiry.title}"></div>
                 <div class="status">
                     <p>답변여부</p>
                     <div th:text="${inquiry.inquiryStatus}"></div>
                 </div>
             </div>
             <div class="regDate">
-                <p class="right">날짜</p>
-                <div class="left" th:text="${inquiry.regDate}"></div>
+                <p class="left">날짜</p>
+                <div class="right" th:text="${inquiry.regDate}"></div>
             </div>
             <div class="writer">
-                <p class="right">아이디</p>
-                <div class="left" th:text="${inquiry.member.id}"></div>
+                <p class="left">아이디</p>
+                <div class="right" th:text="${inquiry.member.id}"></div>
             </div>
 
         </div>
         <div class="content">
-            <p class="right">문의내용</p>
-            <div class="left">
+            <p class="left">문의내용</p>
+            <div class="right">
                 <div class="inquiry_content" th:text="${inquiry.content}"></div>
             </div>
         </div>
         <div th:object="${answerDTO}">
             <form class="inquiry_footer" action="/admin/inquiry_answer/new" role="form" method="post"
                 th:if="${#strings.isEmpty(answerDTO.content)}">
+                <input type="hidden" th:name="inquiry_code" th:value="${inquiry.code}"/>
                 <textarea class="answer" th:field="*{content}"></textarea>
                 <!-- 제출하면 inquiryStatus 문의 완료로 바꾸기 -->
                 <div>
                     <button class="btn" type="submit">제출</button>
                     <button class="btn">취소</button>
                 </div>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             </form>
             <div class="inquiry_footer_answer" th:unless="${#strings.isEmpty(answerDTO.content)}">
-                <p class="right" th:text="${answerDTO.member.name}">이름</p>
-                <div class="left">
+                <p class="left" th:text="${answerDTO.member.name}">이름</p>
+                <div class="right">
                     <div class="inquiry_content" th:text="${answerDTO.content}">답변</div>
                 </div>
             </div>

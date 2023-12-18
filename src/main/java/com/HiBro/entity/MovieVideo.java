@@ -28,12 +28,16 @@ public class MovieVideo {
     private String videoUrl;
 
     @Enumerated
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private VideoType videoType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_code")
     private Movie movie;
+
+    public static MovieVideo createMovieVideo(){
+        return new MovieVideo();
+    }
 
     public static MovieVideo createMovieVideo(MovieVideoDTO movieVideoDTO){
 
@@ -45,5 +49,11 @@ public class MovieVideo {
         movieVideo.setVideoType(movieVideoDTO.getVideoType());
 
         return movieVideo;
+    }
+
+    public void updateMovieVideo(String oriVideoName, String videoName, String videoUrl){
+        this.oriVideoName = oriVideoName;
+        this.videoName = videoName;
+        this.videoUrl = videoUrl;
     }
 }

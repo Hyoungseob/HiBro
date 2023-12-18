@@ -3,15 +3,14 @@ package com.HiBro.repository;
 import com.HiBro.constant.AgeLimit;
 import com.HiBro.constant.Role;
 import com.HiBro.entity.*;
-import org.junit.jupiter.api.Test;
+import com.HiBro.entity.Member;
+import com.HiBro.entity.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -59,6 +58,16 @@ class TicketingRepositoryTest {
 
     }
 
+<<<<<<<<< Temporary merge branch 1
+    Theater 테스트용_상영관_데이터(){
+        Theater theater = new Theater();
+
+        theater.setTheaterLocation("울산 삼산");
+        theater.setTheaterImg("사진");
+        theater.setTheaterType("조범준의 집");
+
+        return theaterRepository.save(theater);
+=========
     /*Screen 테스트용_상영관_데이터(){
         Screen screen = new Screen();
 
@@ -67,6 +76,7 @@ class TicketingRepositoryTest {
         screen.setTheaterType("조범준의 집");
 
         return theaterRepository.save(screen);
+>>>>>>>>> Temporary merge branch 2
     }
 
     @Test
@@ -80,6 +90,10 @@ class TicketingRepositoryTest {
         ticketingRepository.save(ticketing);
 
         ticketingRepository.findByMemberCodeOrderByCodeAsc(ticketing.getMember().getCode());
+<<<<<<<<< Temporary merge branch 1
+    }
+=========
     }*/
+>>>>>>>>> Temporary merge branch 2
 
 }

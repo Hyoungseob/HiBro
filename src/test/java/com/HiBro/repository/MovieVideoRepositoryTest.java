@@ -6,8 +6,8 @@ import com.HiBro.constant.VideoType;
 import com.HiBro.dto.MovieDTO;
 import com.HiBro.dto.MovieVideoDTO;
 import com.HiBro.entity.Movie;
-import com.HiBro.entity.MovieImg;
 import com.HiBro.entity.MovieVideo;
+import com.HiBro.service.MovieService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
 class MovieVideoRepositoryTest {
+    @Autowired
+    MovieService movieService;
     @Autowired
     MovieRepository movieRepository;
     @Autowired

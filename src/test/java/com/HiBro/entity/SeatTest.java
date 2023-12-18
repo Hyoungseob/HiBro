@@ -99,7 +99,7 @@ public class SeatTest {
 
 		Long screenDateCode = screenDateRepository.findAll().get(0).getCode();
 
-		seatService.deleteSeat(seatDTO);
+		seatService.deleteSeat(seatDTO.getCode());
 		List<Seat> seats = seatRepository.findSeatByScreenDateCode(screenDateCode);
 
 		for (Seat seat : seats) {

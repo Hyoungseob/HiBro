@@ -25,8 +25,8 @@ public class ScreenService {
 		return screenRepository.save(screen);
 	}
 
-	public void deleteScreen(ScreenDTO screenDTO) {
-		Screen screen = screenRepository.findByCode(screenDTO.getCode());
+	public void deleteScreen(Long screenCode) {
+		Screen screen = screenRepository.findByCode(screenCode);
 		screenDateService.deleteScreenDateList(screen);
 		screenRepository.delete(screen);
 	}

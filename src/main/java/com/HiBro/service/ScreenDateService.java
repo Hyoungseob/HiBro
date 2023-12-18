@@ -24,8 +24,8 @@ public class ScreenDateService {
 		return screenDateRepository.save(screenDate);
 	}
 
-	public void deleteScreenDate(ScreenDateDTO screenDateDTO) {
-		ScreenDate screenDate = screenDateRepository.findByCode(screenDateDTO.getCode());
+	public void deleteScreenDate(Long screenDateCode) {
+		ScreenDate screenDate = screenDateRepository.findByCode(screenDateCode);
 		seatService.deleteSeatList(screenDate);
 		screenDateRepository.delete(screenDate);
 	}

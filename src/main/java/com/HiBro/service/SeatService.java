@@ -23,8 +23,8 @@ public class SeatService {
 		return seatRepository.save(seat);
 	}
 
-	public void deleteSeat(SeatDTO seatDTO) {
-		Seat seat = seatRepository.findByCode(seatDTO.getCode());
+	public void deleteSeat(Long seatCode) {
+		Seat seat = seatRepository.findByCode(seatCode);
 		seatRepository.delete(seat);
 	}
 

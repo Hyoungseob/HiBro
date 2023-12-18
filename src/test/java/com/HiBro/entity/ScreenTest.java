@@ -72,7 +72,7 @@ public class ScreenTest {
 	@DisplayName("상영관 삭제 테스트")
 	public void deleteScreen() {
 		ScreenDTO screenDTO = this.createScreenList().get(3);
-		screenService.deleteScreen(screenDTO);
+		screenService.deleteScreen(screenDTO.getCode());
 
 		List<Screen> screenList = screenRepository.findAll();
 

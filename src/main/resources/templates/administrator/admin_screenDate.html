@@ -1,9 +1,79 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout2}">
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
 	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
+	<style>
+		.on {
+			display: inline-block;
+			margin: 0;
+		}
+
+		.off {
+			display: none;
+			margin: 0;
+		}
+	</style>
+</th:block>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		function deleteScreenDate(obj) {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var screenDateCode = obj.dataset.screen_date;
+			var screenCode = obj.dataset.screen;
+
+			var url = "/admin/screenDate/" + screenDateCode;
+			console.log(url);
+			console.log(screenCode);
+			console.log("screenDateCode : " + screenDateCode);
+			$.ajax({
+				url: url,
+				type: "DELETE",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				dataType: "json",
+				cache: false,
+				success: function (result, status) {
+					location.href = '/admin/screen/' + screenCode;
+				},
+
+				error: function (jqXHR, status, error) {
+					if (jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요');
+						location.href = '/member/login';
+					} else {
+						alert(jqXHR.responseJSON.message);
+					}
+				}
+			});
+		}
+
+		function isUpdate(obj) {
+			var code = obj.dataset.code;
+			var on = document.getElementsByClassName("on" + code);
+			var off = document.getElementsByClassName("off" + code);
+
+			for (var i = 0; i < on.length; i++) {
+				on[i].classList.remove("on");
+				on[i].classList.add("off");
+			}
+			for (var i = 0; i < off.length; i++) {
+				off[i].classList.remove("off");
+				off[i].classList.add("on");
+			}
+		}
+	</script>
 </th:block>
 <div layout:fragment="content">
 	<!--사용자 창 시작-->
@@ -23,8 +93,20 @@
 				<th:block th:each="screenDate, status:${screenDateList}">
 					<div>
 						<div class="theater_code">[[${screenDate.code}]]</div>
-						<div class="theater_location"><a th:href="'/admin/screenDate/'+${screenDate.code}">[[${screenDate.screeningDateTime}]]</a></div>
+						<div class="theater_location"><a
+								th:href="'/admin/screenDate/'+${screenDate.code}">[[${screenDate.screeningDateTime}]]</a>
+						</div>
 						<div class="theater_status">[[${screenDate.screeningTime}]]</div>
+						<div class="screenDate_updatebtn">
+							<button th:class="on+${screenDate.code} + ' on'" th:data-code="${screenDate.code}"
+								onclick="isUpdate(this)">수정</button>
+							<button th:class="off+${screenDate.code} + ' off'" th:data-code="${screenDate.code}"
+								th:data-point="10" onclick="updateScreenDate(this)">수정</button>
+						</div>
+						<div class="screenDate_deletebtn">
+							<button th:data-screen_date="${screenDate.code}" th:data-screen="${screen.code}"
+								onclick="deleteScreenDate(this)">삭제</button>
+						</div>
 					</div>
 				</th:block>
 			</div>
@@ -41,10 +123,11 @@
 				<a href="#" class="bt next">></a>
 				<a href="#" class="bt last">>></a>
 			</div>
-			<div class="bt_wrap">
-				<a href="#" class="on">목록</a>
-				<a href="#">수정</a>
-			</div>
+			<th:block>
+				<div class="bt_wrap">
+					<a th:href="'/admin/screen/' + ${screen.code} + '/new'">등록하기</a>
+				</div>
+			</th:block>
 		</div>
 	</div>
 </div>

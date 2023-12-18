@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -56,6 +57,24 @@ public class AdminController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "administrator/admin_theater_form";
 		}
+		return "redirect:/admin/theater";
+	}
+
+	@GetMapping("/admin/theater/{theaterCode}/update")
+	public String getTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
+		Theater theater = theaterRepository.findByCode(theaterCode);
+		TheaterDTO theaterDTO = TheaterDTO.of(theater);
+		model.addAttribute(theaterDTO);
+		return "/administrator/admin_theater_form";
+	}
+	@Transactional
+	@PostMapping("/admin/theater/{theaterCode}")
+	public String updateTheater(@RequestParam("theaterCode") Long theaterCode, TheaterDTO theaterDTO, Model model) {
+		Theater theater = theaterRepository.findByCode(theaterCode);
+		theaterDTO.setCode(theaterCode);
+		System.out.println(theaterDTO + "디티오");
+		theater.updateTheater(theaterDTO);
+		System.out.println(theater + "엔터티");
 		return "redirect:/admin/theater";
 	}
 

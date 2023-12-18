@@ -30,7 +30,8 @@ public class TheaterTest {
 
 	public TheaterDTO createTheater() {
 		TheaterDTO theaterDTO = new TheaterDTO();
-//		theaterDTO.setTheaterLocation("울산 남구 삼산동");
+		theaterDTO.setTheaterName("바보");
+		theaterDTO.setLocation(Location.DAEGU);
 		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
 		Theater theater = theaterService.saveTheater(theaterDTO);
 		theaterDTO.setCode(theater.getCode());
@@ -133,7 +134,8 @@ public class TheaterTest {
 		TheaterDTO theaterDTO = this.createTheater();
 		Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
 		System.out.println(theater);
-//		theaterDTO.setTheaterLocation("바뀜");
+		theaterDTO.setTheaterName("천재");
+		theaterDTO.setLocation(Location.BUSAN);
 		theaterDTO.setTheaterStatus(TheaterStatus.CLOSE);
 		theater.updateTheater(theaterDTO);
 		System.out.println(theater);

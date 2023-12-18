@@ -5,6 +5,7 @@ import com.HiBro.dto.TheaterDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Getter
@@ -40,6 +41,7 @@ public class Theater {
 		return theater;
 	}
 	public void updateTheater(TheaterDTO theaterDTO) {
+		this.theaterName = theaterDTO.getTheaterName();
 		this.location = theaterDTO.getLocation();
 		this.theaterStatus = theaterDTO.getTheaterStatus();
 	}

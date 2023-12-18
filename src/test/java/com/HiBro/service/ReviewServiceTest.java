@@ -46,7 +46,7 @@ class ReviewServiceTest{
         memberDTO.setName("테스트");
         memberDTO.setEmail("a@a");
         memberDTO.setRole(Role.USER);
-        memberDTO.setRegDate(LocalDateTime.now());
+        memberDTO.setRegDate(LocalDateTime.now().toLocalDate());
         return Member.createMember(memberDTO,encoder);
     }
     public Movie createMovie(){

@@ -1,45 +1,46 @@
 package com.HiBro.entity;
 
+import com.HiBro.constant.*;
 import com.HiBro.dto.TheaterDTO;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.*;
 
-@Entity
-@Table(name = "theater")
 @Getter
 @Setter
+@Entity
+@Table(name = "theater")
 @ToString
 public class Theater {
 	@Id
 	@Column(name = "theater_code")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long theaterCode;
+	private Long code;
 
 	@Column(nullable = false)
-	private String theaterImg;
+	private String theaterName;
 
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private String theaterLocation;
+	private Location location;
 
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private String theaterType;
-
-	//Order - OrderItem 관계랑 똑같음
-	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Seat> seats = new ArrayList();
+	private TheaterStatus theaterStatus;
 
 	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<TheaterDate> theaterDates = new ArrayList();
+	private List<Screen> screens = new ArrayList<>();
 
 	public static Theater createTheater(TheaterDTO theaterDTO) {
 		Theater theater = new Theater();
-		theater.setTheaterImg(theaterDTO.getTheaterImg());
-		theater.setTheaterLocation(theaterDTO.getTheaterLocation());
-		theater.setTheaterType(theaterDTO.getTheaterType());
-
+		theater.setLocation(theaterDTO.getLocation());
+		theater.setTheaterName(theaterDTO.getTheaterName());
+		theater.setTheaterStatus(theaterDTO.getTheaterStatus());
 		return theater;
-
+	}
+	public void updateTheater(TheaterDTO theaterDTO) {
+		this.location = theaterDTO.getLocation();
+		this.theaterStatus = theaterDTO.getTheaterStatus();
 	}
 }

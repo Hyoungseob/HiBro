@@ -2,33 +2,32 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="side">
-    <aside>
-        <div class="asideMenu">
-            <div class="managerProfile">
-                <p><img src="" alt=""></p>
-                <p>관리자님 환영합니다.</p>
-            </div>
-            <div class="memberManagement">
-                <ul>
-                    <li class="membership">회원 관리</li>
-                    <li id="membershipUser">사용자</li>
-                    <li id="membershipPoin">포인트 관리</li><!--접근성을 낮출것-->
-                    <li id="membershipInquiry">문의 내역</li>
-                </ul>
-            </div>
-            <div class="contentManagement">
-                <ul>
-                    <li class="contentManagementTitle">콘텐츠 관리</li>
-                    <li>메인페이지 비디오 관리</li>
-                    <li>메인페이지 포스터</li>
-                    <li>상영관 소개</li>
-                </ul>
-            </div>
-            <div class="logout">
-                <p>로그아웃</p>
-            </div>
+    <div class="asideMenu">
+        <div class="managerProfile">
+            <p><img src="" alt=""></p>
+            <p>관리자님 환영합니다.</p>
         </div>
-    </aside>
+        <div class="memberManagement">
+            <ul>
+                <li class="membership">회원 관리</li>
+                <li id="membershipUser"><a href="/admin">사용자</a></li>
+                <!-- <li id="membershipPoin"><a href="/admin/point">포인트 관리</a></li> -->
+                <li id="membershipInquiry"><a href="/admin/inquiry">문의 내역</a></li>
+                <li><a href="/admin/adminlist">관리자 설정</a></li>
+            </ul>
+        </div>
+        <div class="contentManagement">
+            <ul>
+                <li class="contentManagementTitle">콘텐츠 관리</li>
+                <li>메인페이지 비디오 관리</li>
+                <li>메인페이지 포스터</li>
+                <li><a href="/admin/theater">영화관 관리</a></li>
+            </ul>
+        </div>
+        <div class="logout">
+            <p>로그아웃</p>
+        </div>
+    </div>
 </div>
 
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout2}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
+	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
+</th:block>
+<div layout:fragment="content">
+	<!--사용자 창 시작-->
+	<div class="noticeBoard">
+		<div>
+			<th:block>
+				<h2 class="allMember" th:text="${theater.theaterName} + ' ' + ${screen.code} + '관 ' + ${#temporals.format(screenDate.screeningDateTime, 'yyyy년 MM월 dd일 HH시 mm분')} + ' 시간의 좌석 현황'"></h2>
+			</th:block>
+		</div>
+		<div class="board_list_wrap">
+			<div class="board_list">
+				<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
+					<div class="theater_code">번호</div>
+					<div class="theater_location">행</div>
+					<div class="theater_type">열</div>
+					<div class="theater_type">상태</div>
+				</div>
+				<th:block th:each="seat, status:${seatList}">
+					<div>
+						<div class="theater_code">[[${seat.code}]]</div>
+						<div class="theater_location">[[${seat.seatColumn}]]</div>
+						<div class="theater_status">[[${seat.seatRow}]]</div>
+						<div class="theater_status">[[${seat.seatStatus}]]</div>
+					</div>
+				</th:block>
+			</div>
+			<div class="board_page">
+				<a href="#" class="bt first">
+				</a>
+				<a href="#" class="bt prev">
+				</a>
+				<a href="#" class="num on">1</a>
+				<a href="#" class="bt">2</a>
+				<a href="#" class="bt">3</a>
+				<a href="#" class="bt">4</a>
+				<a href="#" class="bt">5</a>
+				<a href="#" class="bt next">></a>
+				<a href="#" class="bt last">>></a>
+			</div>
+			<div class="bt_wrap">
+				<a href="#" class="on">목록</a>
+				<a href="#">수정</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+</html>

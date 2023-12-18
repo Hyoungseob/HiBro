@@ -3,6 +3,7 @@ package com.HiBro.entity;
 import com.HiBro.constant.Role;
 import com.HiBro.dto.MemberDTO;
 import com.HiBro.repository.MemberRepository;
+import com.HiBro.service.MemberService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,8 @@ public class MemberTest {
 	@Autowired
 	MemberRepository memberRepository;
 	@Autowired
+	MemberService memberService;
+	@Autowired
 	PasswordEncoder encoder;
 
 	@Test
@@ -31,11 +34,11 @@ public class MemberTest {
 		memberDTO.setName("테스트");
 		memberDTO.setEmail("a@a");
 		memberDTO.setRole(Role.USER);
-		memberDTO.setRegDate(LocalDateTime.now());
+		memberDTO.setRegDate(LocalDateTime.now().toLocalDate());
 
 		Member member = Member.createMember(memberDTO, encoder);
 		System.out.println(".. ");
-		memberRepository.save(member);
+		memberService.saveMember(member);
 		Member savedMember = memberRepository.findById("test");
 		System.out.println(savedMember.toString());
 	}

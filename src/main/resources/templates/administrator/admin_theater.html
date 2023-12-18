@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layouts/layout2}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
+	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
+</th:block>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		function deleteTheater(obj) {
+			var getCode = obj.dataset.id;
+			var url = "/admin/theater/" + getCode;
+
+			$.ajax({
+				url: url,
+				type: "DELETE",
+				dataType: "json",
+				cache: false,
+				success: function (result, status) {
+					location.href = '/admin/theater';
+				},
+
+				error: function (jqXHR, status, error) {
+					if (jqXHR = '401') {
+						alert('로그인 후 이용해주세요');
+					} else {
+						alert(jqXHR.responseJSON.message);
+					}
+				}
+			});
+		}
+	</script>
+</th:block>
+<div layout:fragment="content">
+	<!--사용자 창 시작-->
+	<div class="noticeBoard">
+		<div>
+			<h2 class="allMember">전체 영화관<p></p>
+			</h2>
+			<div></div>
+		</div>
+		<div class="board_list_wrap">
+			<div class="board_list">
+				<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
+					<div class="theater_code">번호</div>
+					<div class="theater_location">이름</div>
+					<div class="theater_location">위치</div>
+					<div class="theater_status">상태</div>
+				</div>
+				<th:block th:each="theater, status:${theaterList}">
+					<div>
+						<div class="theater_code">[[${theater.getCode}]]</div>
+						<div class="theater_code"><a th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterName}]]</a></div>
+						<div class="theater_location">[[${theater.getLocation}]]</div>
+						<div class="theater_status">[[${theater.getTheaterStatus}]]</div>
+						<button type="button" class="close" aria-label="Close">
+										<span aria-hidden="true" th:data-id="${theater.getCode}"
+											  onclick="deleteTheater(this)">&times;</span>
+						</button>
+					</div>
+
+				</th:block>
+			</div>
+			<div class="board_page">
+				<a href="#" class="bt first">
+				</a>
+				<a href="#" class="bt prev">
+				</a>
+				<a href="#" class="num on">1</a>
+				<a href="#" class="bt">2</a>
+				<a href="#" class="bt">3</a>
+				<a href="#" class="bt">4</a>
+				<a href="#" class="bt">5</a>
+				<a href="#" class="bt next">></a>
+				<a href="#" class="bt last">>></a>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+</html>

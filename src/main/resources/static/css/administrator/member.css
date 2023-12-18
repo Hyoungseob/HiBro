@@ -1,0 +1,52 @@
+.board_list .member_code {
+	width: 10%;
+}
+.board_list .member_id {
+	width: 10%;
+	text-align: center;
+}
+
+.board_list .member_name {
+	width: 10%;
+}
+
+.board_list .member_email {
+	width: 20%;
+}
+
+.board_list .member_point {
+	width: 10%;
+}
+.board_list .member_regdate{
+    width: 20%;
+}
+.board_list .member_deletebtn{
+    width: 10%;
+}
+.board_list .member_updatebtn{
+	width: 10%;
+}
+.search{
+	display: flex;
+	align-items: center;
+}
+.on{
+	display: inline-block;
+	margin:0;
+}
+.off{
+	display: none;
+	margin:0;
+}
+.member_updatebtn>button{
+	padding: 2px 2px;
+    border: none;
+	background-color: var(--main-corlor);
+	color: var(--font-color);
+}
+.member_deletebtn>button{
+	padding: 2px 2px;
+    border: none;
+	background-color: var(--main-corlor);
+	color: var(--font-color);
+}

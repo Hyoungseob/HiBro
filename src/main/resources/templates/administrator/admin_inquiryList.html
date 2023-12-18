@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout2}">
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/administrator/board.css}">
+    <link rel="stylesheet" th:href="@{/css/administrator/inquiryList.css}">
+</th:block>
+<div layout:fragment="content">
+    <div class="noticeBoard_Inquiry_History">
+        <div>
+            <h2 class="allMember">전체 문의<p></p>
+            </h2>
+        </div>
+        <div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top">
+                    <div class="inquiry_code">번호</div>
+                    <div class="inquiry_title">내용</div>
+                    <div class="inquiry_member">글쓴이</div>
+                    <div class="inquiry_regdate">작성일</div>
+                    <div class="inquiry_status">답변여부</div>
+                </div>
+                <th:block th:each="item, status:${inquiryList.getContent()}">
+                    <div>
+                        <div class="inquiry_code">[[${item.code}]]</div>
+                        <div class="inquiry_title"><a th:href="@{'/admin/inquiry/'+${item.code}}">[[${item.title}]]</a></div>
+                        <div class="inquiry_member">[[${item.member.id}]]</div>
+                        <div class="inquiry_regdate">[[${item.regDate}]]</div>
+                        <div class="inquiry_status" th:if="${item.inquiryStatus == T(com.HiBro.constant.InquiryStatus).ING}" th:text="문의중"></div>
+                        <div class="inquiry_status" th:unless="${item.inquiryStatus == T(com.HiBro.constant.InquiryStatus).ING}" th:text="문의완료"></div>
+                    </div>
+                </th:block>
+            </div>
+            <div class="board_page" th:with="start=${(inquiryList.number/maxPage)*maxPage+1},end=(${(inquiryList.totalPages==0)? 1:(start+(maxPage-1)< inquiryList.totalPages? start+(maxPage-1) : inquiryList.totalPages)})">
+				<div>
+					<a th:href="@{'?page=0'}" class="bt first"><<</a>
+					<a th:href="@{'?page='+${inquiryList.number==0? 0:inquiryList.number-1}}" class="bt prev"><</a>
+					<th:block th:each="page : ${#numbers.sequence(start,end)}" th:classappend="${inquiryList.number eq page-1}?'active':''">
+						<a th:href="@{'?page='+${page-1}}"th:inline="text">[[${page}]]</a>
+					</th:block>
+					<a th:href="@{'?page='+${inquiryList.number==inquiryList.totalPages-1? inquiryList.totalPages-1:inquiryList.number+1}}" class="bt next">></a>
+					<a th:href="@{'?page='+${inquiryList.totalPages-1}}" class="bt last">>></a>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+
+</html>

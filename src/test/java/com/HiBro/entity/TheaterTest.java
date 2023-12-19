@@ -137,7 +137,7 @@ public class TheaterTest {
 		theaterDTO.setTheaterName("천재");
 		theaterDTO.setLocation(Location.BUSAN);
 		theaterDTO.setTheaterStatus(TheaterStatus.CLOSE);
-		theater.updateTheater(theaterDTO);
+		//theater.updateTheater(theaterDTO);
 		System.out.println(theater);
 	}
 }

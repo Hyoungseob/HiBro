@@ -85,7 +85,7 @@ public class SeatTest {
 		this.createSeatList();
 
 		Long screenCode = screenDateRepository.findAll().get(0).getCode();
-		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenCode);
+		List<Seat> seatList = seatRepository.findByScreenDateCode(screenCode);
 
 		for (Seat seat : seatList) {
 			System.out.println(seat);
@@ -100,7 +100,7 @@ public class SeatTest {
 		Long screenDateCode = screenDateRepository.findAll().get(0).getCode();
 
 		seatService.deleteSeat(seatDTO.getCode());
-		List<Seat> seats = seatRepository.findSeatByScreenDateCode(screenDateCode);
+		List<Seat> seats = seatRepository.findByScreenDateCode(screenDateCode);
 
 		for (Seat seat : seats) {
 			System.out.println(seat);

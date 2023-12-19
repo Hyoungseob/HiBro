@@ -29,9 +29,13 @@ public class SeatService {
 	}
 
 	public void deleteSeatList(ScreenDate screenDate) {
-		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenDate.getCode());
+		List<Seat> seatList = seatRepository.findByScreenDateCode(screenDate.getCode());
 		for (Seat seat : seatList) {
 			seatRepository.delete(seat);
 		}
+	}
+
+	public List<Seat> getSeatList(Long screenDateCode) {
+		return seatRepository.findByScreenDateCode(screenDateCode);
 	}
 }

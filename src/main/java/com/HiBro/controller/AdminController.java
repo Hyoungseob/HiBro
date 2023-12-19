@@ -3,11 +3,8 @@ package com.HiBro.controller;
 import com.HiBro.constant.*;
 import com.HiBro.dto.*;
 import com.HiBro.entity.*;
-import com.HiBro.repository.*;
 import com.HiBro.service.*;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.internal.util.Members;
-import org.springframework.data.domain.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -16,9 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,22 +22,19 @@ public class AdminController {
 	private final ScreenService screenService;
 	private final ScreenDateService screenDateService;
 	private final SeatService seatService;
-	private final TheaterRepository theaterRepository;
-	private final ScreenRepository screenRepository;
-	private final ScreenDateRepository screenDateRepository;
-	private final SeatRepository seatRepository;
 
 	@GetMapping("/admin/theater")
 	public String theater(Model model) {
-		//repository 말고 service로 처리?
-		List<Theater> theaterList = theaterRepository.findAll();
+		List<Theater> theaterList = theaterService.getTheaterList();
 		model.addAttribute("theaterList", theaterList);
 		return "administrator/admin_theater";
 	}
 
 	@GetMapping("/admin/theater/new")
 	public String theaterForm(Model model) {
+
 		model.addAttribute("theaterDTO", new TheaterDTO());
+
 		return "administrator/admin_theater_form";
 	}
 
@@ -62,26 +54,25 @@ public class AdminController {
 
 	@GetMapping("/admin/theater/{theaterCode}/update")
 	public String getTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
-		Theater theater = theaterRepository.findByCode(theaterCode);
+		Theater theater = theaterService.getTheater(theaterCode);
 		TheaterDTO theaterDTO = TheaterDTO.of(theater);
 		model.addAttribute(theaterDTO);
 		return "/administrator/admin_theater_form";
 	}
+
 	@Transactional
 	@PostMapping("/admin/theater/{theaterCode}")
 	public String updateTheater(@RequestParam("theaterCode") Long theaterCode, TheaterDTO theaterDTO, Model model) {
-		Theater theater = theaterRepository.findByCode(theaterCode);
+		Theater theater = theaterService.getTheater(theaterCode);
 		theaterDTO.setCode(theaterCode);
-		System.out.println(theaterDTO + "디티오");
 		theater.updateTheater(theaterDTO);
-		System.out.println(theater + "엔터티");
 		return "redirect:/admin/theater";
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}")
 	public String theaterDtl(@PathVariable("theaterCode") Long theaterCode, Model model) {
-		List<Screen> screenList = screenRepository.findScreenByTheaterCode(theaterCode);
-		Theater theater = theaterRepository.findByCode(theaterCode);
+		List<Screen> screenList = screenService.getScreenList(theaterCode);
+		Theater theater = theaterService.getTheater(theaterCode);
 		model.addAttribute(theater);
 		model.addAttribute("screenList", screenList);
 		return "administrator/admin_screen";
@@ -116,8 +107,8 @@ public class AdminController {
 
 	@GetMapping("/admin/screen/{screenCode}")
 	public String screenDtl(@PathVariable("screenCode") Long screenCode, Model model) {
-		List<ScreenDate> screenDateList = screenDateRepository.findScreenDateByScreenCode(screenCode);
-		Screen screen = screenRepository.findByCode(screenCode);
+		List<ScreenDate> screenDateList = screenDateService.getScreenDateList(screenCode);
+		Screen screen = screenService.getScreen(screenCode);
 		Theater theater = screen.getTheater();
 		model.addAttribute("screenDateList", screenDateList);
 		model.addAttribute(screen);
@@ -155,8 +146,8 @@ public class AdminController {
 
 	@GetMapping("/admin/screenDate/{screenDateCode}")
 	public String screenDateDtl(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
-		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenDateCode);
-		ScreenDate screenDate = screenDateRepository.findByCode(screenDateCode);
+		List<Seat> seatList = seatService.getSeatList(screenDateCode);
+		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
 		Screen screen = screenDate.getScreen();
 		Theater theater = screen.getTheater();
 		model.addAttribute(theater);

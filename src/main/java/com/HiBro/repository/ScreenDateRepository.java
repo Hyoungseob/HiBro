@@ -9,6 +9,5 @@ import java.util.List;
 public interface ScreenDateRepository extends JpaRepository<ScreenDate, Long> {
 	ScreenDate findByCode(Long code);
 
-	@Query("SELECT S FROM ScreenDate S WHERE S.screen.code = :screenCode")
-	List<ScreenDate> findScreenDateByScreenCode(@Param("screenCode") Long screenCode);
+	List<ScreenDate> findByScreenCode(Long screenCode);
 }

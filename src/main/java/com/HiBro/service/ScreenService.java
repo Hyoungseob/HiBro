@@ -18,6 +18,10 @@ public class ScreenService {
 	private final TheaterRepository theaterRepository;
 	private final ScreenDateService screenDateService;
 
+	public Screen getScreen(Long screenCode) {
+		return screenRepository.findByCode(screenCode);
+	}
+
 	public Screen saveScreen(ScreenDTO screenDTO, Long theaterCode) {
 		Screen screen = Screen.createScreen(screenDTO);
 		Theater theater = theaterRepository.findByCode(theaterCode);
@@ -32,10 +36,14 @@ public class ScreenService {
 	}
 
 	public void deleteScreenList(Long theaterCode) {
-		List<Screen> screenList = screenRepository.findScreenByTheaterCode(theaterCode);
+		List<Screen> screenList = screenRepository.findByTheaterCode(theaterCode);
 		for (Screen screen : screenList) {
 			screenDateService.deleteScreenDateList(screen);
 			screenRepository.delete(screen);
 		}
+	}
+
+	public List<Screen> getScreenList(Long theaterCode) {
+		return screenRepository.findByTheaterCode(theaterCode);
 	}
 }

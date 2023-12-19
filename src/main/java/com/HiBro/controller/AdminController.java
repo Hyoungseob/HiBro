@@ -155,6 +155,22 @@ public class AdminController {
 		return "redirect:/admin/screen/" + screenCode;
 	}
 
+	@GetMapping("/admin/screenDate/{screenDateCode}/update")
+	public String getScreenDate(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
+		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
+		ScreenDateDTO screenDateDTO = ScreenDateDTO.of(screenDate);
+		model.addAttribute(screenDateDTO);
+		return "/administrator/admin_screenDate_form";
+	}
+
+	@PostMapping("/admin/screenDate/{screenDateCode}")
+	public String updateScreenDate(@RequestParam("screenDateCode") Long screenDateCode, ScreenDateDTO screenDateDTO, Model model) {
+		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
+		screenDateDTO.setCode(screenDateCode);
+		screenDateService.updateScreenDate(screenDateDTO);
+		return "redirect:/admin/screen/" + screenDate.getScreen().getCode();
+	}
+
 	@DeleteMapping("/admin/screenDate/{screenDateCode}")
 	public @ResponseBody ResponseEntity deleteScreenDate(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
 		screenDateService.deleteScreenDate(screenDateCode);

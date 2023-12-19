@@ -1,5 +1,6 @@
 package com.HiBro.service;
 
+import com.HiBro.dto.ScreenDTO;
 import com.HiBro.dto.ScreenDateDTO;
 import com.HiBro.entity.*;
 import com.HiBro.repository.*;
@@ -20,6 +21,12 @@ public class ScreenDateService {
 	public ScreenDate getScreenDate(Long screenDate) {
 		return screenDateRepository.findByCode(screenDate);
 	}
+
+	public void updateScreenDate(ScreenDateDTO screenDateDTO) {
+		ScreenDate screenDate = screenDateRepository.findByCode(screenDateDTO.getCode());
+		screenDate.updateScreenDate(screenDateDTO);
+	}
+
 	public ScreenDate saveScreenDate(ScreenDateDTO screenDateDTO, Long screenCode) {
 		Screen screen = screenRepository.findByCode(screenCode);
 		ScreenDate screenDate = ScreenDate.createScreenDate(screenDateDTO);
@@ -41,7 +48,7 @@ public class ScreenDateService {
 		}
 	}
 
-	public List<ScreenDate> getScreenDateList (Long screenCode) {
+	public List<ScreenDate> getScreenDateList(Long screenCode) {
 		return screenDateRepository.findByScreenCode(screenCode);
 	}
 }

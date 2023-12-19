@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,7 +41,10 @@ public class MemberController {
 	}
 
 	@GetMapping("/login")
-	public String loginMember() {
+	public String loginMember(Principal principal) {
+		if (principal != null) {
+			return "redirect:/";
+		}
 		return "/login_form";
 	}
 

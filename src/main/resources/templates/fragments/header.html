@@ -28,8 +28,9 @@
 							<li>상영스케줄</li>
 						</ul>
 					</div>
-					<div>로그인</div>
-					<div>회원가입</div>
+					<a href="/member/login"><div sec:authorize="isAnonymous()">로그인</div></a>
+					<a href="/member/new"><div sec:authorize="isAnonymous()">회원가입</div></a>
+					<a href="/member/logout"><div sec:authorize="isAuthenticated()">로그아웃</div></a>
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,6 @@
 package com.HiBro.service;
 
 import com.HiBro.dto.ScreenDTO;
-import com.HiBro.dto.TheaterDTO;
 import com.HiBro.entity.*;
 import com.HiBro.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +19,11 @@ public class ScreenService {
 
 	public Screen getScreen(Long screenCode) {
 		return screenRepository.findByCode(screenCode);
+	}
+
+	public void updateScreen(ScreenDTO screenDTO) {
+		Screen screen = screenRepository.findByCode(screenDTO.getCode());
+		screen.updateScreen(screenDTO);
 	}
 
 	public Screen saveScreen(ScreenDTO screenDTO, Long theaterCode) {

@@ -38,4 +38,9 @@ public class Screen {
 		screen.setScreenType(screenDTO.getScreenType());
 		return screen;
 	}
+
+	public void updateScreen(ScreenDTO screenDTO) {
+		this.screenLocation = screenDTO.getScreenLocation();
+		this.screenType = screenDTO.getScreenType();
+	}
 }

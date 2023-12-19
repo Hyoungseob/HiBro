@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -32,9 +31,7 @@ public class AdminController {
 
 	@GetMapping("/admin/theater/new")
 	public String theaterForm(Model model) {
-
 		model.addAttribute("theaterDTO", new TheaterDTO());
-
 		return "administrator/admin_theater_form";
 	}
 
@@ -60,28 +57,26 @@ public class AdminController {
 		return "/administrator/admin_theater_form";
 	}
 
-	@Transactional
 	@PostMapping("/admin/theater/{theaterCode}")
 	public String updateTheater(@RequestParam("theaterCode") Long theaterCode, TheaterDTO theaterDTO, Model model) {
-		Theater theater = theaterService.getTheater(theaterCode);
 		theaterDTO.setCode(theaterCode);
-		theater.updateTheater(theaterDTO);
+		theaterService.updateTheater(theaterDTO);
 		return "redirect:/admin/theater";
-	}
-
-	@GetMapping("/admin/theater/{theaterCode}")
-	public String theaterDtl(@PathVariable("theaterCode") Long theaterCode, Model model) {
-		List<Screen> screenList = screenService.getScreenList(theaterCode);
-		Theater theater = theaterService.getTheater(theaterCode);
-		model.addAttribute(theater);
-		model.addAttribute("screenList", screenList);
-		return "administrator/admin_screen";
 	}
 
 	@DeleteMapping("/admin/theater/{theaterCode}")
 	public @ResponseBody ResponseEntity deleteTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
 		theaterService.deleteTheater(theaterCode);
 		return new ResponseEntity(theaterCode, HttpStatus.OK);
+	}
+
+	@GetMapping("/admin/theater/{theaterCode}")
+	public String screen(@PathVariable("theaterCode") Long theaterCode, Model model) {
+		List<Screen> screenList = screenService.getScreenList(theaterCode);
+		Theater theater = theaterService.getTheater(theaterCode);
+		model.addAttribute(theater);
+		model.addAttribute("screenList", screenList);
+		return "administrator/admin_screen";
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}/new")
@@ -105,8 +100,30 @@ public class AdminController {
 		return "redirect:/admin/theater/" + theaterCode;
 	}
 
+	@GetMapping("/admin/screen/{screenCode}/update")
+	public String getScreen(@PathVariable("screenCode") Long screenCode, Model model) {
+		Screen screen = screenService.getScreen(screenCode);
+		ScreenDTO screenDTO = ScreenDTO.of(screen);
+		model.addAttribute(screenDTO);
+		return "/administrator/admin_screen_form";
+	}
+
+	@PostMapping("/admin/screen/{screenCode}")
+	public String updateScreen(@RequestParam("screenCode") Long screenCode, ScreenDTO screenDTO, Model model) {
+		Screen screen = screenService.getScreen(screenCode);
+		screenDTO.setCode(screenCode);
+		screenService.updateScreen(screenDTO);
+		return "redirect:/admin/theater/" + screen.getTheater().getCode();
+	}
+
+	@DeleteMapping("/admin/screen/{screenCode}")
+	public @ResponseBody ResponseEntity deleteScreen(@PathVariable("screenCode") Long screenCode, Model model) {
+		screenService.deleteScreen(screenCode);
+		return new ResponseEntity(screenCode, HttpStatus.OK);
+	}
+
 	@GetMapping("/admin/screen/{screenCode}")
-	public String screenDtl(@PathVariable("screenCode") Long screenCode, Model model) {
+	public String screenDate(@PathVariable("screenCode") Long screenCode, Model model) {
 		List<ScreenDate> screenDateList = screenDateService.getScreenDateList(screenCode);
 		Screen screen = screenService.getScreen(screenCode);
 		Theater theater = screen.getTheater();
@@ -114,12 +131,6 @@ public class AdminController {
 		model.addAttribute(screen);
 		model.addAttribute(theater);
 		return "administrator/admin_screenDate";
-	}
-
-	@DeleteMapping("/admin/screen/{screenCode}")
-	public @ResponseBody ResponseEntity deleteScreen(@PathVariable("screenCode") Long screenCode, Model model) {
-		screenService.deleteScreen(screenCode);
-		return new ResponseEntity(screenCode, HttpStatus.OK);
 	}
 
 	@GetMapping("/admin/screen/{screenCode}/new")
@@ -144,8 +155,14 @@ public class AdminController {
 		return "redirect:/admin/screen/" + screenCode;
 	}
 
+	@DeleteMapping("/admin/screenDate/{screenDateCode}")
+	public @ResponseBody ResponseEntity deleteScreenDate(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
+		screenDateService.deleteScreenDate(screenDateCode);
+		return new ResponseEntity(screenDateCode, HttpStatus.OK);
+	}
+
 	@GetMapping("/admin/screenDate/{screenDateCode}")
-	public String screenDateDtl(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
+	public String seat(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
 		List<Seat> seatList = seatService.getSeatList(screenDateCode);
 		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
 		Screen screen = screenDate.getScreen();
@@ -155,12 +172,6 @@ public class AdminController {
 		model.addAttribute(screenDate);
 		model.addAttribute("seatList", seatList);
 		return "administrator/admin_seat";
-	}
-
-	@DeleteMapping("/admin/screenDate/{screenDateCode}")
-	public @ResponseBody ResponseEntity deleteScreenDate(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
-		screenDateService.deleteScreenDate(screenDateCode);
-		return new ResponseEntity(screenDateCode, HttpStatus.OK);
 	}
 
 	@GetMapping("/admin/screenDate/{screenDateCode}/new")

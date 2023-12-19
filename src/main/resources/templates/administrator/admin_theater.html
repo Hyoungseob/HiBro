@@ -75,8 +75,7 @@
 				<th:block th:each="theater, status:${theaterList}">
 					<div>
 						<div class="theater_code">[[${theater.getCode}]]</div>
-						<div class="theater_code"><a
-								th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterName}]]</a></div>
+						<div class="theater_code"><a th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterName}]]</a></div>
 						<div class="theater_location">[[${theater.getLocation}]]</div>
 						<div class="theater_status">[[${theater.getTheaterStatus}]]</div>
 						<div class="theater_updateBtn">

@@ -19,8 +19,14 @@ public class TheaterService {
 	public Theater getTheater(Long theaterCode) {
 		return theaterRepository.findByCode(theaterCode);
 	}
+
 	public List<Theater> getTheaterList() {
 		return theaterRepository.findAll();
+	}
+
+	public void updateTheater(TheaterDTO theaterDTO) {
+		Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
+		theater.updateTheater(theaterDTO);
 	}
 
 	public Theater saveTheater(TheaterDTO theaterDTO) {

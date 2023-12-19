@@ -217,4 +217,20 @@ public class AdminController {
 		seatService.deleteSeat(seatCode);
 		return new ResponseEntity(seatCode, HttpStatus.OK);
 	}
+
+	@GetMapping("/admin/seat/{seatCode}/update")
+	public String getSeat(@PathVariable("seatCode") Long seatCode, Model model) {
+		Seat seat = seatService.getSeat(seatCode);
+		SeatDTO seatDTO = SeatDTO.of(seat);
+		model.addAttribute(seatDTO);
+		return "/administrator/admin_seat_form";
+	}
+
+	@PostMapping("/admin/seat/{seatCode}")
+	public String updateSeat(@RequestParam("seatCode") Long seatCode, SeatDTO seatDTO, Model model) {
+		Seat seat = seatService.getSeat(seatCode);
+		seatDTO.setCode(seatCode);
+		seatService.updateSeat(seatDTO);
+		return "redirect:/admin/screenDate/" + seat.getScreenDate().getCode();
+	}
 }

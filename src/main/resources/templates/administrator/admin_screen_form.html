@@ -20,7 +20,7 @@
 			</select>
 		</div>
 		<div th:if="${#strings.isEmpty(screenDTO.code)}" style="text-align: center">
-			<button th:formaction="@{/admin/screen/new}" type="submit" class="btn btn-primary">저장</button>
+			<button type="submit" class="btn btn-primary">저장</button>
 		</div>
 		<div th:unless="${#strings.isEmpty(screenDTO.code)}" style="text-align: center">
 			<button th:formaction="@{'/admin/screen/' + ${screenDTO.code}}" type="submit" class="btn btn-primary">수정</button>

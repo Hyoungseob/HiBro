@@ -20,7 +20,7 @@
 			</select>
 		</div>
 		<div th:if="${#strings.isEmpty(screenDateDTO.code)}" style="text-align: center">
-			<button th:formaction="@{/admin/screenDate/new}" type="submit" class="btn btn-primary">저장</button>
+			<button type="submit" class="btn btn-primary">저장</button>
 		</div>
 		<div th:unless="${#strings.isEmpty(screenDateDTO.code)}" style="text-align: center">
 			<button th:formaction="@{'/admin/screenDate/' + ${screenDateDTO.code}}" type="submit" class="btn btn-primary">수정</button>

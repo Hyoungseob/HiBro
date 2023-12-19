@@ -1,5 +1,6 @@
 package com.HiBro.service;
 
+import com.HiBro.dto.ScreenDTO;
 import com.HiBro.dto.SeatDTO;
 import com.HiBro.entity.*;
 import com.HiBro.repository.*;
@@ -15,6 +16,15 @@ import java.util.List;
 public class SeatService {
 	private final ScreenDateRepository screenDateRepository;
 	private final SeatRepository seatRepository;
+
+	public Seat getSeat(Long seatCode) {
+		return seatRepository.findByCode(seatCode);
+	}
+
+	public void updateSeat(SeatDTO seatDTO) {
+		Seat seat = seatRepository.findByCode(seatDTO.getCode());
+		seat.updateSeat(seatDTO);
+	}
 
 	public Seat saveSeat(SeatDTO seatDTO, Long screenDateCode) {
 		ScreenDate screenDate = screenDateRepository.findByCode(screenDateCode);

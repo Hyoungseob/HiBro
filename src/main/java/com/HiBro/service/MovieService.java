@@ -47,4 +47,11 @@ public class MovieService {
             movieRepository.delete(movie);
         }
     }
+
+   /* public List<MovieChartFormDTO> getMovieList(){
+        List<MovieChartFormDTO> movieChartList = new ArrayList<>();
+
+        List<Movie> movie = movieRepository.findAll();
+
+    }*/
 }

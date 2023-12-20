@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +104,8 @@ class MovieServiceTest {
         Movie movie = 테스트용_영화데이터_생성();
         테스트용_영화이미지_데이터_생성(movie);
         테스트용_영화영상_데이터_생성(movie);
+
+        //movie.setPremieredate(LocalDateTime.now().toLocalDate());
 
         Movie reposiMovieData = movieRepository.findByCode(movie.getCode());
 

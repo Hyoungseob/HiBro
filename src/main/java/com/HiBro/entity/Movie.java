@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,8 @@ public class Movie {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<MovieVideo> movieVideos = new ArrayList<>();
 
+    private LocalDate premiereDate;
+
     public static Movie createMovie(MovieDTO movieDTO){
         Movie movie = new Movie();
 
@@ -55,6 +58,7 @@ public class Movie {
         movie.setSummary(movieDTO.getSummary());
         movie.setGenre(movieDTO.getGenre());
         movie.setAgeLimit(movieDTO.getAgeLimit());
+        movie.setPremiereDate(movieDTO.getPremiereDate());
 
         return movie;
     }

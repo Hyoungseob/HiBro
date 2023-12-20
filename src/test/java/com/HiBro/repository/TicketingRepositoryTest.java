@@ -58,8 +58,7 @@ class TicketingRepositoryTest {
 
     }
 
-<<<<<<<<< Temporary merge branch 1
-    Theater 테스트용_상영관_데이터(){
+   /* Theater 테스트용_상영관_데이터() {
         Theater theater = new Theater();
 
         theater.setTheaterLocation("울산 삼산");
@@ -67,7 +66,8 @@ class TicketingRepositoryTest {
         theater.setTheaterType("조범준의 집");
 
         return theaterRepository.save(theater);
-=========
+    }*/
+
     /*Screen 테스트용_상영관_데이터(){
         Screen screen = new Screen();
 
@@ -94,6 +94,6 @@ class TicketingRepositoryTest {
     }
 =========
     }*/
->>>>>>>>> Temporary merge branch 2
+
 
 }

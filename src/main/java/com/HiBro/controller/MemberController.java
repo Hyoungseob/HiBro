@@ -17,8 +17,9 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
-	private final MemberService	memberService;
+	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
+
 	@GetMapping("/new")
 	public String theater(Model model) {
 		model.addAttribute("memberDTO", new MemberDTO());

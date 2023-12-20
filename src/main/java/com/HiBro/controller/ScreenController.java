@@ -24,7 +24,7 @@ public class ScreenController {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Page<Screen> screenList = screenRepository.findAll(pageable);
 		model.addAttribute("maxPage", 5);
-		model.addAttribute("screenList" , screenList);
+		model.addAttribute("screenList", screenList);
 		return "special_screen";
 	}
 

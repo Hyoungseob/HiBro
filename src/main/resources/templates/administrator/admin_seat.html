@@ -92,14 +92,17 @@
 					</div>
 				</th:block>
 			</div>
-			<div class="board_page" th:with="start=${(seatList.number/maxPage)*maxPage+1},end=(${(seatList.totalPages==0)? 1:(start+(maxPage-1)< seatList.totalPages? start+(maxPage-1) : seatList.totalPages)})">
+			<div class="board_page"
+				th:with="start=${(seatList.number/maxPage)*maxPage+1},end=(${(seatList.totalPages==0)? 1:(start+(maxPage-1)< seatList.totalPages? start+(maxPage-1) : seatList.totalPages)})">
 				<div>
 					<a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
 					<a th:href="@{'?page='+${seatList.number==0? 0:seatList.number-1}}" class="bt prev">&lt;</a>
-					<th:block th:each="page : ${#numbers.sequence(start,end)}" th:classappend="${seatList.number eq page-1}?'active':''">
-						<a th:href="@{'?page='+${page-1}}"th:inline="text">[[${page}]]</a>
+					<th:block th:each="page : ${#numbers.sequence(start,end)}"
+						th:classappend="${seatList.number eq page-1}?'active':''">
+						<a th:href="@{'?page='+${page-1}}" th:inline="text">[[${page}]]</a>
 					</th:block>
-					<a th:href="@{'?page='+${seatList.number==seatList.totalPages-1? seatList.totalPages-1:seatList.number+1}}" class="bt next">&gt;</a>
+					<a th:href="@{'?page='+${seatList.number==seatList.totalPages-1? seatList.totalPages-1:seatList.number+1}}"
+						class="bt next">&gt;</a>
 					<a th:href="@{'?page='+${seatList.totalPages-1}}" class="bt last">&gt;&gt;</a>
 				</div>
 			</div>

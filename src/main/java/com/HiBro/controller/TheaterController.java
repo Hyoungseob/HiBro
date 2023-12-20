@@ -12,8 +12,8 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class TheaterController {
-
 	private final TheaterRepository theaterRepository;
+
 	@GetMapping("/theater")
 	public String theater(Model model) {
 		List<Theater> theaterList = theaterRepository.findAll();

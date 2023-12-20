@@ -26,17 +26,17 @@
 
 <body>
 
-<!-- th:replace="[파일 경로 :: 조각 이름]" -->
-<div th:replace="~{fragments/admin_header::header}"></div>
+	<!-- th:replace="[파일 경로 :: 조각 이름]" -->
+	<div th:replace="~{fragments/admin_header::header}"></div>
 
-<div class="asidePlusMain">
-	<aside>
-		<div th:replace="~{fragments/side::side}"></div>
-	</aside>
-	<main>
-		<div layout:fragment="content" class="content"></div>
-	</main>
-</div>
+	<div class="asidePlusMain">
+		<aside>
+			<div th:replace="~{fragments/side::side}"></div>
+		</aside>
+		<main>
+			<div layout:fragment="content" class="content"></div>
+		</main>
+	</div>
 </body>
 
 </html>

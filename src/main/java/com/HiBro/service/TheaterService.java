@@ -4,10 +4,11 @@ import com.HiBro.dto.*;
 import com.HiBro.entity.Theater;
 import com.HiBro.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional
@@ -20,8 +21,8 @@ public class TheaterService {
 		return theaterRepository.findByCode(theaterCode);
 	}
 
-	public List<Theater> getTheaterList() {
-		return theaterRepository.findAll();
+	public Page<Theater> getTheaterList(Pageable pageable) {
+		return theaterRepository.findAll(pageable);
 	}
 
 	public void updateTheater(TheaterDTO theaterDTO) {

@@ -5,6 +5,8 @@ import com.HiBro.dto.SeatDTO;
 import com.HiBro.entity.*;
 import com.HiBro.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,7 +47,7 @@ public class SeatService {
 		}
 	}
 
-	public List<Seat> getSeatList(Long screenDateCode) {
-		return seatRepository.findByScreenDateCode(screenDateCode);
+	public Page<Seat> getSeatList(Long screenDateCode, Pageable pageable) {
+		return seatRepository.findByScreenDateCode(screenDateCode, pageable);
 	}
 }

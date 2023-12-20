@@ -5,6 +5,8 @@ import com.HiBro.dto.ScreenDateDTO;
 import com.HiBro.entity.*;
 import com.HiBro.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +50,7 @@ public class ScreenDateService {
 		}
 	}
 
-	public List<ScreenDate> getScreenDateList(Long screenCode) {
-		return screenDateRepository.findByScreenCode(screenCode);
+	public Page<ScreenDate> getScreenDateList(Long screenCode, Pageable pageable) {
+		return screenDateRepository.findByScreenCode(screenCode, pageable);
 	}
 }

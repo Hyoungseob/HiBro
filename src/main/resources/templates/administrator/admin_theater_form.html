@@ -17,7 +17,7 @@
 			<label th:for="location">위치</label>
 			<select id="location" th:field="*{location}">
 				<option th:each="status : ${T(com.HiBro.constant.Location).values()}" th:value="${status}"
-						th:text="${#strings.capitalize(status.name())}"></option>
+					th:text="${#strings.capitalize(status.name())}"></option>
 			</select>
 		</div>
 		<div class="form-group">
@@ -31,7 +31,8 @@
 			<button type="submit" class="btn btn-primary">저장</button>
 		</div>
 		<div th:unless="${#strings.isEmpty(theaterDTO.code)}" style="text-align: center">
-			<button th:formaction="@{'/admin/theater/' + ${theaterDTO.code}}" type="submit" class="btn btn-primary">수정</button>
+			<button th:formaction="@{'/admin/theater/' + ${theaterDTO.code}}" type="submit"
+				class="btn btn-primary">수정</button>
 		</div>
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		<input type="hidden" th:name="theaterCode" th:value="${theaterDTO.code}">

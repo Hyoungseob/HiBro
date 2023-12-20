@@ -5,6 +5,9 @@ import com.HiBro.dto.*;
 import com.HiBro.entity.*;
 import com.HiBro.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,8 +27,10 @@ public class AdminController {
 	private final SeatService seatService;
 
 	@GetMapping("/admin/theater")
-	public String theater(Model model) {
-		List<Theater> theaterList = theaterService.getTheaterList();
+	public String theater(Model model, Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+		Page<Theater> theaterList = theaterService.getTheaterList(pageable);
+		model.addAttribute("maxPage", 5);
 		model.addAttribute("theaterList", theaterList);
 		return "administrator/admin_theater";
 	}
@@ -71,8 +77,10 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}")
-	public String screen(@PathVariable("theaterCode") Long theaterCode, Model model) {
-		List<Screen> screenList = screenService.getScreenList(theaterCode);
+	public String screen(@PathVariable("theaterCode") Long theaterCode, Model model, Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+		model.addAttribute("maxPage", 5);
+		Page<Screen> screenList = screenService.getScreenList(theaterCode, pageable);
 		Theater theater = theaterService.getTheater(theaterCode);
 		model.addAttribute(theater);
 		model.addAttribute("screenList", screenList);
@@ -123,8 +131,10 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/screen/{screenCode}")
-	public String screenDate(@PathVariable("screenCode") Long screenCode, Model model) {
-		List<ScreenDate> screenDateList = screenDateService.getScreenDateList(screenCode);
+	public String screenDate(@PathVariable("screenCode") Long screenCode, Model model, Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+		model.addAttribute("maxPage", 5);
+		Page<ScreenDate> screenDateList = screenDateService.getScreenDateList(screenCode, pageable);
 		Screen screen = screenService.getScreen(screenCode);
 		Theater theater = screen.getTheater();
 		model.addAttribute("screenDateList", screenDateList);
@@ -178,8 +188,10 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/screenDate/{screenDateCode}")
-	public String seat(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
-		List<Seat> seatList = seatService.getSeatList(screenDateCode);
+	public String seat(@PathVariable("screenDateCode") Long screenDateCode, Model model, Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+		model.addAttribute("maxPage", 5);
+		Page<Seat> seatList = seatService.getSeatList(screenDateCode, pageable);
 		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
 		Screen screen = screenDate.getScreen();
 		Theater theater = screen.getTheater();

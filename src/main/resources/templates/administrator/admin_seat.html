@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout2}">
+
 <head>
 	<meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
@@ -62,7 +63,9 @@
 	<div class="noticeBoard">
 		<div>
 			<th:block>
-				<h2 class="allMember" th:text="${theater.theaterName} + ' ' + ${screen.code} + '관 ' + ${#temporals.format(screenDate.screeningDateTime, 'yyyy년 MM월 dd일 HH시 mm분')} + ' 시간의 좌석 현황'"></h2>
+				<h2 class="allMember"
+					th:text="${theater.theaterName} + ' ' + ${screen.code} + '관 ' + ${#temporals.format(screenDate.screeningDateTime, 'yyyy년 MM월 dd일 HH시 mm분')} + ' 시간의 좌석 현황'">
+				</h2>
 			</th:block>
 		</div>
 		<div class="board_list_wrap">
@@ -84,23 +87,21 @@
 						</div>
 						<div class="screenDate_deleteBtn">
 							<button th:data-screen_date="${screenDate.code}" th:data-seat="${seat.code}"
-							        onclick="deleteSeat(this)">삭제</button>
+								onclick="deleteSeat(this)">삭제</button>
 						</div>
 					</div>
 				</th:block>
 			</div>
-			<div class="board_page">
-				<a href="#" class="bt first">
-				</a>
-				<a href="#" class="bt prev">
-				</a>
-				<a href="#" class="num on">1</a>
-				<a href="#" class="bt">2</a>
-				<a href="#" class="bt">3</a>
-				<a href="#" class="bt">4</a>
-				<a href="#" class="bt">5</a>
-				<a href="#" class="bt next">></a>
-				<a href="#" class="bt last">>></a>
+			<div class="board_page" th:with="start=${(seatList.number/maxPage)*maxPage+1},end=(${(seatList.totalPages==0)? 1:(start+(maxPage-1)< seatList.totalPages? start+(maxPage-1) : seatList.totalPages)})">
+				<div>
+					<a th:href="@{'?page=0'}" class="bt first"><<</a>
+					<a th:href="@{'?page='+${seatList.number==0? 0:seatList.number-1}}" class="bt prev"><</a>
+					<th:block th:each="page : ${#numbers.sequence(start,end)}" th:classappend="${seatList.number eq page-1}?'active':''">
+						<a th:href="@{'?page='+${page-1}}"th:inline="text">[[${page}]]</a>
+					</th:block>
+					<a th:href="@{'?page='+${seatList.number==seatList.totalPages-1? seatList.totalPages-1:seatList.number+1}}" class="bt next">></a>
+					<a th:href="@{'?page='+${seatList.totalPages-1}}" class="bt last">>></a>
+				</div>
 			</div>
 			<th:block>
 				<div class="bt_wrap">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout2}">
+      layout:decorate="~{layouts/layout2}">
 
 <head>
 	<meta name="_csrf" th:content="${_csrf.token}" />
@@ -87,20 +87,20 @@
 						</div>
 						<div class="screenDate_deleteBtn">
 							<button th:data-screen_date="${screenDate.code}" th:data-screen="${screen.code}"
-								onclick="deleteScreenDate(this)">삭제</button>
+							        onclick="deleteScreenDate(this)">삭제</button>
 						</div>
 					</div>
 				</th:block>
 			</div>
 			<div class="board_page" th:with="start=${(screenDateList.number/maxPage)*maxPage+1},end=(${(screenDateList.totalPages==0)? 1:(start+(maxPage-1)< screenDateList.totalPages? start+(maxPage-1) : screenDateList.totalPages)})">
 				<div>
-					<a th:href="@{'?page=0'}" class="bt first"><<</a>
-					<a th:href="@{'?page='+${screenDateList.number==0? 0:screenDateList.number-1}}" class="bt prev"><</a>
+					<a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
+					<a th:href="@{'?page='+${screenDateList.number==0? 0:screenDateList.number-1}}" class="bt prev">&lt;</a>
 					<th:block th:each="page : ${#numbers.sequence(start,end)}" th:classappend="${screenDateList.number eq page-1}?'active':''">
 						<a th:href="@{'?page='+${page-1}}"th:inline="text">[[${page}]]</a>
 					</th:block>
-					<a th:href="@{'?page='+${screenDateList.number==screenDateList.totalPages-1? screenDateList.totalPages-1:screenDateList.number+1}}" class="bt next">></a>
-					<a th:href="@{'?page='+${screenDateList.totalPages-1}}" class="bt last">>></a>
+					<a th:href="@{'?page='+${screenDateList.number==screenDateList.totalPages-1? screenDateList.totalPages-1:screenDateList.number+1}}" class="bt next">&gt;</a>
+					<a th:href="@{'?page='+${screenDateList.totalPages-1}}" class="bt last">&gt;&gt;</a>
 				</div>
 			</div>
 			<th:block>

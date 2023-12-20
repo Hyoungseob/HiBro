@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+<div layout:fragment="content">
+	<div id="content">
+		<form id="temp">
+			<select>
+				<option>전체</option>
+				<option th:each="status : ${T(com.HiBro.constant.ScreenType).values()}" th:value="${status}"
+					th:text="${#strings.capitalize(status.name())}"></option>
+			</select>
+			<input>
+		</form>
+		<table class="table">
+			<thead>
+				<tr class="text-center">
+					<td>영화관</td>
+					<td>상영관 위치</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="List : ${screenList.getContent()}" class="text-center">
+					<td>
+						<span th:text="${List.theater.theaterName}"></span>
+					</td>
+					<td>
+						<span th:text="${List.screenLocation}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-center board_page"
+			th:with="start=${(screenList.number/maxPage)*maxPage+1},end=(${(screenList.totalPages==0) ? 1 : (start+(maxPage-1) < screenList.totalPages ? start + (maxPage-1) : screenList.totalPages)})">
+			<div>
+				<a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
+				<a th:href="@{'?page='+${screenList.number==0 ? 0 : screenList.number-1}}" class="bt prev">&lt;</a>
+				<th:block th:each="page : ${#numbers.sequence(start,end)}">
+					<a th:href="@{'?page='+${page-1}}" th:inline="text"
+						th:classappend="${screenList.number eq page-1} ? 'active' : ''">[[${page}]]</a>
+				</th:block>
+				<a th:href="@{'?page='+${screenList.number==screenList.totalPages-1 ? screenList.totalPages-1 : screenList.number+1}}"
+					class="bt next">&gt;</a>
+				<a th:href="@{'?page='+${screenList.totalPages-1}}" class="bt last">&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</html>

@@ -91,13 +91,13 @@
 			</div>
 			<div class="board_page" th:with="start=${(screenList.number/maxPage)*maxPage+1},end=(${(screenList.totalPages==0)? 1:(start+(maxPage-1)< screenList.totalPages? start+(maxPage-1) : screenList.totalPages)})">
 				<div>
-					<a th:href="@{'?page=0'}" class="bt first"><<</a>
-					<a th:href="@{'?page='+${screenList.number==0? 0:screenList.number-1}}" class="bt prev"><</a>
+					<a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
+					<a th:href="@{'?page='+${screenList.number==0? 0:screenList.number-1}}" class="bt prev">&lt;</a>
 					<th:block th:each="page : ${#numbers.sequence(start,end)}" th:classappend="${screenList.number eq page-1}?'active':''">
 						<a th:href="@{'?page='+${page-1}}"th:inline="text">[[${page}]]</a>
 					</th:block>
-					<a th:href="@{'?page='+${screenList.number==screenList.totalPages-1? screenList.totalPages-1:screenList.number+1}}" class="bt next">></a>
-					<a th:href="@{'?page='+${screenList.totalPages-1}}" class="bt last">>></a>
+					<a th:href="@{'?page='+${screenList.number==screenList.totalPages-1? screenList.totalPages-1:screenList.number+1}}" class="bt next">&gt;</a>
+					<a th:href="@{'?page='+${screenList.totalPages-1}}" class="bt last">&gt;&gt;</a>
 				</div>
 			</div>
 			<th:block>

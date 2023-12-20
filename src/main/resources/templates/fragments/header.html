@@ -2,37 +2,27 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="header">
-	<nav id="Team_toplinebanner">
-		<!-- style="display:none"-->
-		<div id="topbanner">
-			<div id="topbanner_img">
-				<img alt="html" th:src="@{img/topimg.PNG}" />
-			</div>
-		</div>
-		<div id="header_body">
-			<div id="header_second_body">
-				<div id="top_logo">
-					<img alt="html" src="img/logo.png" />
-				</div>
-				<div class="main-menu">
-					<div class="main-item">
-						영화
-						<ul class="sub-menu">
-							<li>무비차트</li>
-						</ul>
-					</div>
-					<div class="main-item">
-						예매
-						<ul class="sub-menu">
-							<li>빠른예매</li>
-							<li>상영스케줄</li>
-						</ul>
-					</div>
-					<a href="/member/login"><div sec:authorize="isAnonymous()">로그인</div></a>
-					<a href="/member/new"><div sec:authorize="isAnonymous()">회원가입</div></a>
-					<a href="/member/logout"><div sec:authorize="isAuthenticated()">로그아웃</div></a>
-				</div>
-			</div>
+	<nav class="navbar navbar-expand-sm" style="background-color: #c889ff;">
+		<div class="collapse navbar-collapse" id="navbarToggler">
+			<ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+				<li class="nav-item">
+					<a class="nav-link" href="/">저쩌구</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/">어쩌구</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+				<li class="nav-item" sec:authorize="isAnonymous()">
+					<a class="nav-link" href="/member/login">로그인</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAnonymous()">
+					<a class="nav-link" href="/member/new">회원가입</a>
+				</li>
+				<li class="nav-item" sec:authorize="isAuthenticated()">
+					<a class="nav-link" href="/member/logout">로그아웃</a>
+				</li>
+			</ul>
 		</div>
 	</nav>
 </div>

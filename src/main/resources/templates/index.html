@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/layout1}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/main.js}"></script>
+</th:block>
 <div layout:fragment="content">
 	<div id="main">
 		<div id="video">
@@ -221,7 +227,7 @@
 			<div id="specialHall">
 				<div id="specialHall_text">
 					<h3>특별관</h3>
-					<a class="totalview">전체보기</a>
+					<a href="/screen" class="totalview">전체보기</a>
 				</div>
 
 				<div id="specialHall_content">
@@ -262,7 +268,7 @@
 	</div>
 	<div id="hidcon">
 		<a href="#" id="gotop"><img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png"
-									alt="최상단으로 이동"/></a>
+		                            alt="최상단으로 이동"/></a>
 	</div>
 </div>
 

@@ -17,6 +17,5 @@ public interface ScreenRepository extends JpaRepository<Screen, Long> {
 	@Query("SELECT S FROM Screen S WHERE S.screenLocation LIKE %:screenLocation% ORDER BY S.code DESC")
 	List<Screen> findByScreenLocation(@Param("screenLocation") String screenLocation);
 
-	@Query("SELECT S FROM Screen S WHERE S.screenType LIKE %:screenType% ORDER BY S.code DESC")
-	List<Screen> findByScreenType(@Param("screenType") String screenType);
+	List<Screen> findByScreenTypeContaining(String screenType);
 }

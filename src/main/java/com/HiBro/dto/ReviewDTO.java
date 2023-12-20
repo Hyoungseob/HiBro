@@ -8,4 +8,5 @@ public class ReviewDTO{
     private Long code;
     private String content;
     private Float grade;
+    private Long movie_code;
 }

@@ -37,13 +37,35 @@ public class ReviewService{
     public List<Review> getMovieReviewList(Long movieCode){
         return reviewRepository.findByMovieCode(movieCode);
     }
-    public List<Review> getMyReviewList(Long memberCode){
-        return reviewRepository.findByMemberCode(memberCode);
-    }
+    public List<Review> getMyReviewList(String memberId){
+        Member member = memberRepository.findById(memberId);
 
+        return reviewRepository.findByMemberCode(member.getCode());
+    }
+    public Review getMovieMyReview(Long movieCode,String memberId){
+        Member member = memberRepository.findById(memberId);
+        return reviewRepository.findByMemberCodeAndMovieCode(member.getCode(),movieCode);
+    }
+    public Review updateReview(ReviewDTO reviewDTO){
+        Review review = reviewRepository.findById(reviewDTO.getCode()).get();
+        review.setGrade(reviewDTO.getGrade());
+        review.setContent(reviewDTO.getContent());
+        return review;
+    }
     public void deleteReview(ReviewDTO reviewDTO){
         Review review = reviewRepository.findById(reviewDTO.getCode())
                 .orElseThrow(EntityNotFoundException::new);
         reviewRepository.delete(review);
+    }
+    public Float getMovieGrade(Long movieCode){
+        List<Review> reviewList = reviewRepository.findByMovieCode(movieCode);
+        Float avg=0f;
+        for(Review review : reviewList){
+            avg +=review.getGrade();
+        }
+        avg /= reviewList.size();
+        avg = Math.round(avg*10f)/10.0f;
+
+        return avg;
     }
 }

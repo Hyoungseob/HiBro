@@ -75,7 +75,7 @@ class ReviewServiceTest{
             memberDTO.setName("테스트"+i);
             memberDTO.setEmail("a@a"+i);
             memberDTO.setRole(Role.USER);
-            memberDTO.setRegDate(LocalDateTime.now());
+            memberDTO.setRegDate(LocalDateTime.now().toLocalDate());
 
             Member member = memberService.saveMember(Member.createMember(memberDTO,encoder));
 
@@ -124,7 +124,7 @@ class ReviewServiceTest{
     public void getMyReviewList(){
         createReviews();
         Member member = memberRepository.findById("test1");
-        List<Review> reviews = reviewService.getMyReviewList(member.getCode());
+        List<Review> reviews = reviewService.getMyReviewList(member.getId());
 
         System.out.println("-------- MyReview -----------");
         for( Review i : reviews)

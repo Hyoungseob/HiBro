@@ -5,14 +5,12 @@ import com.HiBro.dto.TheaterDTO;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.*;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "theater")
-@ToString
 public class Theater {
 	@Id
 	@Column(name = "theater_code")
@@ -44,5 +42,15 @@ public class Theater {
 		this.theaterName = theaterDTO.getTheaterName();
 		this.location = theaterDTO.getLocation();
 		this.theaterStatus = theaterDTO.getTheaterStatus();
+	}
+
+	@Override
+	public String toString() {
+		return "Theater{" +
+				"code=" + code +
+				", theaterName='" + theaterName + '\'' +
+				", location=" + location +
+				", theaterStatus=" + theaterStatus +
+				'}';
 	}
 }

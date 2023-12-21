@@ -26,7 +26,7 @@
 			</div>
 			<div id="con2">
 				<h3>극장</h3>
-				<th:block th:each="location, status:${T(com.HiBro.constant.Location).values()}">
+				<th:block th:each="location : ${T(com.HiBro.constant.Location).values()}">
 					<ul>
 						<li>
 							<div th:switch="${location}">

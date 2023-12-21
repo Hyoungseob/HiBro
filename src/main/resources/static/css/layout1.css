@@ -19,6 +19,11 @@ a {
 	color: black;
 }
 
+a:hover {
+	text-decoration: none;
+	color: black;
+}
+
 a[href]:focus {
 	outline: 3px solid #c889ff;
 }

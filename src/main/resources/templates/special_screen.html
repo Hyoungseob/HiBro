@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
+
 <div layout:fragment="content">
 	<div id="content">
-		<form id="temp">
-			<select>
-				<option>전체</option>
-				<option th:each="status : ${T(com.HiBro.constant.ScreenType).values()}" th:value="${status}"
-					th:text="${#strings.capitalize(status.name())}"></option>
+		<form id="temp" action="/screen" method="get">
+			<select name="location">
+				<option value="">전체</option>
+				<option th:value="SEOUL">서울</option>
+				<option th:value="INCHEON">경기/인천</option>
+				<option th:value="DAEJEON">충청/대전</option>
+				<option th:value="GWANGJU">전라/광주</option>
+				<option th:value="DAEGU">경북/대구</option>
+				<option th:value="BUSAN">경남/울산/부산</option>
+				<option th:value="JEJU">강원/제주</option>
 			</select>
-			<input>
+			<select name="screenType">
+				<option value="">전체</option>
+				<option th:each="screenType : ${screenTypes}" th:value="${screenType}" th:text="${#strings.capitalize(screenType.name())}"></option>
+			</select>
+			<button type="submit">검색</button>
 		</form>
 		<table class="table">
 			<thead>
@@ -19,12 +29,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="List : ${screenList.getContent()}" class="text-center">
+				<tr th:each="screenList : ${screenList}" class="text-center">
 					<td>
-						<span th:text="${List.theater.theaterName}"></span>
+						<span th:text="${screenList.theater.theaterName}"></span>
 					</td>
 					<td>
-						<span th:text="${List.screenLocation}"></span>
+						<span th:text="${screenList.screenLocation}"></span>
 					</td>
 				</tr>
 			</tbody>
@@ -44,7 +54,5 @@
 			</div>
 		</div>
 	</div>
-
 </div>
-
 </html>

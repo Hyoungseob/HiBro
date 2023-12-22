@@ -21,7 +21,7 @@ layout:decorate="~{layouts/layout1}">
         <div id="flexContainer">
             <!-- html(Thymeleaf) -->
 
-            <th:block th:each ="movieChart, status:${MovieChartFormDTOList}">
+            <th:block th:each ="movieChart, status:${movieChartFormDTOList}">
                 <form class = "movie">
                     <div>
                         <div>
@@ -36,8 +36,11 @@ layout:decorate="~{layouts/layout1}">
                     </div>
                 </form>
             </th:block>
+            <div>
+
+            </div>
         </div>
-    <div class="MoreBtn"><input type ="button" id="movieViewMoreBtn" VALUE="더보기"></div>
+    <div class="MoreBtn"><input type ="button" id="movieViewMoreBtn" onclick="getMovieList()" VALUE="더보기"></div>
 
 </div>
 </html>

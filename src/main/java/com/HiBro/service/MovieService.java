@@ -1,11 +1,16 @@
 package com.HiBro.service;
 
+import com.HiBro.dto.MovieChartFormDTO;
 import com.HiBro.dto.MovieDTO;
 import com.HiBro.entity.Movie;
 import com.HiBro.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -48,10 +53,4 @@ public class MovieService {
         }
     }
 
-   /* public List<MovieChartFormDTO> getMovieList(){
-        List<MovieChartFormDTO> movieChartList = new ArrayList<>();
-
-        List<Movie> movie = movieRepository.findAll();
-
-    }*/
 }

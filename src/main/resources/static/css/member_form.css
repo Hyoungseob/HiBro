@@ -1,15 +1,4 @@
 @charset "utf-8";
-
-.member_form {
-    padding: 66px 50px;
-    width: 800px;
-    border: solid 1px black;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-}
-
 .member_form h1 {
 	margin-bottom: 30px;
 }

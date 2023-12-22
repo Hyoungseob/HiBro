@@ -1,20 +1,43 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layouts/layout2}">
+	layout:decorate="~{layouts/layout2}">
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
 	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
+	<style>
+		.on {
+			display: inline-block;
+			margin: 0;
+		}
+
+		.off {
+			display: none;
+			margin: 0;
+		}
+	</style>
 </th:block>
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		function deleteTheater(obj) {
-			var getCode = obj.dataset.id;
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var getCode = obj.dataset.code;
 			var url = "/admin/theater/" + getCode;
 
 			$.ajax({
 				url: url,
 				type: "DELETE",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader(header, token);
+				},
 				dataType: "json",
 				cache: false,
 				success: function (result, status) {
@@ -22,8 +45,9 @@
 				},
 
 				error: function (jqXHR, status, error) {
-					if (jqXHR = '401') {
+					if (jqXHR.status == '401') {
 						alert('로그인 후 이용해주세요');
+						location.href = '/member/login';
 					} else {
 						alert(jqXHR.responseJSON.message);
 					}
@@ -51,31 +75,39 @@
 				<th:block th:each="theater, status:${theaterList}">
 					<div>
 						<div class="theater_code">[[${theater.getCode}]]</div>
-						<div class="theater_code"><a th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterName}]]</a></div>
+						<div class="theater_code"><a
+								th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterName}]]</a></div>
 						<div class="theater_location">[[${theater.getLocation}]]</div>
 						<div class="theater_status">[[${theater.getTheaterStatus}]]</div>
-						<button type="button" class="close" aria-label="Close">
-										<span aria-hidden="true" th:data-id="${theater.getCode}"
-											  onclick="deleteTheater(this)">&times;</span>
-						</button>
+						<div class="theater_updateBtn">
+							<a th:href="'/admin/theater/'+${theater.code}+'/update'"><button>수정</button></a>
+						</div>
+						<div class="theater_deleteBtn">
+							<button th:data-code="${theater.code}" onclick="deleteTheater(this)">삭제</button>
+						</div>
 					</div>
 
 				</th:block>
 			</div>
-			<div class="board_page">
-				<a href="#" class="bt first">
-				</a>
-				<a href="#" class="bt prev">
-				</a>
-				<a href="#" class="num on">1</a>
-				<a href="#" class="bt">2</a>
-				<a href="#" class="bt">3</a>
-				<a href="#" class="bt">4</a>
-				<a href="#" class="bt">5</a>
-				<a href="#" class="bt next">></a>
-				<a href="#" class="bt last">>></a>
+			<div class="board_page"
+				th:with="start=${(theaterList.number/maxPage)*maxPage+1},end=(${(theaterList.totalPages==0)? 1:(start+(maxPage-1)< theaterList.totalPages? start+(maxPage-1) : theaterList.totalPages)})">
+				<div>
+					<a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
+					<a th:href="@{'?page='+${theaterList.number==0? 0:theaterList.number-1}}" class="bt prev">&lt;</a>
+					<th:block th:each="page : ${#numbers.sequence(start,end)}"
+						th:classappend="${theaterList.number eq page-1}?'active':''">
+						<a th:href="@{'?page='+${page-1}}" th:inline="text">[[${page}]]</a>
+					</th:block>
+					<a th:href="@{'?page='+${theaterList.number==theaterList.totalPages-1? theaterList.totalPages-1:theaterList.number+1}}"
+						class="bt next">&gt;</a>
+					<a th:href="@{'?page='+${theaterList.totalPages-1}}" class="bt last">&gt;&gt;</a>
+				</div>
 			</div>
-
+			<th:block>
+				<div class="bt_wrap">
+					<a href="/admin/theater/new">등록하기</a>
+				</div>
+			</th:block>
 		</div>
 	</div>
 </div>

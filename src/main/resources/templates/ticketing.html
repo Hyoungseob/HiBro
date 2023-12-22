@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layouts/layout1}">
+	layout:decorate="~{layouts/layout1}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/ticketing.css}">
+</th:block>
+<th:block layout:fragment="script">
+	<script th:src="@{/js/ticketing.js}"></script>
+</th:block>
 <div layout:fragment="content">
 
 	<div id="ticketing">
@@ -20,7 +26,7 @@
 			</div>
 			<div id="con2">
 				<h3>극장</h3>
-				<th:block th:each="location, status:${T(com.HiBro.constant.Location).values()}">
+				<th:block th:each="location : ${T(com.HiBro.constant.Location).values()}">
 					<ul>
 						<li>
 							<div th:switch="${location}">
@@ -34,7 +40,8 @@
 								<div class="hidcon2">
 									<ul>
 										<th:block th:each="theater, status:${theaterList}">
-											<li th:if="${theater.getLocation == location}">[[${theater.theaterName}]]</li>
+											<li th:if="${theater.getLocation == location}">[[${theater.theaterName}]]
+											</li>
 
 										</th:block>
 									</ul>
@@ -80,49 +87,49 @@
 			<div>
 				<div>
 					일반<select id="adult">
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-				</select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
 					청소년<select id="youth">
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-				</select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
 					노인<select id="senior">
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-				</select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
 					우대<select id="special">
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-				</select>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+					</select>
 					<p>총인원: <span id="total1">0</span></p>
 					<p>총액: <span id="total2">0</span></p>
 				</div>

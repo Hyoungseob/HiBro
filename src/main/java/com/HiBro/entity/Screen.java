@@ -11,7 +11,6 @@ import java.util.*;
 @Table(name = "screen")
 @Getter
 @Setter
-@ToString
 public class Screen {
 	@Id
 	@Column(name = "screen_code")
@@ -37,5 +36,19 @@ public class Screen {
 		screen.setScreenLocation(screenDTO.getScreenLocation());
 		screen.setScreenType(screenDTO.getScreenType());
 		return screen;
+	}
+
+	public void updateScreen(ScreenDTO screenDTO) {
+		this.screenLocation = screenDTO.getScreenLocation();
+		this.screenType = screenDTO.getScreenType();
+	}
+
+	@Override
+	public String toString() {
+		return "Screen{" +
+				"code=" + code +
+				", screenLocation='" + screenLocation + '\'' +
+				", screenType=" + screenType +
+				'}';
 	}
 }

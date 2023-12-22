@@ -56,23 +56,10 @@ public class ScreenTest {
 	}
 
 	@Test
-	@DisplayName("상영관 검색 테스트")
-	public void findByScreenLocation() {
-
-		this.createScreenList();
-
-		List<Screen> screenList = screenRepository.findByScreenLocation("울산 삼산동");
-
-		for (Screen screen : screenList) {
-			System.out.println(screen);
-		}
-	}
-
-	@Test
 	@DisplayName("상영관 삭제 테스트")
 	public void deleteScreen() {
 		ScreenDTO screenDTO = this.createScreenList().get(3);
-		screenService.deleteScreen(screenDTO);
+		screenService.deleteScreen(screenDTO.getCode());
 
 		List<Screen> screenList = screenRepository.findAll();
 

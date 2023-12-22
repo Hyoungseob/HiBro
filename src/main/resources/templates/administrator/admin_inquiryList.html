@@ -23,25 +23,33 @@
                 <th:block th:each="item, status:${inquiryList.getContent()}">
                     <div>
                         <div class="inquiry_code">[[${item.code}]]</div>
-                        <div class="inquiry_title"><a th:href="@{'/admin/inquiry/'+${item.code}}">[[${item.title}]]</a></div>
+                        <div class="inquiry_title"><a th:href="@{'/admin/inquiry/'+${item.code}}">[[${item.title}]]</a>
+                        </div>
                         <div class="inquiry_member">[[${item.member.id}]]</div>
                         <div class="inquiry_regdate">[[${item.regDate}]]</div>
-                        <div class="inquiry_status" th:if="${item.inquiryStatus == T(com.HiBro.constant.InquiryStatus).ING}" th:text="문의중"></div>
-                        <div class="inquiry_status" th:unless="${item.inquiryStatus == T(com.HiBro.constant.InquiryStatus).ING}" th:text="문의완료"></div>
+                        <div class="inquiry_status"
+                            th:if="${item.inquiryStatus == T(com.HiBro.constant.InquiryStatus).ING}" th:text="문의중">
+                        </div>
+                        <div class="inquiry_status"
+                            th:unless="${item.inquiryStatus == T(com.HiBro.constant.InquiryStatus).ING}" th:text="문의완료">
+                        </div>
                     </div>
                 </th:block>
             </div>
-            <div class="board_page" th:with="start=${(inquiryList.number/maxPage)*maxPage+1},end=(${(inquiryList.totalPages==0)? 1:(start+(maxPage-1)< inquiryList.totalPages? start+(maxPage-1) : inquiryList.totalPages)})">
-				<div>
-					<a th:href="@{'?page=0'}" class="bt first"><<</a>
-					<a th:href="@{'?page='+${inquiryList.number==0? 0:inquiryList.number-1}}" class="bt prev"><</a>
-					<th:block th:each="page : ${#numbers.sequence(start,end)}" th:classappend="${inquiryList.number eq page-1}?'active':''">
-						<a th:href="@{'?page='+${page-1}}"th:inline="text">[[${page}]]</a>
-					</th:block>
-					<a th:href="@{'?page='+${inquiryList.number==inquiryList.totalPages-1? inquiryList.totalPages-1:inquiryList.number+1}}" class="bt next">></a>
-					<a th:href="@{'?page='+${inquiryList.totalPages-1}}" class="bt last">>></a>
-				</div>
-			</div>
+            <div class="board_page"
+                th:with="start=${(inquiryList.number/maxPage)*maxPage+1},end=(${(inquiryList.totalPages==0)? 1:(start+(maxPage-1)< inquiryList.totalPages? start+(maxPage-1) : inquiryList.totalPages)})">
+                <div>
+                    <a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
+                    <a th:href="@{'?page='+${inquiryList.number==0? 0:inquiryList.number-1}}" class="bt prev">&lt;</a>
+                    <th:block th:each="page : ${#numbers.sequence(start,end)}"
+                        th:classappend="${inquiryList.number eq page-1}?'active':''">
+                        <a th:href="@{'?page='+${page-1}}" th:inline="text">[[${page}]]</a>
+                    </th:block>
+                    <a th:href="@{'?page='+${inquiryList.number==inquiryList.totalPages-1? inquiryList.totalPages-1:inquiryList.number+1}}"
+                        class="bt next">&gt;</a>
+                    <a th:href="@{'?page='+${inquiryList.totalPages-1}}" class="bt last">&gt;&gt;</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,9 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout2}">
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
 	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
+	<style>
+		.on {
+			display: inline-block;
+			margin: 0;
+		}
+
+		.off {
+			display: none;
+			margin: 0;
+		}
+	</style>
+</th:block>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		function deleteScreenDate(obj) {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var screenDateCode = obj.dataset.screen_date;
+			var screenCode = obj.dataset.screen;
+
+			var url = "/admin/screenDate/" + screenDateCode;
+			console.log(url);
+			console.log(screenCode);
+			console.log("screenDateCode : " + screenDateCode);
+			$.ajax({
+				url: url,
+				type: "DELETE",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				dataType: "json",
+				cache: false,
+				success: function (result, status) {
+					location.href = '/admin/screen/' + screenCode;
+				},
+
+				error: function (jqXHR, status, error) {
+					if (jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요');
+						location.href = '/member/login';
+					} else {
+						alert(jqXHR.responseJSON.message);
+					}
+				}
+			});
+		}
+	</script>
 </th:block>
 <div layout:fragment="content">
 	<!--사용자 창 시작-->
@@ -23,28 +78,40 @@
 				<th:block th:each="screenDate, status:${screenDateList}">
 					<div>
 						<div class="theater_code">[[${screenDate.code}]]</div>
-						<div class="theater_location"><a th:href="'/admin/screenDate/'+${screenDate.code}">[[${screenDate.screeningDateTime}]]</a></div>
+						<div class="theater_location"><a
+								th:href="'/admin/screenDate/'+${screenDate.code}">[[${screenDate.screeningDateTime}]]</a>
+						</div>
 						<div class="theater_status">[[${screenDate.screeningTime}]]</div>
+						<div class="screenDate_updateBtn">
+							<a th:href="'/admin/screenDate/'+${screenDate.code}+'/update'"><button>수정</button></a>
+						</div>
+						<div class="screenDate_deleteBtn">
+							<button th:data-screen_date="${screenDate.code}" th:data-screen="${screen.code}"
+								onclick="deleteScreenDate(this)">삭제</button>
+						</div>
 					</div>
 				</th:block>
 			</div>
-			<div class="board_page">
-				<a href="#" class="bt first">
-				</a>
-				<a href="#" class="bt prev">
-				</a>
-				<a href="#" class="num on">1</a>
-				<a href="#" class="bt">2</a>
-				<a href="#" class="bt">3</a>
-				<a href="#" class="bt">4</a>
-				<a href="#" class="bt">5</a>
-				<a href="#" class="bt next">></a>
-				<a href="#" class="bt last">>></a>
+			<div class="board_page"
+				th:with="start=${(screenDateList.number/maxPage)*maxPage+1},end=(${(screenDateList.totalPages==0)? 1:(start+(maxPage-1)< screenDateList.totalPages? start+(maxPage-1) : screenDateList.totalPages)})">
+				<div>
+					<a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
+					<a th:href="@{'?page='+${screenDateList.number==0? 0:screenDateList.number-1}}"
+						class="bt prev">&lt;</a>
+					<th:block th:each="page : ${#numbers.sequence(start,end)}"
+						th:classappend="${screenDateList.number eq page-1}?'active':''">
+						<a th:href="@{'?page='+${page-1}}" th:inline="text">[[${page}]]</a>
+					</th:block>
+					<a th:href="@{'?page='+${screenDateList.number==screenDateList.totalPages-1? screenDateList.totalPages-1:screenDateList.number+1}}"
+						class="bt next">&gt;</a>
+					<a th:href="@{'?page='+${screenDateList.totalPages-1}}" class="bt last">&gt;&gt;</a>
+				</div>
 			</div>
-			<div class="bt_wrap">
-				<a href="#" class="on">목록</a>
-				<a href="#">수정</a>
-			</div>
+			<th:block>
+				<div class="bt_wrap">
+					<a th:href="'/admin/screen/' + ${screen.code} + '/new'">등록하기</a>
+				</div>
+			</th:block>
 		</div>
 	</div>
 </div>

@@ -38,4 +38,10 @@ public class Seat {
 		seat.setSeatStatus(seatDTO.getSeatStatus());
 		return seat;
 	}
+
+	public void updateSeat(SeatDTO seatDTO) {
+		this.seatRow = seatDTO.getSeatRow();
+		this.seatColumn = seatDTO.getSeatColumn();
+		this.seatStatus = seatDTO.getSeatStatus();
+	}
 }

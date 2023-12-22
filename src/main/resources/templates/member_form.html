@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
+<th:block layout:fragment="css">
+	<link th:href="@{/css/member_form.css}" rel="stylesheet">
+</th:block>
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
@@ -37,7 +40,7 @@
 
 <div layout:fragment="content">
 
-	<form action="/member/new" role="form" method="post" class="member_form" th:object="${memberDTO}">
+	<form action="/member/new" role="form" method="post" class="member_form" th:object="${memberDTO}" id="content">
 		<h1>회원가입 페이지</h1>
 		<div class="form-group">
 			<label th:for="name">id</label>

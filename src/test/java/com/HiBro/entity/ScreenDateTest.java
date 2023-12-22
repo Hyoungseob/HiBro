@@ -93,7 +93,7 @@ public class ScreenDateTest {
 
 		Long ScreenCode = screenRepository.findAll().get(0).getCode();
 
-		screenDateService.deleteScreenDate(screenDateDTO);
+		screenDateService.deleteScreenDate(screenDateDTO.getCode());
 		List<ScreenDate> screenDates = screenDateRepository.findScreenDateByScreenCode(ScreenCode);
 		for (ScreenDate screenDate : screenDates) {
 			System.out.println(screenDate);

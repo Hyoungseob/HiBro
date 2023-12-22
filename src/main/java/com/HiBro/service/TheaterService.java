@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -39,5 +40,9 @@ public class TheaterService {
 		Theater theater = theaterRepository.findByCode(theaterCode);
 		screenService.deleteScreenList(theaterCode);
 		theaterRepository.delete(theater);
+	}
+
+	public List<Theater> findAll() {
+		return theaterRepository.findAll();
 	}
 }

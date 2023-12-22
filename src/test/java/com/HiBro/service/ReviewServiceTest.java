@@ -107,19 +107,6 @@ class ReviewServiceTest{
         Review review = reviewService.saveReview(reviewDTO,member.getId(),movie.getCode());
     }
     @Test
-    @DisplayName("영화 기준 리뷰 리스트 가져오기 테스트")
-    public void getMovieReviewList(){
-        createReviews();
-
-        List<Movie> movie =movieRepository.findByMovieTitle("영화제목1");
-        List<Review> reviews = reviewService.getMovieReviewList(movie.get(0).getCode());
-
-        System.out.println("-------- MovieReview -----------");
-        for( Review i : reviews)
-            System.out.println(i.toString());
-
-    }
-    @Test
     @DisplayName("멤버 기준 리뷰 리스트 가져오기 테스트")
     public void getMyReviewList(){
         createReviews();

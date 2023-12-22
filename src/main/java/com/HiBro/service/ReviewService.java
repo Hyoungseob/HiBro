@@ -2,6 +2,7 @@ package com.HiBro.service;
 
 import com.HiBro.dto.MovieDTO;
 import com.HiBro.dto.ReviewDTO;
+import com.HiBro.dto.ReviewFormDTO;
 import com.HiBro.entity.Member;
 import com.HiBro.entity.Movie;
 import com.HiBro.entity.Review;
@@ -9,10 +10,14 @@ import com.HiBro.repository.MemberRepository;
 import com.HiBro.repository.MovieRepository;
 import com.HiBro.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,8 +39,19 @@ public class ReviewService{
         return reviewRepository.save(review);
     }
 
-    public List<Review> getMovieReviewList(Long movieCode){
-        return reviewRepository.findByMovieCode(movieCode);
+    public Page<ReviewFormDTO> getMovieReviewList(Long movieCode, Pageable pageable){
+        List<Review> reviewList=reviewRepository.findByMovieCode(movieCode);
+        List<ReviewFormDTO> reviewFormDTOList = new ArrayList<>();
+        for(Review review : reviewList){
+            ReviewFormDTO reviewFormDTO = new ReviewFormDTO();
+            reviewFormDTO.setCode(review.getCode());
+            reviewFormDTO.setMovieTitle(review.getMovie().getMovieTitle());
+            reviewFormDTO.setContent(review.getContent());
+            reviewFormDTO.setMemberId(review.getMember().getId());
+            reviewFormDTOList.add(reviewFormDTO);
+        }
+
+        return new PageImpl<>(reviewFormDTOList,pageable, reviewFormDTOList.size());
     }
     public List<Review> getMyReviewList(String memberId){
         Member member = memberRepository.findById(memberId);

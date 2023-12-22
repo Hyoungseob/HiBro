@@ -17,22 +17,46 @@
     margin: 0 auto;
 }
 
-.movieChartHeader {
-    border-bottom: 3px solid #000;
+.chartTitleContainer{
+    display:flex;
+    justify-content: space-between;
+    border-bottom: 3px solid;
 }
 
-.chartTitle{
+.chartTitle>a{
+    margin: 10px;
     text-align: left;
     padding-left: 20px;
     font-size: 37px;
     font-weight: 500;
     vertical-align: middle;
+    text-decoration:none;
+    color: black;
 }
 
-.flexContainer{
+.titleSearchInput{
+    display:flex;
+    align-items: center;
+}
+
+.navInput {
+	height: 30px;
+	border: 2px solid #495057;
+	padding-left: 20px;
+}
+
+.inputBtn{
+    height: 40px;
+    width: 70px;
+    padding: 7px 20px;
+    background-color: var(--main-corlor);
+    color: var(--font-color);
+}
+
+#flexContainer{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: row;
 }
 
 .movie{
@@ -42,7 +66,7 @@
 }
 
 .moviePoster{
-    width: 100%;
+    width: 230px;
     height: 330px;
 }
 
@@ -50,6 +74,7 @@
     font-size: 20px;
     font-weight: bold;
     margin: 0;
+
 }
 
 .openingDay{
@@ -63,4 +88,23 @@
 	color: var(--font-color);
     border-radius: 5px;
     position: relative;
+}
+
+.MoreBtn{
+    text-align: center;
+}
+
+#movieViewMoreBtn{
+    margin: 20px;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: var(--main-corlor);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0.2, 0.2, 0.2, 0.6);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    color: var(--font-color);
 }

@@ -4,18 +4,21 @@ layout:decorate="~{layouts/layout1}">
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <script type="text/javascript" th:src="@{/js/forum/movieChart.js}"></script>
 </head>
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/movie/movieChart.css}">
 </th:block>
 
 <div class="content" layout:fragment="content">
-    
-        <div class = "movieChartHeader">
-            <p class = "chartTitle">무비 차트</p>
+        <div class="chartTitleContainer">
+            <div class="chartTitle"><a href="http://localhost:8000/movieChart" >무비 차트</a></div>
+            <form class= "titleSearchInput" method="get" action="/movieChart" accept-charset="utf-8" >
+                <input class="navInput" type="text" name="searchMovieTitle" placeholder="영화 제목을 입력하세요">
+                <input class="inputBtn" type="button" onclick="searchMovie()" value="검색">
+            </form>
         </div>
-        <div class = "flexContainer" th:object="${movieChartDTO}">
+        <div id="flexContainer">
             <!-- html(Thymeleaf) -->
 
             <th:block th:each ="movieChart, status:${MovieChartFormDTOList}">
@@ -34,10 +37,7 @@ layout:decorate="~{layouts/layout1}">
                 </form>
             </th:block>
         </div>
-        <div>
-
-        </div>
-
+    <div class="MoreBtn"><input type ="button" id="movieViewMoreBtn" VALUE="더보기"></div>
 
 </div>
 </html>

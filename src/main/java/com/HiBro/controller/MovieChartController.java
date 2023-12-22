@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -19,11 +20,10 @@ public class MovieChartController {
     private final MovieService movieService;
     private final MovieRepository movieRepository;
 
-
     @GetMapping("/movieChart")
-    public String movieChart(Model model){
+    public String movieChart(Model model, String searchMovieTitle){
 
-        List<MovieChartFormDTO> movieChartFormDTOS = movieRepository.getMovieChartFormDTOList();
+        List<MovieChartFormDTO> movieChartFormDTOS = movieRepository.getMovieChartFormDTOList(searchMovieTitle);
         model.addAttribute("MovieChartFormDTOList", movieChartFormDTOS);
 
         log.info(movieChartFormDTOS.get(0).toString());

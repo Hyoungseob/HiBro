@@ -41,7 +41,6 @@
                 th:if="${#strings.isEmpty(answerDTO.content)}">
                 <input type="hidden" th:name="inquiry_code" th:value="${inquiry.code}"/>
                 <textarea class="answer" th:field="*{content}"></textarea>
-                <!-- 제출하면 inquiryStatus 문의 완료로 바꾸기 -->
                 <div>
                     <button class="btn" type="submit">제출</button>
                     <button class="btn">취소</button>

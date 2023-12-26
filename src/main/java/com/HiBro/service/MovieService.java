@@ -1,11 +1,9 @@
 package com.HiBro.service;
 
-import com.HiBro.dto.MovieChartFormDTO;
 import com.HiBro.dto.MovieDTO;
 import com.HiBro.entity.Movie;
 import com.HiBro.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -51,6 +49,13 @@ public class MovieService {
             movieImgService.deleteMovieImg(movie.getCode());
             movieRepository.delete(movie);
         }
+    }
+
+    public Pageable getMoviePage(Optional<Integer> moviePageCnt){
+
+        Pageable moviePageable = PageRequest.of(moviePageCnt.isPresent() ? moviePageCnt.get() : 0 , 8);
+
+        return moviePageable;
     }
 
 }

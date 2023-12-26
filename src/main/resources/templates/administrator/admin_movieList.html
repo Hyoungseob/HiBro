@@ -35,7 +35,7 @@
                         <div class="movie_director">[[${movie.director}]]</div>
                         <div class="movie_actor">[[${movie.actor}]]</div>
                         <div class="movie_genre">[[${movie.genre}]]</div>
-                        <div class="movie_review"><button th:onclick="location='/admin/review/+[[${movie.code}]]'">리뷰 관리</button></div>
+                        <div class="movie_review"><button th:onclick="location='/admin/review/[[${movie.code}]]'">리뷰 관리</button></div>
                     </div>
                 </th:block>
             </div>

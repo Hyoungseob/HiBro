@@ -68,8 +68,8 @@ public class ReviewService{
         review.setContent(reviewDTO.getContent());
         return review;
     }
-    public void deleteReview(ReviewDTO reviewDTO){
-        Review review = reviewRepository.findById(reviewDTO.getCode())
+    public void deleteReview(Long reviewCode){
+        Review review = reviewRepository.findById(reviewCode)
                 .orElseThrow(EntityNotFoundException::new);
         reviewRepository.delete(review);
     }

@@ -149,7 +149,9 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/screen/{screenCode}/new")
-	public String screenDateForm(@RequestParam("screenCode") Long screenCode, @RequestParam("screeningTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ScreeningTime screeningTime, ScreenDateDTO screenDateDTO, BindingResult bindingResult, Model model) {
+	public String screenDateForm(@RequestParam("screenCode") Long screenCode,
+								 @RequestParam("screeningTime") ScreeningTime screeningTime,
+								 ScreenDateDTO screenDateDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_screenDate_form";
 		}

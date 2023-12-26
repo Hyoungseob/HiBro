@@ -3,6 +3,7 @@ package com.HiBro.entity;
 import com.HiBro.constant.ScreeningTime;
 import com.HiBro.dto.ScreenDateDTO;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class ScreenDate {
 	private Long code;
 
 	@Column(nullable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime screeningDateTime;
 
 	@Enumerated(EnumType.STRING)

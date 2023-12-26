@@ -4,10 +4,22 @@
 	width: 10%;
 }
 
+.board_list .theater_name {
+	width: 20%;
+}
+
 .board_list .theater_location {
     width: 30%;
 }
 
 .board_list .theater_status{
     width: 20%;
+}
+
+.board_list .theater_updateBtn{
+    width: 10%;
+}
+
+.board_list .theater_deleteBtn{
+    width: 10%;
 }

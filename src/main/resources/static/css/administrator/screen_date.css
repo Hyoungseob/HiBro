@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.board_list .screenDate_code {
+	width: 10%;
+}
+
+.board_list .screenDate_location {
+	width: 50%;
+}
+
+.board_list .screenDate_type {
+    width: 20%;
+}
+
+.board_list .screenDate_updateBtn{
+    width: 10%;
+}
+
+.board_list .screenDate_deleteBtn{
+    width: 10%;
+}

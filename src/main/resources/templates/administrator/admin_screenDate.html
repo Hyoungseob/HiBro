@@ -9,18 +9,7 @@
 
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
-	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
-	<style>
-		.on {
-			display: inline-block;
-			margin: 0;
-		}
-
-		.off {
-			display: none;
-			margin: 0;
-		}
-	</style>
+	<link rel="stylesheet" th:href="@{/css/administrator/screen_date.css}">
 </th:block>
 
 <th:block layout:fragment="script">
@@ -61,7 +50,6 @@
 	</script>
 </th:block>
 <div layout:fragment="content">
-	<!--사용자 창 시작-->
 	<div class="noticeBoard">
 		<div>
 			<th:block>
@@ -70,18 +58,20 @@
 		</div>
 		<div class="board_list_wrap">
 			<div class="board_list">
-				<div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
-					<div class="theater_code">번호</div>
-					<div class="theater_location">상영시간</div>
-					<div class="theater_type">조조/일반/심야</div>
+				<div class="top">
+					<div class="screenDate_code">번호</div>
+					<div class="screenDate_location">상영시간</div>
+					<div class="screenDate_type">조조/일반/심야</div>
+					<input type="hidden" class="screenDate_updateBtn">
+					<input type="hidden" class="screenDate_deleteBtn">
 				</div>
 				<th:block th:each="screenDate, status:${screenDateList}">
 					<div>
-						<div class="theater_code">[[${screenDate.code}]]</div>
-						<div class="theater_location"><a
-								th:href="'/admin/screenDate/'+${screenDate.code}">[[${screenDate.screeningDateTime}]]</a>
+						<div class="screenDate_code">[[${screenDate.code}]]</div>
+						<div class="screenDate_location"><a
+								th:href="'/admin/screenDate/'+${screenDate.code}" th:text="${#temporals.format(screenDate.screeningDateTime, 'yyyy년 MM월 dd일 HH시 mm분')}"></a>
 						</div>
-						<div class="theater_status">[[${screenDate.screeningTime}]]</div>
+						<div class="screenDate_type">[[${screenDate.screeningTime}]]</div>
 						<div class="screenDate_updateBtn">
 							<a th:href="'/admin/screenDate/'+${screenDate.code}+'/update'"><button>수정</button></a>
 						</div>

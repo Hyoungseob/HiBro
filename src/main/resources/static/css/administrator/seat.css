@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.board_list .seat_code {
+	width: 10%;
+}
+
+.board_list .seat_row {
+	width: 20%;
+}
+
+.board_list .seat_column {
+    width: 20%;
+}
+
+.board_list .seat_status {
+    width: 30%;
+}
+
+.board_list .seat_updateBtn{
+    width: 10%;
+}
+
+.board_list .seat_deleteBtn{
+    width: 10%;
+}

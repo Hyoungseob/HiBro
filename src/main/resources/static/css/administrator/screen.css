@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.board_list .screen_code {
+	width: 10%;
+}
+
+.board_list .screen_location {
+	width: 30%;
+}
+
+.board_list .screen_type {
+    width: 30%;
+}
+
+.board_list .screen_updateBtn{
+    width: 10%;
+}
+
+.board_list .screen_updateBtn{
+    width: 10%;
+}

@@ -43,8 +43,8 @@ public class ScreenTest {
 		for (int i = 1; i <= 10; i++) {
 			ScreenDTO screenDTO = new ScreenDTO();
 //			screenDTO.setScreenImg("임시 이미지");
-			screenDTO.setScreenLocation("울산 삼산동" + i);
-			screenDTO.setScreenType(ScreenType.NORMAL);
+			screenDTO.setLocation("울산 삼산동" + i);
+			screenDTO.setType(ScreenType.NORMAL);
 
 			Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
 

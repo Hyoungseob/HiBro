@@ -2,7 +2,6 @@ package com.HiBro.dto;
 
 import com.HiBro.constant.SeatStatus;
 import com.HiBro.entity.Seat;
-import com.HiBro.entity.Theater;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
@@ -10,9 +9,9 @@ import org.modelmapper.ModelMapper;
 @Setter
 public class SeatDTO {
 	private Long code;
-	private String seatColumn;
-	private String seatRow;
-	private SeatStatus seatStatus;
+	private String column;
+	private String row;
+	private SeatStatus status;
 	private static ModelMapper modelMapper = new ModelMapper();
 
 	public static SeatDTO of(Seat seat) {

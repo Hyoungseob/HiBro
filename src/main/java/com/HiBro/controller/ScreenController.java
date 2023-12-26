@@ -18,18 +18,18 @@ public class ScreenController {
 
 	@GetMapping("/screen")
 	public String getScreen(@RequestParam(name = "location", required = false) Location location,
-							@RequestParam(name = "screenType", required = false) ScreenType screenType,
+							@RequestParam(name = "type", required = false) ScreenType type,
 							Model model, Optional<Integer> page) {
-		Pageable pageable = PageRequest.of(page.orElse(0), 10);
+		Pageable pageable = PageRequest.of(page.map(integer -> integer - 1).orElse(0), 10);
 		model.addAttribute("maxPage", 5);
 		Page<Screen> screenList;
 
-		if (screenType != null && location == null) {
-			screenList = screenService.findByScreenType(screenType, pageable);
-		} else if (location != null && screenType == null) {
+		if (type != null && location == null) {
+			screenList = screenService.findByType(type, pageable);
+		} else if (location != null && type == null) {
 			screenList = screenService.findByTheaterLocation(location, pageable);
-		} else if (screenType != null && location != null) {
-			screenList = screenService.findByScreenTypeAndTheaterLocation(screenType, location, pageable);
+		} else if (type != null && location != null) {
+			screenList = screenService.findByScreenTypeAndTheaterLocation(type, location, pageable);
 		} else {
 			screenList = screenService.findAll(pageable);
 		}

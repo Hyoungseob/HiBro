@@ -10,8 +10,8 @@ import org.modelmapper.ModelMapper;
 @ToString
 public class ScreenDTO {
 	private Long code;
-	private String screenLocation;
-	private ScreenType screenType;
+	private String location;
+	private ScreenType type;
 	private static ModelMapper modelMapper = new ModelMapper();
 
 	public static ScreenDTO of(Screen screen) {

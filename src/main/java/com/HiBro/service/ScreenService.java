@@ -54,16 +54,16 @@ public class ScreenService {
 	public Page<Screen> getScreenList(Long theaterCode, Pageable pageable) {
 		return screenRepository.findByTheaterCode(theaterCode, pageable);
 	}
-	public Page<Screen> findByScreenType(ScreenType screenType, Pageable pageable) {
-		return screenRepository.findByScreenType(screenType, pageable);
+	public Page<Screen> findByType(ScreenType type, Pageable pageable) {
+		return screenRepository.findByType(type, pageable);
 	}
 
 	public Page<Screen> findByTheaterLocation(@Param("location") Location location, Pageable pageable) {
 		return screenRepository.findByTheaterLocation(location, pageable);
 	}
 
-	public Page<Screen> findByScreenTypeAndTheaterLocation(@Param("screenType") ScreenType screenType, @Param("location") Location location, Pageable pageable) {
-		return screenRepository.findByScreenTypeAndTheaterLocation(screenType, location, pageable);
+	public Page<Screen> findByScreenTypeAndTheaterLocation(@Param("type") ScreenType type, @Param("location") Location location, Pageable pageable) {
+		return screenRepository.findByTypeAndTheaterLocation(type, location, pageable);
 	}
 
 	public Page<Screen> findAll(Pageable pageable) {

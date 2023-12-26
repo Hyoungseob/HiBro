@@ -25,7 +25,7 @@ public class Seat {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private SeatStatus seatStatus;
+	private SeatStatus status;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "screen_date_code")
@@ -33,15 +33,15 @@ public class Seat {
 
 	public static Seat createSeat(SeatDTO seatDTO) {
 		Seat seat = new Seat();
-		seat.setSeatRow(seatDTO.getSeatRow());
-		seat.setSeatColumn(seatDTO.getSeatColumn());
-		seat.setSeatStatus(seatDTO.getSeatStatus());
+		seat.setSeatRow(seatDTO.getRow());
+		seat.setSeatColumn(seatDTO.getColumn());
+		seat.setStatus(seatDTO.getStatus());
 		return seat;
 	}
 
 	public void updateSeat(SeatDTO seatDTO) {
-		this.seatRow = seatDTO.getSeatRow();
-		this.seatColumn = seatDTO.getSeatColumn();
-		this.seatStatus = seatDTO.getSeatStatus();
+		this.seatRow = seatDTO.getRow();
+		this.seatColumn = seatDTO.getColumn();
+		this.status = seatDTO.getStatus();
 	}
 }

@@ -10,11 +10,11 @@
 	<form action="/admin/theater/{theaterCode}/new" role="form" method="post" th:object="${screenDTO}">
 		<div class="form-group">
 			<label th:for="location">위치</label>
-			<input type="text" th:field="*{screenLocation}" class="form-control" placeholder="위치를 입력해주세요">
+			<input type="text" th:field="*{location}" class="form-control" placeholder="위치를 입력해주세요">
 		</div>
 		<div class="form-group">
 			<label th:for="type">타입</label>
-			<select id="screenType" th:field="*{screenType}">
+			<select id="type" th:field="*{type}">
 				<option th:each="status : ${T(com.HiBro.constant.ScreenType).values()}" th:value="${status}"
 					th:text="${#strings.capitalize(status.name())}"></option>
 			</select>

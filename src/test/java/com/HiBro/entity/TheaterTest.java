@@ -30,9 +30,9 @@ public class TheaterTest {
 
 	public TheaterDTO createTheater() {
 		TheaterDTO theaterDTO = new TheaterDTO();
-		theaterDTO.setTheaterName("바보");
+		theaterDTO.setName("바보");
 		theaterDTO.setLocation(Location.DAEGU);
-		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
+		theaterDTO.setStatus(TheaterStatus.OPEN);
 		Theater theater = theaterService.saveTheater(theaterDTO);
 		theaterDTO.setCode(theater.getCode());
 		return theaterDTO;
@@ -44,7 +44,7 @@ public class TheaterTest {
 		for (int i = 0; i < 10; i++) {
 			TheaterDTO theaterDTO = new TheaterDTO();
 //			theaterDTO.setTheaterLocation("울산 남구 삼산동");
-			theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
+			theaterDTO.setStatus(TheaterStatus.OPEN);
 
 			Theater theater = theaterService.saveTheater(theaterDTO);
 
@@ -60,8 +60,8 @@ public class TheaterTest {
 		for (int i = 0; i < 10; i++) {
 			ScreenDTO screenDTO = new ScreenDTO();
 //			screenDTO.setScreenImg("임시 이미지");
-			screenDTO.setScreenLocation("울산 삼산동");
-			screenDTO.setScreenType(ScreenType.NORMAL);
+			screenDTO.setLocation("울산 삼산동");
+			screenDTO.setType(ScreenType.NORMAL);
 
 			Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
 			screenDTO.setCode(screen.getCode());
@@ -76,9 +76,9 @@ public class TheaterTest {
 
 		for (int i = 1; i <= 10; i++) {
 			SeatDTO seatDTO = new SeatDTO();
-			seatDTO.setSeatRow("1행");
-			seatDTO.setSeatColumn(i + "열");
-			seatDTO.setSeatStatus(SeatStatus.SELL);
+			seatDTO.setRow("1행");
+			seatDTO.setColumn(i + "열");
+			seatDTO.setStatus(SeatStatus.SELL);
 			Seat seat = seatService.saveSeat(seatDTO, screenDTO.getCode());
 			seatDTO.setCode(seat.getCode());
 			seatList.add(seatDTO);
@@ -134,9 +134,9 @@ public class TheaterTest {
 		TheaterDTO theaterDTO = this.createTheater();
 		Theater theater = theaterRepository.findByCode(theaterDTO.getCode());
 		System.out.println(theater);
-		theaterDTO.setTheaterName("천재");
+		theaterDTO.setName("천재");
 		theaterDTO.setLocation(Location.BUSAN);
-		theaterDTO.setTheaterStatus(TheaterStatus.CLOSE);
+		theaterDTO.setStatus(TheaterStatus.CLOSE);
 		//theater.updateTheater(theaterDTO);
 		System.out.println(theater);
 	}

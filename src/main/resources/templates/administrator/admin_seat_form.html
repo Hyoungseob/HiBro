@@ -9,16 +9,16 @@
 	<h1>좌석 추가</h1>
 	<form action="/admin/screenDate/{screenDateCode}/new" role="form" method="post" th:object="${seatDTO}">
 		<div class="form-group">
-			<label th:for="column">행</label>
-			<input type="text" th:field="*{seatColumn}" class="form-control" placeholder="행을 입력해주세요">
+			<label th:for="seatColumn">행</label>
+			<input type="text" th:field="*{column}" class="form-control" placeholder="행을 입력해주세요">
 		</div>
 		<div class="form-group">
-			<label th:for="row">열</label>
-			<input type="text" th:field="*{seatRow}" class="form-control" placeholder="열을 입력해주세요">
+			<label th:for="seatRow">열</label>
+			<input type="text" th:field="*{row}" class="form-control" placeholder="열을 입력해주세요">
 		</div>
 		<div class="form-group">
 			<label th:for="status">상태</label>
-			<select id="seatStatus" th:field="*{seatStatus}">
+			<select id="status" th:field="*{status}">
 				<option th:each="status : ${T(com.HiBro.constant.SeatStatus).values()}" th:value="${status}"
 					th:text="${#strings.capitalize(status.name())}"></option>
 			</select>

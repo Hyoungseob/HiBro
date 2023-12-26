@@ -16,11 +16,11 @@ public interface ScreenRepository extends JpaRepository<Screen, Long> {
 
 	Page<Screen> findByTheaterCode(Long theaterCode, Pageable pageable);
 
-	Page<Screen> findByScreenType(ScreenType screenType, Pageable pageable);
+	Page<Screen> findByType(ScreenType type, Pageable pageable);
 
 	@Query("SELECT s FROM Screen s JOIN s.theater t WHERE t.location = :location")
 	Page<Screen> findByTheaterLocation(@Param("location") Location location, Pageable pageable);
 
-	@Query("SELECT s FROM Screen s JOIN s.theater t WHERE s.screenType = :screenType AND t.location = :location")
-	Page<Screen> findByScreenTypeAndTheaterLocation(@Param("screenType") ScreenType screenType, @Param("location") Location location, Pageable pageable);
+	@Query("SELECT s FROM Screen s JOIN s.theater t WHERE s.type = :type AND t.location = :location")
+	Page<Screen> findByTypeAndTheaterLocation(@Param("type") ScreenType type, @Param("location") Location location, Pageable pageable);
 }

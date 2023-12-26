@@ -10,9 +10,9 @@ import org.modelmapper.ModelMapper;
 @ToString
 public class TheaterDTO {
 	private Long code;
-	private String theaterName;
+	private String name;
 	private Location location;
-	private TheaterStatus theaterStatus;
+	private TheaterStatus status;
 	private static ModelMapper modelMapper = new ModelMapper();
 
 	public static TheaterDTO of(Theater theater) {

@@ -11,7 +11,7 @@
 
 		<div class="form-group">
 			<label th:for="location">이름</label>
-			<input type="text" th:field="*{theaterName}" class="form-control" placeholder="이름를 입력해주세요">
+			<input type="text" th:field="*{name}" class="form-control" placeholder="이름를 입력해주세요">
 		</div>
 		<div class="form-group">
 			<label th:for="location">위치</label>
@@ -22,7 +22,7 @@
 		</div>
 		<div class="form-group">
 			<label th:for="status">상태</label>
-			<select id="theaterStatus" th:field="*{theaterStatus}">
+			<select id="status" th:field="*{status}">
 				<option th:each="status : ${T(com.HiBro.constant.TheaterStatus).values()}" th:value="${status}"
 					th:text="${#strings.capitalize(status.name())}"></option>
 			</select>

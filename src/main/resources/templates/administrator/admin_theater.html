@@ -69,9 +69,9 @@
 					<div>
 						<div class="theater_code">[[${theater.getCode}]]</div>
 						<div class="theater_name"><a
-								th:href="'/admin/theater/'+${theater.code}">[[${theater.getTheaterName}]]</a></div>
+								th:href="'/admin/theater/'+${theater.code}">[[${theater.getName}]]</a></div>
 						<div class="theater_location">[[${theater.getLocation}]]</div>
-						<div class="theater_status">[[${theater.getTheaterStatus}]]</div>
+						<div class="theater_status">[[${theater.getStatus}]]</div>
 							<div class="theater_updateBtn">
 								<a th:href="'/admin/theater/'+${theater.code}+'/update'"><button>수정</button></a>
 							</div>

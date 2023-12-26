@@ -18,11 +18,11 @@ public class Screen {
 	private Long code;
 
 	@Column(nullable = false)
-	private String screenLocation;
+	private String location;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private ScreenType screenType;
+	private ScreenType type;
 
 	@ManyToOne
 	@JoinColumn(name = "theater_code")
@@ -33,22 +33,22 @@ public class Screen {
 
 	public static Screen createScreen(ScreenDTO screenDTO) {
 		Screen screen = new Screen();
-		screen.setScreenLocation(screenDTO.getScreenLocation());
-		screen.setScreenType(screenDTO.getScreenType());
+		screen.setLocation(screenDTO.getLocation());
+		screen.setType(screenDTO.getType());
 		return screen;
 	}
 
 	public void updateScreen(ScreenDTO screenDTO) {
-		this.screenLocation = screenDTO.getScreenLocation();
-		this.screenType = screenDTO.getScreenType();
+		this.location = screenDTO.getLocation();
+		this.type = screenDTO.getType();
 	}
 
 	@Override
 	public String toString() {
 		return "Screen{" +
 				"code=" + code +
-				", screenLocation='" + screenLocation + '\'' +
-				", screenType=" + screenType +
+				", location='" + location + '\'' +
+				", type=" + type +
 				'}';
 	}
 }

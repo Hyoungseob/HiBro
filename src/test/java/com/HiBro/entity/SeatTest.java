@@ -33,7 +33,7 @@ public class SeatTest {
 	public TheaterDTO createTheater() {
 		TheaterDTO theaterDTO = new TheaterDTO();
 //		theaterDTO.setTheaterLocation("울산 남구 삼산동");
-		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
+		theaterDTO.setStatus(TheaterStatus.OPEN);
 
 		Theater theater = theaterService.saveTheater(theaterDTO);
 
@@ -46,8 +46,8 @@ public class SeatTest {
 		TheaterDTO theaterDTO = this.createTheater();
 		ScreenDTO screenDTO = new ScreenDTO();
 //		screenDTO.setScreenImg("임시 이미지");
-		screenDTO.setScreenLocation("울산 삼산동");
-		screenDTO.setScreenType(ScreenType.NORMAL);
+		screenDTO.setLocation("울산 삼산동");
+		screenDTO.setType(ScreenType.NORMAL);
 		return screenService.saveScreen(screenDTO, theaterDTO.getCode());
 	}
 
@@ -69,9 +69,9 @@ public class SeatTest {
 
 		for (int i = 1; i <= 10; i++) {
 			SeatDTO seatDTO = new SeatDTO();
-			seatDTO.setSeatRow("1행");
-			seatDTO.setSeatColumn(i + "열");
-			seatDTO.setSeatStatus(SeatStatus.SELL);
+			seatDTO.setRow("1행");
+			seatDTO.setColumn(i + "열");
+			seatDTO.setStatus(SeatStatus.SELL);
 			Seat seat = seatService.saveSeat(seatDTO, screenDateDTO.getCode());
 			seatDTO.setCode(seat.getCode());
 			seatList.add(seatDTO);
@@ -81,7 +81,7 @@ public class SeatTest {
 
 	@Test
 	@DisplayName("좌석 검색 테스트")
-	public void findByScreenLocation() {
+	public void findByLocation() {
 		this.createSeatList();
 
 		Long screenCode = screenDateRepository.findAll().get(0).getCode();

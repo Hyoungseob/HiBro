@@ -40,7 +40,7 @@
 								<div class="hidcon2">
 									<ul>
 										<th:block th:each="theater, status:${theaterList}">
-											<li th:if="${theater.getLocation == location}">[[${theater.theaterName}]]
+											<li th:if="${theater.getLocation == location}">[[${theater.name}]]
 											</li>
 
 										</th:block>

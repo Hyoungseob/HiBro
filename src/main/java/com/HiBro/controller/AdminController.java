@@ -92,7 +92,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/theater/{theaterCode}/new")
-	public String screenForm(@RequestParam("theaterCode") Long theaterCode, @RequestParam("screenType") ScreenType screenType, ScreenDTO screenDTO, BindingResult bindingResult, Model model) {
+	public String screenForm(@RequestParam("theaterCode") Long theaterCode, @RequestParam("type") ScreenType type, ScreenDTO screenDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_screen_form";
 		}
@@ -205,12 +205,14 @@ public class AdminController {
 	public String seatForm(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
 		model.addAttribute("seatDTO", new SeatDTO());
 		model.addAttribute("screenDateCode", screenDateCode);
-		model.addAttribute("seatStatus", SeatStatus.values());
+		model.addAttribute("status", SeatStatus.values());
 		return "administrator/admin_seat_form";
 	}
 
 	@PostMapping("/admin/screenDate/{screenDateCode}/new")
-	public String seatForm(@RequestParam("screenDateCode") Long screenDateCode, @RequestParam("seatStatus") SeatStatus seatStatus, SeatDTO seatDTO, BindingResult bindingResult, Model model) {
+	public String seatForm(@RequestParam("screenDateCode") Long screenDateCode,
+						   @RequestParam("status") SeatStatus status,
+						   SeatDTO seatDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_seat_form";
 		}

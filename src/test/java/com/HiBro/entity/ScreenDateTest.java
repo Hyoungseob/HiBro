@@ -35,7 +35,7 @@ public class ScreenDateTest {
 	public TheaterDTO createTheater() {
 		TheaterDTO theaterDTO = new TheaterDTO();
 //		theaterDTO.setTheaterLocation("울산 남구 삼산동");
-		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
+		theaterDTO.setStatus(TheaterStatus.OPEN);
 
 		Theater theater = theaterService.saveTheater(theaterDTO);
 
@@ -48,8 +48,8 @@ public class ScreenDateTest {
 		TheaterDTO theaterDTO = this.createTheater();
 		ScreenDTO screenDTO = new ScreenDTO();
 //		screenDTO.setScreenImg("임시 이미지");
-		screenDTO.setScreenLocation("울산 삼산동");
-		screenDTO.setScreenType(ScreenType.NORMAL);
+		screenDTO.setLocation("울산 삼산동");
+		screenDTO.setType(ScreenType.NORMAL);
 
 		Screen screen = screenService.saveScreen(screenDTO, theaterDTO.getCode());
 
@@ -80,7 +80,7 @@ public class ScreenDateTest {
 		this.createScreenDateList();
 
 		Long ScreenCode = screenRepository.findAll().get(0).getCode();
-		List<ScreenDate> screenDates = screenDateRepository.findScreenDateByScreenCode(ScreenCode);
+		List<ScreenDate> screenDates = screenDateRepository.findByScreenCode(ScreenCode);
 		for (ScreenDate screenDate : screenDates) {
 			System.out.println(screenDate);
 		}
@@ -94,7 +94,7 @@ public class ScreenDateTest {
 		Long ScreenCode = screenRepository.findAll().get(0).getCode();
 
 		screenDateService.deleteScreenDate(screenDateDTO.getCode());
-		List<ScreenDate> screenDates = screenDateRepository.findScreenDateByScreenCode(ScreenCode);
+		List<ScreenDate> screenDates = screenDateRepository.findByScreenCode(ScreenCode);
 		for (ScreenDate screenDate : screenDates) {
 			System.out.println(screenDate);
 		}

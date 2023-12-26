@@ -51,7 +51,7 @@
 	<div class="noticeBoard">
 		<div>
 			<th:block>
-				<h2 class="allMember" th:text="${theater.theaterName} + ' 상영관 목록'"></h2>
+				<h2 class="allMember" th:text="${theater.name} + ' 상영관 목록'"></h2>
 			</th:block>
 		</div>
 		<div class="board_list_wrap">
@@ -67,8 +67,8 @@
 					<div>
 						<div class="screen_code">[[${screen.code}]]</div>
 						<div class="screen_location"><a
-								th:href="'/admin/screen/'+${screen.code}">[[${screen.getScreenLocation}]]</a></div>
-						<div class="screen_type">[[${screen.screenType}]]</div>
+								th:href="'/admin/screen/'+${screen.code}">[[${screen.getLocation}]]</a></div>
+						<div class="screen_type">[[${screen.type}]]</div>
 						<div class="screen_updateBtn">
 							<a th:href="'/admin/screen/'+${screen.code}+'/update'"><button>수정</button></a>
 						</div>
@@ -78,7 +78,7 @@
 						</div>
 					</div>
 				</th:block>
-			</input>
+			</div>
 			<div class="board_page"
 				th:with="start=${(screenList.number/maxPage)*maxPage+1},end=(${(screenList.totalPages==0)? 1:(start+(maxPage-1)< screenList.totalPages? start+(maxPage-1) : screenList.totalPages)})">
 				<div>

@@ -6,16 +6,17 @@ import com.HiBro.dto.QMovieChartFormDTO;
 import com.HiBro.entity.QMovie;
 import com.HiBro.entity.QMovieImg;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
+@Log
 public class MovieChartRepositoryImpl implements MovieChartRepository {
 
     private JPAQueryFactory queryFactory;
@@ -52,8 +53,9 @@ public class MovieChartRepositoryImpl implements MovieChartRepository {
         return movieChartFormDTOList;
     }*/
 
-    //QueryDSL을 활용한 쿼리 커스텀
-    public Page<MovieChartFormDTO> getMovieChartFormDTOList(Optional<Integer> moviePageCnt, String keyword){
+    //QueryDSL을 활용한 쿼리 커스텀(MovieChartRepository 오버라이딩)
+    @Override
+    public Page<MovieChartFormDTO> getMovieChartFormDTOList(Pageable moviePageable, String keyword){
         QMovie movie = QMovie.movie;
         QMovieImg movieImg = QMovieImg.movieImg;
 
@@ -67,12 +69,19 @@ public class MovieChartRepositoryImpl implements MovieChartRepository {
                 .from(movieImg)
                 .join(movieImg.movie, movie)
                 .where(movieImg.imgType.eq(ImgType.POSTER), whereArg(movie, keyword))
+                .offset(moviePageable.getOffset())
+                .limit(moviePageable.getPageSize())
                 .fetch();
 
-        Pageable moviePageable = PageRequest.of(moviePageCnt.isPresent() ? moviePageCnt.get() : 0 , 8);
+        long total = queryFactory.select(Wildcard.count)
+                .from(movieImg)
+                .join(movieImg.movie, movie)
+                .where(movieImg.imgType.eq(ImgType.POSTER), whereArg(movie, keyword))
+                .fetchOne();
 
-        return new PageImpl<>(searchList, moviePageable, searchList.size());
+        return new PageImpl<>(searchList, moviePageable, total);
 
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.HiBro.controller;
 
+import com.HiBro.dto.MovieChartCntDTO;
 import com.HiBro.dto.MovieChartFormDTO;
 import com.HiBro.repository.MovieRepository;
 import com.HiBro.service.MovieService;
@@ -11,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
 
 @Log
@@ -26,18 +25,23 @@ public class MovieChartController {
     @GetMapping("/movieChart")
     public String getMovieChart(Model model, Optional<Integer> moviePageCnt , String searchMovieTitle){
 
-        Page<MovieChartFormDTO> movieChartFormDTOS = movieRepository.getMovieChartFormDTOList(moviePageCnt, searchMovieTitle);
+        Page<MovieChartFormDTO> movieChartFormDTOS = movieRepository.getMovieChartFormDTOList(movieService.getMoviePage(moviePageCnt)
+                ,searchMovieTitle);
         model.addAttribute("MovieChartFormDTOList", movieChartFormDTOS);
+        model.addAttribute("searchMovieTitle", searchMovieTitle);
 
         return "forum/movieChart";
     }
 
     @PostMapping("/movieChart")
-    public @ResponseBody ResponseEntity getMovieChartMore(Optional<Integer> movieChartCnt, Optional<String> searchMovieTitle){
+    public @ResponseBody ResponseEntity getMovieChartMore(@RequestBody MovieChartCntDTO movieChartCntDTO){
 
-        log.info(String.valueOf(movieChartCnt.orElse(0)));
+        Optional<Integer> moviePageCnt = Optional.ofNullable(movieChartCntDTO.getMovieChartCnt());
 
-        Page<MovieChartFormDTO> movieChartFormDTOList = movieRepository.getMovieChartFormDTOList(movieChartCnt, searchMovieTitle.orElse(""));
+        String movieTitle = movieChartCntDTO.getSearchMovieTitle();
+        Page<MovieChartFormDTO> movieChartFormDTOList = movieRepository.getMovieChartFormDTOList(movieService.getMoviePage(moviePageCnt),
+                movieTitle);
+
         return new ResponseEntity<Page<MovieChartFormDTO>>(movieChartFormDTOList, HttpStatus.OK);
 
     }

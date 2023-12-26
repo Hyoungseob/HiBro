@@ -1,24 +1,53 @@
 
-let movieCnt = 0;
+let movieCnt = 1;
 
 function getMovieList(){
 
-    movieCnt++;
+    var paramData = new Object();
 
-    let paramData = {
+    paramData = {
         movieChartCnt : movieCnt,
+        searchMovieTitle : $("#searchWord").val(),
     };
-    let param =JSON.stringify(paramData);
+
+    var param = JSON.stringify(paramData);
+
 
     $.ajax({
         type: "POST",
         url: "/movieChart",
+        contentType : "application/json",
         dataType: "json",
         cache:false,
         data : param,
         success:function(result,status){
-            //location.href="/movieChart";
-            //데이터 그려주기
+             let movieChartUI = $("#moreUtil");
+             if(result.totalPages-1 == result.number){
+                $("#movieViewMoreBtn").hide();
+             }
+             console.log(result.totalPages);
+             console.log(result.number);
+
+             movieCnt++;
+
+             result.content.forEach(function(movieChartCnt){
+                movieChartUI.append(
+                                        '<form class = "movie">' +
+                                            '<div>' +
+                                                '<div>' +
+                                                    '<a href=""><img class="moviePoster" src = '+movieChartCnt.imgUrl+'></a>' +
+                                                '</div>' +
+                                                '<div>' +
+                                                    '<p class="movieTitle">'+movieChartCnt.movieTitle+'</p>' +
+                                                    '<p class="openingDay">'+movieChartCnt.premiereDate+'</p>' +
+                                                '</div>' +
+
+                                                '<input type ="button" class="movieChartBtn" value="예매하기">' +
+                                            '</div>' +
+                                        '</form>'
+                )
+             })
+
 
         },
     });

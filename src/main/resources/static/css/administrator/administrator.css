@@ -101,7 +101,7 @@ aside {
 	line-height: 30px;
 }
 
-.memberManagement li:hover {
+.memberManagement a:hover {
 	cursor: pointer;
 }
 

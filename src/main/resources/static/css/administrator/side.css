@@ -11,6 +11,7 @@ aside {
 }
 
 .asideMenu {
+    height: 700px;
 	padding-left: 30px;
 }
 .managerProfile {
@@ -29,7 +30,7 @@ aside {
 	line-height: 30px;
 }
 
-.memberManagement li:hover {
+.memberManagement a:hover {
 	cursor: pointer;
 }
 
@@ -49,7 +50,7 @@ aside {
 	line-height: 30px;
 }
 
-.contentManagement li:hover {
+.contentManagement a:hover {
 	cursor: pointer;
 }
 
@@ -58,11 +59,11 @@ aside {
 	font-size: 1.5rem;
 }
 
-.logout p {
+.logout {
 	font-weight: bold;
 	font-size: 1.3rem;
-	width: 200px;
-	height: 90px;
+	width: 52px;
+	height: 15px;
 }
 
 .logout p:hover {

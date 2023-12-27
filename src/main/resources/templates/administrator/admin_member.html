@@ -1,38 +1,93 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout2}">
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
-    <link rel="stylesheet" th:href="@{/css/administrator/member.css}">
+	<link rel="stylesheet" th:href="@{/css/administrator/member.css}">
 </th:block>
+
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-		function deleteMember(obj){
+		function deleteMember(obj) {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
 			var member_code = obj.dataset.code;
-			var url = "/admin/member/"+member_code;
+			var url = "/admin/member/delete/" + member_code;
 
 			$.ajax({
-				url:url,
-				type:"DELETE",
-				dataType:"json",
-				cache:false,
-				success:function(result,status){
-					location.href="/admin";
+				url: url,
+				type: "DELETE",
+				dataType: "json",
+				cache: false,
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader(header, token);
 				},
-				error:function(jqXHR,status,error){
-					if(jqXHR=='401'){
+				success: function (result, status) {
+					location.href = "/admin";
+				},
+				error: function (jqXHR, status, error) {
+					if (jqXHR == '401') {
 						alert("로그인 하세요");
-					}else{
+					} else {
 						alert(jqXHR.responseJSON.message);
 					}
 				}
 			});
 		}
-		function searchMember(){
+		function updateMember(obj) {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var member_code = obj.dataset.code;
+			var input = document.getElementsByClassName("off" + member_code)[0].value;
+			var url = "/admin/member/update/" + member_code + "?point=" + input;
+
+			$.ajax({
+				url: url,
+				type: "PATCH",
+				dataType: "json",
+				cache: false,
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				success: function (result, status) {
+					location.href = "/admin";
+				},
+				error: function (jqXHR, status, error) {
+					if (jqXHR == '401') {
+						alert("로그인 하세요");
+					} else {
+						alert(jqXHR.responseJSON.message);
+					}
+				}
+			});
+		}
+		function searchMember() {
 			var searchId = $("#searchId").val();
 
-			location.href="/admin?searchId="+searchId;
+			location.href = "/admin?searchId=" + searchId;
 
+		}
+		function isUpdate(obj) {
+			var code = obj.dataset.code;
+			var on = document.getElementsByClassName("on" + code);
+			var off = document.getElementsByClassName("off" + code);
+
+			for (var i = 0; i < on.length; i++) {
+				on[i].classList.remove("on");
+				on[i].classList.add("off");
+			}
+			for (var i = 0; i < off.length; i++) {
+				off[i].classList.remove("off");
+				off[i].classList.add("on");
+			}
 		}
 	</script>
 </th:block>
@@ -40,7 +95,8 @@
 	<!--사용자 창 시작-->
 	<div class="noticeBoard">
 		<div style="margin-top: 20px;">
-			<h2 class="allMember">전체 멤버<p></p></h2>
+			<h2 class="allMember">전체 멤버<p></p>
+			</h2>
 			<div class="adNav">
 				<div class="search" th:object="${memberSearchDTO}">
 					<div><input class="navInput" th:field="*{searchId}" type="text" placeholder="아이디을 입력하세요"></div>
@@ -58,28 +114,45 @@
 					<div class="member_point">포인트</div>
 					<div class="member_regdate">가입날짜</div>
 					<div class="member_deletebtn"></div>
+					<div class="member_updatebtn"></div>
 				</div>
 				<th:block th:each="item, status:${memberList.getContent()}">
-				<div>
-					<div class="member_code">[[${item.code}]]</div>
-					<div class="member_id">[[${item.id}]]</div>
-					<div class="member_name">[[${item.name}]]</div>
-					<div class="member_email">[[${item.email}]]</div>
-					<div class="member_point">[[${item.point}]]</div>
-					<div class="member_regdate">[[${item.regDate}]]</div>
-					<div class="member_deletebtn"><button th:data-code="${item.code}" onclick="deleteMember(this)">삭제</button></div>
-				</div>
+					<div>
+						<div class="member_code">[[${item.code}]]</div>
+						<div class="member_id">[[${item.id}]]</div>
+						<div class="member_name">[[${item.name}]]</div>
+						<div class="member_email">[[${item.email}]]</div>
+						<div class="member_point">
+							<p th:class="on+${item.code} + ' on'">[[${item.point}]]</p>
+							<input th:class="off+${item.code} + ' off'" style="width:100%;" type="text"
+								th:placeholder="${item.point}">
+						</div>
+						<div class="member_regdate">[[${item.regDate}]]</div>
+						<div class="member_updatebtn">
+							<button th:class="on+${item.code} + ' on'" th:data-code="${item.code}"
+								onclick="isUpdate(this)">수정</button>
+							<button th:class="off+${item.code} + ' off'" th:data-code="${item.code}" th:data-point="10"
+								onclick="updateMember(this)">수정</button>
+						</div>
+						<div class="member_deletebtn"><button th:data-code="${item.code}"
+								onclick="deleteMember(this)">삭제</button></div>
+					</div>
 				</th:block>
 			</div>
-			<div class="board_page" th:with="start=${(memberList.number/maxPage)*maxPage+1},end=(${(memberList.totalPages==0)? 1:(start+(maxPage-1)< memberList.totalPages? start+(maxPage-1) : memberList.totalPages)})">
+			<div class="board_page"
+				th:with="start=${(memberList.number/maxPage)*maxPage+1},end=(${(memberList.totalPages==0)? 1:(start+(maxPage-1)< memberList.totalPages? start+(maxPage-1) : memberList.totalPages)})">
 				<div>
-					<a th:href="@{'?page=0'}" class="bt first"><<</a>
-					<a th:href="@{'?page='+${memberList.number==0? 0:memberList.number-1}}" class="bt prev"><</a>
-					<th:block th:each="page : ${#numbers.sequence(start,end)}" th:classappend="${memberList.number eq page-1}?'active':''">
-						<a th:href="@{'?page='+${page-1}}"th:inline="text">[[${page}]]</a>
-					</th:block>
-					<a th:href="@{'?page='+${memberList.number==memberList.totalPages-1? memberList.totalPages-1:memberList.number+1}}" class="bt next">></a>
-					<a th:href="@{'?page='+${memberList.totalPages-1}}" class="bt last">>></a>
+					<a th:href="@{'?page=0'}" class="bt first">
+						<< </a>
+							<a th:href="@{'?page='+${memberList.number==0? 0:memberList.number-1}}" class="bt prev">
+								< </a>
+									<th:block th:each="page : ${#numbers.sequence(start,end)}"
+										th:classappend="${memberList.number eq page-1}?'active':''">
+										<a th:href="@{'?page='+${page-1}}" th:inline="text">[[${page}]]</a>
+									</th:block>
+									<a th:href="@{'?page='+${memberList.number==memberList.totalPages-1? memberList.totalPages-1:memberList.number+1}}"
+										class="bt next">></a>
+									<a th:href="@{'?page='+${memberList.totalPages-1}}" class="bt last">>></a>
 				</div>
 			</div>
 		</div>

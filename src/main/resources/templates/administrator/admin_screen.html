@@ -1,17 +1,70 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout2}">
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/administrator/board.css}">
 	<link rel="stylesheet" th:href="@{/css/administrator/theater.css}">
+	<style>
+		.on {
+			display: inline-block;
+			margin: 0;
+		}
+
+		.off {
+			display: none;
+			margin: 0;
+		}
+	</style>
+</th:block>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		function deleteScreen(obj) {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var screenCode = obj.dataset.screen;
+			var theaterCode = obj.dataset.theater;
+
+			var url = "/admin/screen/" + screenCode;
+
+			$.ajax({
+				url: url,
+				type: "DELETE",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				dataType: "json",
+				cache: false,
+				success: function (result, status) {
+					location.href = '/admin/theater/' + theaterCode;
+				},
+
+				error: function (jqXHR, status, error) {
+					if (jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요');
+						location.href = '/member/login';
+					} else {
+						alert(jqXHR.responseJSON.message);
+					}
+				}
+			});
+		}
+	</script>
 </th:block>
 <div layout:fragment="content">
 	<!--사용자 창 시작-->
 	<div class="noticeBoard">
 		<div>
-			<h2 class="allMember">울산 남구 삼산동 상영관<p></p>
-			</h2>
-			<div></div>
+			<th:block>
+				<h2 class="allMember" th:text="${theater.theaterName} + ' 상영관 목록'"></h2>
+			</th:block>
 		</div>
 		<div class="board_list_wrap">
 			<div class="board_list">
@@ -23,28 +76,38 @@
 				<th:block th:each="screen, status:${screenList}">
 					<div>
 						<div class="theater_code">[[${screen.code}]]</div>
-						<div class="theater_location"><a th:href="'/admin/screen/'+${screen.code}">[[${screen.getScreenLocation}]]</a></div>
+						<div class="theater_location"><a
+								th:href="'/admin/screen/'+${screen.code}">[[${screen.getScreenLocation}]]</a></div>
 						<div class="theater_status">[[${screen.screenType}]]</div>
+						<div class="screen_updateBtn">
+							<a th:href="'/admin/screen/'+${screen.code}+'/update'"><button>수정</button></a>
+						</div>
+						<div class="screen_deleteBtn">
+							<button th:data-screen="${screen.code}" th:data-theater="${theater.code}"
+								onclick="deleteScreen(this)">삭제</button>
+						</div>
 					</div>
 				</th:block>
 			</div>
-			<div class="board_page">
-				<a href="#" class="bt first">
-				</a>
-				<a href="#" class="bt prev">
-				</a>
-				<a href="#" class="num on">1</a>
-				<a href="#" class="bt">2</a>
-				<a href="#" class="bt">3</a>
-				<a href="#" class="bt">4</a>
-				<a href="#" class="bt">5</a>
-				<a href="#" class="bt next">></a>
-				<a href="#" class="bt last">>></a>
+			<div class="board_page"
+				th:with="start=${(screenList.number/maxPage)*maxPage+1},end=(${(screenList.totalPages==0)? 1:(start+(maxPage-1)< screenList.totalPages? start+(maxPage-1) : screenList.totalPages)})">
+				<div>
+					<a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
+					<a th:href="@{'?page='+${screenList.number==0? 0:screenList.number-1}}" class="bt prev">&lt;</a>
+					<th:block th:each="page : ${#numbers.sequence(start,end)}"
+						th:classappend="${screenList.number eq page-1}?'active':''">
+						<a th:href="@{'?page='+${page-1}}" th:inline="text">[[${page}]]</a>
+					</th:block>
+					<a th:href="@{'?page='+${screenList.number==screenList.totalPages-1? screenList.totalPages-1:screenList.number+1}}"
+						class="bt next">&gt;</a>
+					<a th:href="@{'?page='+${screenList.totalPages-1}}" class="bt last">&gt;&gt;</a>
+				</div>
 			</div>
-			<div class="bt_wrap">
-				<a href="#" class="on">목록</a>
-				<a href="#">수정</a>
-			</div>
+			<th:block>
+				<div class="bt_wrap">
+					<a th:href="'/admin/theater/' + ${theater.code} + '/new'">등록하기</a>
+				</div>
+			</th:block>
 		</div>
 	</div>
 </div>

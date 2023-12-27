@@ -1,0 +1,8 @@
+@charset "utf-8";
+.member_form h1 {
+	margin-bottom: 30px;
+}
+
+.fieldError {
+	color: #bd2130;
+}

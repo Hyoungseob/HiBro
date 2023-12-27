@@ -1,5 +1,5 @@
 package com.HiBro.constant;
 
 public enum ScreenType {
-	NORMAL, PREMIUM;
+	NORMAL, SUITE, LROOM, FDX, CHEF;
 }

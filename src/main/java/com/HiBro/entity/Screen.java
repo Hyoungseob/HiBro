@@ -11,15 +11,11 @@ import java.util.*;
 @Table(name = "screen")
 @Getter
 @Setter
-@ToString
 public class Screen {
 	@Id
 	@Column(name = "screen_code")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long code;
-
-	@Column
-	private String screenImg;
 
 	@Column(nullable = false)
 	private String screenLocation;
@@ -37,9 +33,22 @@ public class Screen {
 
 	public static Screen createScreen(ScreenDTO screenDTO) {
 		Screen screen = new Screen();
-		screen.setScreenImg(screenDTO.getScreenImg());
 		screen.setScreenLocation(screenDTO.getScreenLocation());
 		screen.setScreenType(screenDTO.getScreenType());
 		return screen;
+	}
+
+	public void updateScreen(ScreenDTO screenDTO) {
+		this.screenLocation = screenDTO.getScreenLocation();
+		this.screenType = screenDTO.getScreenType();
+	}
+
+	@Override
+	public String toString() {
+		return "Screen{" +
+				"code=" + code +
+				", screenLocation='" + screenLocation + '\'' +
+				", screenType=" + screenType +
+				'}';
 	}
 }

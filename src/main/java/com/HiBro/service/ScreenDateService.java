@@ -1,9 +1,12 @@
 package com.HiBro.service;
 
+import com.HiBro.dto.ScreenDTO;
 import com.HiBro.dto.ScreenDateDTO;
 import com.HiBro.entity.*;
 import com.HiBro.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,15 @@ public class ScreenDateService {
 	private final ScreenDateRepository screenDateRepository;
 	private final SeatService seatService;
 
+	public ScreenDate getScreenDate(Long screenDate) {
+		return screenDateRepository.findByCode(screenDate);
+	}
+
+	public void updateScreenDate(ScreenDateDTO screenDateDTO) {
+		ScreenDate screenDate = screenDateRepository.findByCode(screenDateDTO.getCode());
+		screenDate.updateScreenDate(screenDateDTO);
+	}
+
 	public ScreenDate saveScreenDate(ScreenDateDTO screenDateDTO, Long screenCode) {
 		Screen screen = screenRepository.findByCode(screenCode);
 		ScreenDate screenDate = ScreenDate.createScreenDate(screenDateDTO);
@@ -24,17 +36,21 @@ public class ScreenDateService {
 		return screenDateRepository.save(screenDate);
 	}
 
-	public void deleteScreenDate(ScreenDateDTO screenDateDTO) {
-		ScreenDate screenDate = screenDateRepository.findByCode(screenDateDTO.getCode());
+	public void deleteScreenDate(Long screenDateCode) {
+		ScreenDate screenDate = screenDateRepository.findByCode(screenDateCode);
 		seatService.deleteSeatList(screenDate);
 		screenDateRepository.delete(screenDate);
 	}
 
 	public void deleteScreenDateList(Screen screen) {
-		List<ScreenDate> screenDateList = screenDateRepository.findScreenDateByScreenCode(screen.getCode());
+		List<ScreenDate> screenDateList = screenDateRepository.findByScreenCode(screen.getCode());
 		for (ScreenDate screenDate : screenDateList) {
 			seatService.deleteSeatList(screenDate);
 			screenDateRepository.delete(screenDate);
 		}
+	}
+
+	public Page<ScreenDate> getScreenDateList(Long screenCode, Pageable pageable) {
+		return screenDateRepository.findByScreenCode(screenCode, pageable);
 	}
 }

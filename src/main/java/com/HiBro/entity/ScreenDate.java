@@ -41,4 +41,9 @@ public class ScreenDate {
 		screenDate.setScreeningTime(screenDateDTO.getScreeningTime());
 		return screenDate;
 	}
+
+	public void updateScreenDate(ScreenDateDTO screenDateDTO) {
+		this.screeningDateTime = screenDateDTO.getScreeningDateTime();
+		this.screeningTime = screenDateDTO.getScreeningTime();
+	}
 }

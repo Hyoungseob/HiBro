@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<div layout:fragment="content">
+	<div id="content">
+		<form id="temp" action="/screen" method="get">
+			<select name="location">
+				<option value="">전체</option>
+				<option th:value="SEOUL">서울</option>
+				<option th:value="INCHEON">경기/인천</option>
+				<option th:value="DAEJEON">충청/대전</option>
+				<option th:value="GWANGJU">전라/광주</option>
+				<option th:value="DAEGU">경북/대구</option>
+				<option th:value="BUSAN">경남/울산/부산</option>
+				<option th:value="JEJU">강원/제주</option>
+			</select>
+			<select name="screenType">
+				<option value="">전체</option>
+				<option th:each="screenType : ${screenTypes}" th:value="${screenType}" th:text="${#strings.capitalize(screenType.name())}"></option>
+			</select>
+			<button type="submit">검색</button>
+		</form>
+		<table class="table">
+			<thead>
+				<tr class="text-center">
+					<td>영화관</td>
+					<td>상영관 위치</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="screenList : ${screenList}" class="text-center">
+					<td>
+						<span th:text="${screenList.theater.theaterName}"></span>
+					</td>
+					<td>
+						<span th:text="${screenList.screenLocation}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-center board_page"
+			th:with="start=${(screenList.number/maxPage)*maxPage+1},end=(${(screenList.totalPages==0) ? 1 : (start+(maxPage-1) < screenList.totalPages ? start + (maxPage-1) : screenList.totalPages)})">
+			<div>
+				<a th:href="@{'?page=0'}" class="bt first">&lt;&lt;</a>
+				<a th:href="@{'?page='+${screenList.number==0 ? 0 : screenList.number-1}}" class="bt prev">&lt;</a>
+				<th:block th:each="page : ${#numbers.sequence(start,end)}">
+					<a th:href="@{'?page='+${page-1}}" th:inline="text"
+						th:classappend="${screenList.number eq page-1} ? 'active' : ''">[[${page}]]</a>
+				</th:block>
+				<a th:href="@{'?page='+${screenList.number==screenList.totalPages-1 ? screenList.totalPages-1 : screenList.number+1}}"
+					class="bt next">&gt;</a>
+				<a th:href="@{'?page='+${screenList.totalPages-1}}" class="bt last">&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

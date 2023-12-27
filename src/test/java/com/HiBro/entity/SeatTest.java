@@ -32,7 +32,7 @@ public class SeatTest {
 
 	public TheaterDTO createTheater() {
 		TheaterDTO theaterDTO = new TheaterDTO();
-		theaterDTO.setTheaterLocation("울산 남구 삼산동");
+//		theaterDTO.setTheaterLocation("울산 남구 삼산동");
 		theaterDTO.setTheaterStatus(TheaterStatus.OPEN);
 
 		Theater theater = theaterService.saveTheater(theaterDTO);
@@ -45,7 +45,7 @@ public class SeatTest {
 	public Screen createScreen() {
 		TheaterDTO theaterDTO = this.createTheater();
 		ScreenDTO screenDTO = new ScreenDTO();
-		screenDTO.setScreenImg("임시 이미지");
+//		screenDTO.setScreenImg("임시 이미지");
 		screenDTO.setScreenLocation("울산 삼산동");
 		screenDTO.setScreenType(ScreenType.NORMAL);
 		return screenService.saveScreen(screenDTO, theaterDTO.getCode());
@@ -85,7 +85,7 @@ public class SeatTest {
 		this.createSeatList();
 
 		Long screenCode = screenDateRepository.findAll().get(0).getCode();
-		List<Seat> seatList = seatRepository.findSeatByScreenDateCode(screenCode);
+		List<Seat> seatList = seatRepository.findByScreenDateCode(screenCode);
 
 		for (Seat seat : seatList) {
 			System.out.println(seat);
@@ -99,8 +99,8 @@ public class SeatTest {
 
 		Long screenDateCode = screenDateRepository.findAll().get(0).getCode();
 
-		seatService.deleteSeat(seatDTO);
-		List<Seat> seats = seatRepository.findSeatByScreenDateCode(screenDateCode);
+		seatService.deleteSeat(seatDTO.getCode());
+		List<Seat> seats = seatRepository.findByScreenDateCode(screenDateCode);
 
 		for (Seat seat : seats) {
 			System.out.println(seat);

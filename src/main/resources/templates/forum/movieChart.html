@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/movie/movieChart.css}">
+</th:block>
+
+<div class="content" layout:fragment="content">
+    <input id="searchWord" type="hidden" th:value="${searchMovieTitle}">
+        <div class="chartTitleContainer">
+            <div class="chartTitle"><a href="http://localhost:8000/movieChart" >무비 차트</a></div>
+            <form class= "titleSearchInput" method="get" action="/movieChart" accept-charset="utf-8" >
+                <input class="navInput" type="text" name="searchMovieTitle" placeholder="영화 제목을 입력하세요">
+                <input class="inputBtn" type="button" value="검색">
+            </form>
+        </div>
+        <div class="flexContainer">
+            <!-- html(Thymeleaf) -->
+
+                <th:block th:each ="movieChart, status:${MovieChartFormDTOList}">
+                    <form class = "movie">
+                        <div>
+                            <div>
+                                <a href=""><img class="moviePoster" th:src = "${movieChart.imgUrl}" ></a>
+                            </div>
+                            <div>
+                                <p class="movieTitle" th:text="${movieChart.movieTitle}"></p>
+                                <p class="openingDay" th:text="${movieChart.premiereDate}"></p>
+                            </div>
+
+                            <input type ="button" class="movieChartBtn" value="예매하기">
+                        </div>
+                    </form>
+                </th:block>
+
+            <div Id="moreUtil" class="flexContainer">
+
+            </div>
+        </div>
+    <div class="MoreBtn"><input type ="button" id="movieViewMoreBtn" onclick="getMovieList()" VALUE="더보기"></div>
+
+    <script type="text/javascript" th:src="@{/js/forum/movieChart.js}"></script>
+</div>
+</html>

@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+:root{
+    --main-corlor: #c889ff;
+	--black-corlor: #333;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	border:0;
+	list-style: none;
+}
+
+.content{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.chartTitleContainer{
+    display:flex;
+    justify-content: space-between;
+    border-bottom: 3px solid;
+}
+
+.chartTitle>a{
+    margin: 10px;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 37px;
+    font-weight: 500;
+    vertical-align: middle;
+    text-decoration:none;
+    color: black;
+}
+
+.titleSearchInput{
+    display:flex;
+    align-items: center;
+}
+
+.navInput {
+	height: 30px;
+	border: 2px solid #495057;
+	padding-left: 20px;
+}
+
+.inputBtn{
+    height: 40px;
+    width: 70px;
+    padding: 7px 20px;
+    background-color: var(--main-corlor);
+    color: var(--font-color);
+}
+
+.flexContainer{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.movie{
+    margin: 35px 30px;
+    max-width: 20%;
+    height: auto;
+}
+
+.moviePoster{
+    width: 230px;
+    height: 330px;
+}
+
+.movieTitle{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+
+}
+
+.openingDay{
+    font-size: 15px;
+    margin: 0;
+}
+
+.movieChartBtn{
+    padding: 7px 20px;
+	background-color: var(--main-corlor);
+	color: var(--font-color);
+    border-radius: 5px;
+    position: relative;
+}
+
+.MoreBtn{
+    text-align: center;
+}
+
+#movieViewMoreBtn{
+    margin: 20px;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: var(--main-corlor);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0.2, 0.2, 0.2, 0.6);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    color: var(--font-color);
+}

@@ -46,7 +46,7 @@ public class MovieImgService {
     }
 
     //이미지 파일 저장
-    //TODO 컨트롤러 및 뷰에서 Type 지정할 것
+    //TODO 컨트롤러 및 뷰에서 Type 지정할 것 (리팩토링 과정에서 이미지 파일 저장로직과 비디오 파일 저장로직 합칠것)
     public void saveMovieImgFile(MovieImg movieImg, MultipartFile movieImgFile){
 
         String oriImgName = movieImgFile.getOriginalFilename();

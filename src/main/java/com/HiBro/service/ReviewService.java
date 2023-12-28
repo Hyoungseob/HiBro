@@ -51,7 +51,7 @@ public class ReviewService{
             reviewFormDTOList.add(reviewFormDTO);
         }
 
-        return new PageImpl<>(reviewFormDTOList,pageable, reviewRepository.countByMoveCode(movieCode));
+        return new PageImpl<>(reviewFormDTOList,pageable, reviewRepository.countByMovieCode(movieCode));
     }
     public List<Review> getMyReviewList(String memberId){
         Member member = memberRepository.findById(memberId);

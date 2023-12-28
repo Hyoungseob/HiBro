@@ -36,6 +36,7 @@ public class MemberManagementController{
 
         model.addAttribute("memberList", memberList);
         model.addAttribute("maxPage", 5);
+        model.addAttribute("memberSearchDTO",memberSearchDTO);
         return "administrator/admin_member";
     }
     @DeleteMapping("/admin/member/delete/{member_code}")

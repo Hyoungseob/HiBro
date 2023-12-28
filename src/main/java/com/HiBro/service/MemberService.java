@@ -54,8 +54,9 @@ public class MemberService implements UserDetailsService  {
     }
     public Page<Member> getMemberAll(MemberSearchDTO memberSearchDTO, Pageable pageable){
         if(memberSearchDTO.getSearchId() != null){
-            List<Member> member = memberRepository.findByIdContaining(memberSearchDTO.getSearchId());
-            return new PageImpl<>(member,pageable, memberRepository.countBy());
+            //List<Member> member = memberRepository.findByIdContaining(memberSearchDTO.getSearchId());
+            //return new PageImpl<>(member,pageable, memberRepository.countByIdContaining(memberSearchDTO.getSearchId()));
+            return memberRepository.findByIdContaining(memberSearchDTO.getSearchId(),pageable);
         }
         return memberRepository.findAll(pageable);
     }

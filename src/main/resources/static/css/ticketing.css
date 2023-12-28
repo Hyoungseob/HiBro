@@ -57,11 +57,13 @@ a {
 	border-left: 1px solid #aaa;
 	border-right: 1px solid #aaa;
 	padding: 10px;
+	display: flex;
+	flex-direction: column;
 }
 
 #con2>ul {
 	position: relative;
-	margin-top: 10px;
+	margin: 0;
 }
 
 #con2>ul>li {
@@ -78,7 +80,7 @@ a {
 	width: 50%;
 	height: 320px;
 	padding: 0;
-
+	z-index: 3;
 }
 
 .hidcon2>ul>li {

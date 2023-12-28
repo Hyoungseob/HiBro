@@ -17,7 +17,9 @@
 			</select>
 			<select name="type">
 				<option value="">전체</option>
-				<option th:each="type : ${type}" th:value="${type}" th:text="${#strings.capitalize(type.name())}"></option>
+				<option th:each="status : ${T(com.HiBro.constant.ScreenType).values()}" th:value="${status}"
+				        th:text="${#strings.capitalize(status.name())}">
+				</option>
 			</select>
 			<button type="submit">검색</button>
 		</form>
@@ -42,15 +44,15 @@
 		<div class="text-center board_page"
 			th:with="start=${(screenList.number/maxPage)*maxPage+1},end=(${(screenList.totalPages==0) ? 1 : (start+(maxPage-1) < screenList.totalPages ? start + (maxPage-1) : screenList.totalPages)})">
 			<div>
-				<a th:href="@{'?page=1'}" class="bt first">&lt;&lt;</a>
-				<a th:href="@{'?page='+${screenList.number==0 ? 1 : screenList.number-1}}" class="bt prev">&lt;</a>
+				<a th:href="@{${url} + 'page=1'}" class="bt first">&lt;&lt;</a>
+				<a th:href="@{${url} + 'page='+${screenList.number==0 ? 1 : screenList.number}}" class="bt prev">&lt;</a>
 				<th:block th:each="page : ${#numbers.sequence(start,end)}">
-					<a th:href="@{'?page='+${page}}" th:inline="text"
+					<a th:href="@{${url} + 'page='+${page}}" th:inline="text"
 						th:classappend="${screenList.number eq page-1} ? 'active' : ''">[[${page}]]</a>
 				</th:block>
-				<a th:href="@{'?page='+${screenList.number==screenList.totalPages-1 ? screenList.totalPages : screenList.number+2}}"
+				<a th:href="@{${url} + 'page=' + ${screenList.number==screenList.totalPages-1 ? screenList.totalPages : screenList.number+2}}"
 					class="bt next">&gt;</a>
-				<a th:href="@{'?page='+${screenList.totalPages}}" class="bt last">&gt;&gt;</a>
+				<a th:href="@{${url} + 'page=' + ${screenList.totalPages==0 ? 1 : screenList.totalPages}}" class="bt last">&gt;&gt;</a>
 			</div>
 		</div>
 	</div>

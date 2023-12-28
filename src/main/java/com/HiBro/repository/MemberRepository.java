@@ -12,4 +12,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	Member findById(String id);
 	List<Member> findByIdContaining(String id);
 	List<Member> findByRole(Role role);
+	Long countBy();
+	Long countByRole(Role role);
 }

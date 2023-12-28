@@ -55,13 +55,13 @@ public class MemberService implements UserDetailsService  {
     public Page<Member> getMemberAll(MemberSearchDTO memberSearchDTO, Pageable pageable){
         if(memberSearchDTO.getSearchId() != null){
             List<Member> member = memberRepository.findByIdContaining(memberSearchDTO.getSearchId());
-            return new PageImpl<>(member,pageable,member.size());
+            return new PageImpl<>(member,pageable, memberRepository.countBy());
         }
         return memberRepository.findAll(pageable);
     }
     public Page<Member> getAdminAll(Pageable pageable){
         List<Member> memberList=memberRepository.findByRole(Role.ADMIN);
-        return new PageImpl<>(memberList,pageable, memberList.size());
+        return new PageImpl<>(memberList,pageable, memberRepository.countByRole(Role.ADMIN));
     }
     public Member getMember(Long memberCode){
         return memberRepository.findById(memberCode).get();

@@ -23,20 +23,20 @@ public class MemberController {
 	@GetMapping("/new")
 	public String theater(Model model) {
 		model.addAttribute("memberDTO", new MemberDTO());
-		return "member_form";
+		return "member/member_form";
 	}
 
 	@PostMapping(value = "/new")
 	public String memberForm(@Valid MemberDTO memberDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			return "member_form";
+			return "member/member_form";
 		}
 		try {
 			Member member = Member.createMember(memberDTO, passwordEncoder);
 			memberService.saveMember(member);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
-			return "member_form";
+			return "member/member_form";
 		}
 		return "redirect:/";
 	}
@@ -46,13 +46,13 @@ public class MemberController {
 		if (principal != null) {
 			return "redirect:/";
 		}
-		return "/login_form";
+		return "member/login_form";
 	}
 
 	@GetMapping("/login/error")
 	public String loginError(Model model) {
 		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인하세요");
-		return "/Login_form";
+		return "member/Login_form";
 	}
 
 }

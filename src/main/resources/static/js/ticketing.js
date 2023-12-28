@@ -7,15 +7,16 @@ $(document).ready(function () {
 	$("#con1 > ul > li").click(function () {
 		const $this = $(this);
 		// 선택한 li의 배경색 변경
-		$this.css("background-color", "#ccc");
+		$this.addClass("clicked1");
 
 		// 선택한 li를 제외한 다른 li의 배경색 원래대로 변경
-		$this.siblings().css("background-color", "");
+		$this.siblings().removeClass("clicked1");
 		con1LiClicked = true; // '#con1 > ul > li' 클릭 여부 업데이트
 
-		// con1과 .hidcon2 > ul > li 둘 다 클릭되었을 때에만 #dlatl2 표시
+		// con1과 .hidcon2 > ul > li 둘 다 클릭되었을 때에만 #date_time 표시
 		if (con1LiClicked && hidcon2LiClicked) {
-			$("#dlatl2").css("display", "block"); // #dlatl2 표시
+			getScreenDate();
+			$("#date_time").css("display", "block"); // #date_time 표시
 		}
 	});
 
@@ -23,17 +24,41 @@ $(document).ready(function () {
 	$(".hidcon2 > ul > li").click(function () {
 		const $this = $(this);
 		// 선택한 li의 배경색 변경
-		$this.css("background-color", "#ccc");
+		$this.addClass("clicked2");
 
 		// 선택한 li를 제외한 다른 li의 배경색 원래대로 변경
-		$this.siblings().css("background-color", "");
+		$this.siblings().removeClass("clicked2");
 		hidcon2LiClicked = true; // '.hidcon2 > ul > li' 클릭 여부 업데이트
 
-		// con1과 .hidcon2 > ul > li 둘 다 클릭되었을 때에만 #dlatl2 표시
+		// con1과 .hidcon2 > ul > li 둘 다 클릭되었을 때에만 #date_time 표시
 		if (con1LiClicked && hidcon2LiClicked) {
-			$("#dlatl2").css("display", "block"); // #dlatl2 표시
+			getScreenDate();
+			$("#date_time").css("display", "block"); // #date_time 표시
 		}
 	});
+
+	function getScreenDate() {
+		let movieCode = $(".clicked1").val();
+		let screenCode = $(".clicked2").val();
+
+		let url = "/ticketing"
+		$.ajax({
+			url: url,
+			type: "POST",
+			dataType: "json",
+			cache: false,
+			success: function (result, status) {
+				location.href = "/admin";
+			},
+			error: function (jqXHR, status, error) {
+				if (jqXHR == "401") {
+					alert("로그인 하세요");
+				} else {
+					alert(jqXHR.responseJSON.message);
+				}
+			},
+		});
+	}
 
 	// con2의 직계 자손인 ul의 직계 자손인 li 클릭 이벤트 처리
 	$("#con2 > ul > li").click(function () {
@@ -43,7 +68,7 @@ $(document).ready(function () {
 		if (selectedLi && selectedLi !== this) {
 			$(selectedLi).css("background-color", "").find(".hidcon2").css("display", "none");
 			$(".hidcon2 > ul > li").css("background-color", ""); // '.hidcon2 > ul > li'의 배경색 초기화
-			$("#dlatl2").css("display", "none"); // #dlatl2 숨김
+			$("#date_time").css("display", "none"); // #date_time 숨김
 		}
 
 		if (selectedLi === this) {
@@ -56,12 +81,12 @@ $(document).ready(function () {
 		}
 	});
 
-	// #dlatl2의 ul li 클릭하면 다른 div의 배경색 변경
+	// #date_time의 ul li 클릭하면 다른 div의 배경색 변경
 	$("#con3 ul li").click(function () {
 		$("#con3 ul li").css("background-color", ""); // 모든 li 배경색 초기화
 		$(this).css("background-color", "#ccc"); // 클릭한 li 배경색 변경
 		$("#goseatsel").css("background-color", "red");
-		dlatl2LiClicked = true;
+		date_timeLiClicked = true;
 	});
 
 	$("#goseatsel").click(function () {

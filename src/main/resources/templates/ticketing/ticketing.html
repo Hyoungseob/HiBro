@@ -14,14 +14,9 @@
 			<div id="con1">
 				<h3>영화</h3>
 				<ul>
-					<li><a href="#none">오펜하이머</a></li>
-					<li><a href="#none">콘크리트유토피아</a></li>
-					<li><a href="#none">밀수</a></li>
-					<li><a href="#none">보호자</a></li>
-					<li><a href="#none">엘리멘탈</a></li>
-					<li><a href="#none">달짝지근해</a></li>
-					<li><a href="#none">더문</a></li>
-					<li><a href="#none">비공식작전</a></li>
+					<th:block th:each="movie : ${movieList}">
+						<li th:text="${movie.movieTitle}" th:value="${movie.code}"></li>
+					</th:block>
 				</ul>
 			</div>
 			<div id="con2">
@@ -40,9 +35,7 @@
 								<div class="hidcon2">
 									<ul>
 										<th:block th:each="theater, status:${theaterList}">
-											<li th:if="${theater.getLocation == location}">[[${theater.name}]]
-											</li>
-
+											<li th:if="${theater.getLocation == location}" th:value="${theater.code}">[[${theater.name}]]</li>
 										</th:block>
 									</ul>
 								</div>
@@ -54,30 +47,16 @@
 			<div id="con3">
 				<h3>날짜</h3>
 				<div>달력</div>
-				<div id="dlatl2">
+				<div id="date_time">
 					<span>
 						<span>2D</span>
 						<span>3관 8층</span>
 						<span>(총172석)</span>
 					</span>
 					<ul>
-						<li><a href="#none">08:30</a></li>
-						<li><a href="#none">12:00</a></li>
-						<li><a href="#none">15:30</a></li>
-						<li><a href="#none">19:00</a></li>
-						<li><a href="#none">22:30</a></li>
-					</ul>
-					<span>
-						<span>2D</span>
-						<span>5관 10층</span>
-						<span>(총172석)</span>
-					</span>
-					<ul>
-						<li><a href="#none">09:30</a></li>
-						<li><a href="#none">13:00</a></li>
-						<li><a href="#none">16:30</a></li>
-						<li><a href="#none">20:00</a></li>
-						<li><a href="#none">23:30</a></li>
+						<th:block th:each="screenDate : ${screenDateList}">
+							<li th:text="${screenDate.screeningDateTime}">영화고르고 극장 고르면 시간 나와야함</li>
+						</th:block>
 					</ul>
 				</div>
 			</div>

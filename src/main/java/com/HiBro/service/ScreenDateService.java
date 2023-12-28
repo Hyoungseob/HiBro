@@ -54,4 +54,8 @@ public class ScreenDateService {
 	public Page<ScreenDate> getScreenDateList(Long screenCode, Pageable pageable) {
 		return screenDateRepository.findByScreenCode(screenCode, pageable);
 	}
+
+	public List<ScreenDate> findByScreenCodeAndMovieCode(Long screenCode, Long MovieCode) {
+		return screenDateRepository.findByScreenCodeAndMovieCode(screenCode, MovieCode);
+	}
 }

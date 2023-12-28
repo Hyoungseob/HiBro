@@ -44,6 +44,6 @@ public class ScreenController {
 		}
 
 		model.addAttribute("screenList", screenList);
-		return "special_screen";
+		return "screen/special_screen";
 	}
 }

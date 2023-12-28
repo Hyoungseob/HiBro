@@ -28,6 +28,9 @@ a {
 	border: 1px solid #aaa;
 }
 
+.clicked {
+	background-color: #ccc;
+}
 /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
 #con1 {
 	width: 285px;
@@ -98,7 +101,7 @@ a {
 	padding: 10px;
 }
 
-#dlatl2 {
+#date_time {
 	display: none;
 }
 

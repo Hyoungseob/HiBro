@@ -14,4 +14,6 @@ public interface ScreenDateRepository extends JpaRepository<ScreenDate, Long> {
 	List<ScreenDate> findByScreenCode(Long screenCode);
 
 	Page<ScreenDate> findByScreenCode(Long screenCode, Pageable pageable);
+
+	List<ScreenDate> findByScreenCodeAndMovieCode(Long screenCode, Long MovieCode);
 }

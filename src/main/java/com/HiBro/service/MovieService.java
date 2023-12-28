@@ -51,6 +51,7 @@ public class MovieService {
         }
     }
 
+    //무비 차트 더보기 기능 구현을 위한 Pageable 객체 생성
     public Pageable getMoviePage(Optional<Integer> moviePageCnt){
 
         Pageable moviePageable = PageRequest.of(moviePageCnt.isPresent() ? moviePageCnt.get() : 0 , 8);

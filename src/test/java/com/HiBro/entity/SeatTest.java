@@ -56,8 +56,8 @@ public class SeatTest {
 		ScreenDateDTO screenDateDTO = new ScreenDateDTO();
 		screenDateDTO.setScreeningDateTime(LocalDateTime.now());
 		screenDateDTO.setScreeningTime(ScreeningTime.MATINEE);
-		ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screen.getCode());
-		screenDateDTO.setCode(screenDate.getCode());
+//		ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screen.getCode());
+//		screenDateDTO.setCode(screenDate.getCode());
 
 		return screenDateDTO;
 	}

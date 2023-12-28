@@ -69,7 +69,7 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/admin/theater/{theaterCode}")
-	public @ResponseBody ResponseEntity deleteTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
+	public @ResponseBody ResponseEntity deleteTheater(@PathVariable("theaterCode") Long theaterCode) {
 		theaterService.deleteTheater(theaterCode);
 		return new ResponseEntity(theaterCode, HttpStatus.OK);
 	}
@@ -93,7 +93,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/theater/{theaterCode}/new")
-	public String screenForm(@RequestParam("theaterCode") Long theaterCode, @RequestParam("type") ScreenType type, ScreenDTO screenDTO, BindingResult bindingResult, Model model) {
+	public String screenForm(Long theaterCode, ScreenDTO screenDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_screen_form";
 		}
@@ -115,7 +115,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/screen/{screenCode}")
-	public String updateScreen(Long screenCode, ScreenDTO screenDTO, Model model) {
+	public String updateScreen(Long screenCode, ScreenDTO screenDTO) {
 		Screen screen = screenService.getScreen(screenCode);
 		screenDTO.setCode(screenCode);
 		screenService.updateScreen(screenDTO);
@@ -123,7 +123,7 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/admin/screen/{screenCode}")
-	public @ResponseBody ResponseEntity deleteScreen(@PathVariable("screenCode") Long screenCode, Model model) {
+	public @ResponseBody ResponseEntity deleteScreen(@PathVariable("screenCode") Long screenCode) {
 		screenService.deleteScreen(screenCode);
 		return new ResponseEntity(screenCode, HttpStatus.OK);
 	}
@@ -143,27 +143,24 @@ public class AdminController {
 
 	@GetMapping("/admin/screen/{screenCode}/new")
 	public String screenDateForm(@PathVariable("screenCode") Long screenCode, Model model) {
+		List<Movie> movieList = movieService.findAll();
 
-//		List<Movie> movieList = movieService.
-
+		model.addAttribute("movieList", movieList);
 		model.addAttribute("screenDateDTO", new ScreenDateDTO());
 		model.addAttribute("screenCode", screenCode);
 		model.addAttribute("screeningTime", ScreeningTime.values());
-
-
 
 		return "administrator/admin_screenDate_form";
 	}
 
 	@PostMapping("/admin/screen/{screenCode}/new")
-	public String screenDateForm(@RequestParam("screenCode") Long screenCode,
-								 @RequestParam("screeningTime") ScreeningTime screeningTime,
-								 ScreenDateDTO screenDateDTO, BindingResult bindingResult, Model model) {
+	public String screenDateForm(Long screenCode, ScreenDateDTO screenDateDTO, BindingResult bindingResult, Model model, Long movieCode) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_screenDate_form";
 		}
 		try {
-			screenDateService.saveScreenDate(screenDateDTO, screenCode);
+			Movie movie = movieService.findByCode(movieCode);
+			screenDateService.saveScreenDate(screenDateDTO, screenCode, movie);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "administrator/admin_screenDate_form";
@@ -173,6 +170,9 @@ public class AdminController {
 
 	@GetMapping("/admin/screenDate/{screenDateCode}/update")
 	public String updateScreenDate(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
+		List<Movie> movieList = movieService.findAll();
+
+		model.addAttribute("movieList", movieList);
 		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
 		ScreenDateDTO screenDateDTO = ScreenDateDTO.of(screenDate);
 		model.addAttribute(screenDateDTO);
@@ -180,15 +180,17 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/screenDate/{screenDateCode}")
-	public String updateScreenDate(Long screenDateCode, ScreenDateDTO screenDateDTO, Model model) {
+	public String updateScreenDate(Long screenDateCode, ScreenDateDTO screenDateDTO, Long code) {
 		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
+		Movie movie = movieService.findByCode(code);
 		screenDateDTO.setCode(screenDateCode);
+		screenDateDTO.setMovie(movie);
 		screenDateService.updateScreenDate(screenDateDTO);
 		return "redirect:/admin/screen/" + screenDate.getScreen().getCode();
 	}
 
 	@DeleteMapping("/admin/screenDate/{screenDateCode}")
-	public @ResponseBody ResponseEntity deleteScreenDate(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
+	public @ResponseBody ResponseEntity deleteScreenDate(@PathVariable("screenDateCode") Long screenDateCode) {
 		screenDateService.deleteScreenDate(screenDateCode);
 		return new ResponseEntity(screenDateCode, HttpStatus.OK);
 	}
@@ -217,9 +219,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/screenDate/{screenDateCode}/new")
-	public String seatForm(@RequestParam("screenDateCode") Long screenDateCode,
-						   @RequestParam("status") SeatStatus status,
-						   SeatDTO seatDTO, BindingResult bindingResult, Model model) {
+	public String seatForm(Long screenDateCode, SeatDTO seatDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "administrator/admin_seat_form";
 		}
@@ -233,7 +233,7 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/admin/seat/{seatCode}")
-	public @ResponseBody ResponseEntity deleteSeat(@PathVariable("seatCode") Long seatCode, Model model) {
+	public @ResponseBody ResponseEntity deleteSeat(@PathVariable("seatCode") Long seatCode) {
 		seatService.deleteSeat(seatCode);
 		return new ResponseEntity(seatCode, HttpStatus.OK);
 	}
@@ -247,7 +247,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/seat/{seatCode}")
-	public String updateSeat(@RequestParam("seatCode") Long seatCode, SeatDTO seatDTO, Model model) {
+	public String updateSeat(Long seatCode, SeatDTO seatDTO) {
 		Seat seat = seatService.getSeat(seatCode);
 		seatDTO.setCode(seatCode);
 		seatService.updateSeat(seatDTO);

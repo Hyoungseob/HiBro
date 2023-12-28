@@ -60,18 +60,20 @@
 			<div class="board_list">
 				<div class="top">
 					<div class="screenDate_code">번호</div>
-					<div class="screenDate_location">상영시간</div>
-					<div class="screenDate_type">조조/일반/심야</div>
+					<div class="screenDate_time">상영 시간</div>
+					<div class="screenDate_type">조조/심야</div>
+					<div class="movie_title">타이틀</div>
 					<input type="hidden" class="screenDate_updateBtn">
 					<input type="hidden" class="screenDate_deleteBtn">
 				</div>
 				<th:block th:each="screenDate, status:${screenDateList}">
 					<div>
 						<div class="screenDate_code">[[${screenDate.code}]]</div>
-						<div class="screenDate_location"><a
+						<div class="screenDate_time"><a
 								th:href="'/admin/screenDate/'+${screenDate.code}" th:text="${#temporals.format(screenDate.screeningDateTime, 'yyyy년 MM월 dd일 HH시 mm분')}"></a>
 						</div>
 						<div class="screenDate_type">[[${screenDate.screeningTime}]]</div>
+						<div class="movie_title">[[${screenDate.movie.movieTitle}]]</div>
 						<div class="screenDate_updateBtn">
 							<a th:href="'/admin/screenDate/'+${screenDate.code}+'/update'"><button>수정</button></a>
 						</div>

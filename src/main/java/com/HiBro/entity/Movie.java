@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name="movie")
-@Getter @Setter @ToString
+@Getter @Setter
 public class Movie {
 
     @Id
@@ -44,7 +44,7 @@ public class Movie {
     //@OneToMany(mappedBy = "movieCode", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     //private List<MovieImg> orderItems = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ScreenDate> screenDate = new ArrayList<>();
 
     public static Movie createMovie(MovieDTO movieDTO){
@@ -69,5 +69,16 @@ public class Movie {
         this.ageLimit = movieDTO.getAgeLimit();
     }
 
-
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "code=" + code +
+                ", movieTitle='" + movieTitle + '\'' +
+                ", actor='" + actor + '\'' +
+                ", director='" + director + '\'' +
+                ", summary='" + summary + '\'' +
+                ", genre='" + genre + '\'' +
+                ", ageLimit=" + ageLimit +
+                '}';
+    }
 }

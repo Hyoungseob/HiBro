@@ -29,9 +29,10 @@ public class ScreenDateService {
 		screenDate.updateScreenDate(screenDateDTO);
 	}
 
-	public ScreenDate saveScreenDate(ScreenDateDTO screenDateDTO, Long screenCode) {
+	public ScreenDate saveScreenDate(ScreenDateDTO screenDateDTO, Long screenCode, Movie movie) {
 		Screen screen = screenRepository.findByCode(screenCode);
 		ScreenDate screenDate = ScreenDate.createScreenDate(screenDateDTO);
+		screenDate.setMovie(movie);
 		screenDate.setScreen(screen);
 		return screenDateRepository.save(screenDate);
 	}

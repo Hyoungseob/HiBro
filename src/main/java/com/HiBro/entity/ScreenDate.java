@@ -14,7 +14,6 @@ import java.util.List;
 @Table(name = "screen_date")
 @Getter
 @Setter
-@ToString
 public class ScreenDate {
 	@Id
 	@Column(name = "screen_date_code")
@@ -33,13 +32,9 @@ public class ScreenDate {
 	@JoinColumn(name = "screen_code")
 	private Screen screen;
 
-	@ManyToMany
-	@JoinTable(
-			name = "screen_date_movie",
-			joinColumns = @JoinColumn(name = "screen_date_code"),
-			inverseJoinColumns = @JoinColumn(name = "movie_code")
-	)
-	private List<Movie> movie = new ArrayList();
+	@ManyToOne
+	@JoinColumn(name = "movie_code")
+	private Movie movie;
 
 	@OneToMany(mappedBy = "screenDate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Seat> seats = new ArrayList();
@@ -55,5 +50,17 @@ public class ScreenDate {
 	public void updateScreenDate(ScreenDateDTO screenDateDTO) {
 		this.screeningDateTime = screenDateDTO.getScreeningDateTime();
 		this.screeningTime = screenDateDTO.getScreeningTime();
+		System.out.println(screenDateDTO + "디툐");
+		this.movie = screenDateDTO.getMovie();
+	}
+
+	@Override
+	public String toString() {
+		return "ScreenDate{" +
+				"code=" + code +
+				", screeningDateTime=" + screeningDateTime +
+				", screeningTime=" + screeningTime +
+				", screen=" + screen +
+				'}';
 	}
 }

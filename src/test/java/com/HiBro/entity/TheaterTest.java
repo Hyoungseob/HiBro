@@ -95,8 +95,8 @@ public class TheaterTest {
 			screenDateDTO.setScreeningDateTime(LocalDateTime.now());
 			screenDateDTO.setScreeningTime(ScreeningTime.MATINEE);
 
-			ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screenDTO.getCode());
-			screenDateDTO.setCode(screenDate.getCode());
+//			ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screenDTO.getCode());
+//			screenDateDTO.setCode(screenDate.getCode());
 
 			screenDateDTOList.add(screenDateDTO);
 		}

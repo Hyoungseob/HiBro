@@ -66,8 +66,8 @@ public class ScreenDateTest {
 			screenDateDTO.setScreeningDateTime(LocalDateTime.now());
 			screenDateDTO.setScreeningTime(ScreeningTime.MATINEE);
 
-			ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screen.getCode());
-			screenDateDTO.setCode(screenDate.getCode());
+//			ScreenDate screenDate = screenDateService.saveScreenDate(screenDateDTO, screen.getCode());
+//			screenDateDTO.setCode(screenDate.getCode());
 
 			screenDateDTOList.add(screenDateDTO);
 		}

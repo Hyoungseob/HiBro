@@ -4,12 +4,16 @@
 	width: 10%;
 }
 
-.board_list .screenDate_location {
-	width: 50%;
+.board_list .screenDate_time {
+	width: 35%;
 }
 
 .board_list .screenDate_type {
-    width: 20%;
+    width: 10%;
+}
+
+.board_list .movie_title {
+	width: 25%;
 }
 
 .board_list .screenDate_updateBtn{

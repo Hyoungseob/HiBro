@@ -33,6 +33,14 @@ public class ScreenDate {
 	@JoinColumn(name = "screen_code")
 	private Screen screen;
 
+	@ManyToMany
+	@JoinTable(
+			name = "screen_date_movie",
+			joinColumns = @JoinColumn(name = "screen_date_code"),
+			inverseJoinColumns = @JoinColumn(name = "movie_code")
+	)
+	private List<Movie> movie = new ArrayList();
+
 	@OneToMany(mappedBy = "screenDate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Seat> seats = new ArrayList();
 

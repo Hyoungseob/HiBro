@@ -22,9 +22,10 @@ public class AdminController {
 	private final ScreenService screenService;
 	private final ScreenDateService screenDateService;
 	private final SeatService seatService;
+	private final MovieService movieService;
 
 	@GetMapping("/admin/theater")
-	public String theater(Model model, Optional<Integer> page) {
+	public String getTheater(Model model, Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		Page<Theater> theaterList = theaterService.getTheaterList(pageable);
 		model.addAttribute("maxPage", 5);
@@ -53,7 +54,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}/update")
-	public String getTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
+	public String updateTheater(@PathVariable("theaterCode") Long theaterCode, Model model) {
 		Theater theater = theaterService.getTheater(theaterCode);
 		TheaterDTO theaterDTO = TheaterDTO.of(theater);
 		model.addAttribute(theaterDTO);
@@ -61,7 +62,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/theater/{theaterCode}")
-	public String updateTheater(@RequestParam("theaterCode") Long theaterCode, TheaterDTO theaterDTO, Model model) {
+	public String updateTheater(Long theaterCode, TheaterDTO theaterDTO) {
 		theaterDTO.setCode(theaterCode);
 		theaterService.updateTheater(theaterDTO);
 		return "redirect:/admin/theater";
@@ -74,7 +75,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/theater/{theaterCode}")
-	public String screen(@PathVariable("theaterCode") Long theaterCode, Model model, Optional<Integer> page) {
+	public String getScreen(@PathVariable("theaterCode") Long theaterCode, Model model, Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		model.addAttribute("maxPage", 5);
 		Page<Screen> screenList = screenService.getScreenList(theaterCode, pageable);
@@ -106,7 +107,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/screen/{screenCode}/update")
-	public String getScreen(@PathVariable("screenCode") Long screenCode, Model model) {
+	public String updateScreen(@PathVariable("screenCode") Long screenCode, Model model) {
 		Screen screen = screenService.getScreen(screenCode);
 		ScreenDTO screenDTO = ScreenDTO.of(screen);
 		model.addAttribute(screenDTO);
@@ -114,7 +115,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/screen/{screenCode}")
-	public String updateScreen(@RequestParam("screenCode") Long screenCode, ScreenDTO screenDTO, Model model) {
+	public String updateScreen(Long screenCode, ScreenDTO screenDTO, Model model) {
 		Screen screen = screenService.getScreen(screenCode);
 		screenDTO.setCode(screenCode);
 		screenService.updateScreen(screenDTO);
@@ -128,7 +129,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/screen/{screenCode}")
-	public String screenDate(@PathVariable("screenCode") Long screenCode, Model model, Optional<Integer> page) {
+	public String getScreenDate(@PathVariable("screenCode") Long screenCode, Model model, Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		model.addAttribute("maxPage", 5);
 		Page<ScreenDate> screenDateList = screenDateService.getScreenDateList(screenCode, pageable);
@@ -142,9 +143,15 @@ public class AdminController {
 
 	@GetMapping("/admin/screen/{screenCode}/new")
 	public String screenDateForm(@PathVariable("screenCode") Long screenCode, Model model) {
+
+//		List<Movie> movieList = movieService.
+
 		model.addAttribute("screenDateDTO", new ScreenDateDTO());
 		model.addAttribute("screenCode", screenCode);
 		model.addAttribute("screeningTime", ScreeningTime.values());
+
+
+
 		return "administrator/admin_screenDate_form";
 	}
 
@@ -165,7 +172,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/screenDate/{screenDateCode}/update")
-	public String getScreenDate(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
+	public String updateScreenDate(@PathVariable("screenDateCode") Long screenDateCode, Model model) {
 		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
 		ScreenDateDTO screenDateDTO = ScreenDateDTO.of(screenDate);
 		model.addAttribute(screenDateDTO);
@@ -173,7 +180,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/screenDate/{screenDateCode}")
-	public String updateScreenDate(@RequestParam("screenDateCode") Long screenDateCode, ScreenDateDTO screenDateDTO, Model model) {
+	public String updateScreenDate(Long screenDateCode, ScreenDateDTO screenDateDTO, Model model) {
 		ScreenDate screenDate = screenDateService.getScreenDate(screenDateCode);
 		screenDateDTO.setCode(screenDateCode);
 		screenDateService.updateScreenDate(screenDateDTO);
@@ -187,7 +194,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/screenDate/{screenDateCode}")
-	public String seat(@PathVariable("screenDateCode") Long screenDateCode, Model model, Optional<Integer> page) {
+	public String getSeat(@PathVariable("screenDateCode") Long screenDateCode, Model model, Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 		model.addAttribute("maxPage", 5);
 		Page<Seat> seatList = seatService.getSeatList(screenDateCode, pageable);
@@ -232,7 +239,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/seat/{seatCode}/update")
-	public String getSeat(@PathVariable("seatCode") Long seatCode, Model model) {
+	public String updateSeat(@PathVariable("seatCode") Long seatCode, Model model) {
 		Seat seat = seatService.getSeat(seatCode);
 		SeatDTO seatDTO = SeatDTO.of(seat);
 		model.addAttribute(seatDTO);

@@ -1,7 +1,6 @@
 package com.HiBro.dto;
 
 import com.HiBro.constant.ScreeningTime;
-import com.HiBro.entity.Screen;
 import com.HiBro.entity.ScreenDate;
 import lombok.*;
 import org.modelmapper.ModelMapper;

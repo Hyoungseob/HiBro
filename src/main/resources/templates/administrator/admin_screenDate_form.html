@@ -8,9 +8,15 @@
 <div layout:fragment="content">
 	<h1>상영일자 추가</h1>
 	<form action="/admin/screen/{screenCode}/new" role="form" method="post" th:object="${screenDateDTO}">
-		<div class="form-group">
+		<div class="form-group" style="width:25%">
 			<label th:for="time">상영시간</label>
 			<input type="datetime-local" th:field="*{screeningDateTime}" class="form-control" placeholder="위치를 입력해주세요">
+		</div>
+		<div class="form-group">
+			<label th:for="selectedMovies">영화</label>
+			<select id="selectedMovies" name="selectedMovies">
+				<option th:each="movie : ${movies}" th:value="${movie.movieCode}" th:text="${movie.movieTitle}"></option>
+			</select>
 		</div>
 		<div class="form-group">
 			<label th:for="type">타입</label>

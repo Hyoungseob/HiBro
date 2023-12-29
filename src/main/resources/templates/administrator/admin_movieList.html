@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout2}">
+
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/administrator/board.css}">
+    <link rel="stylesheet" th:href="@{/css/administrator/movie.css}">
+</th:block>
+
+<div layout:fragment="content">
+    <!--사용자 창 시작-->
+    <div class="noticeBoard">
+        <div style="margin-top: 20px;">
+            <h2 class="allMember">영화 관리</h2>
+        </div>
+        <div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top"> <!--첫번째 줄만 스타일을 다르게 주기위해 top 클래스를 주었음.-->
+                    <div class="movie_code">번호</div>
+                    <div class="movie_title">타이틀</div>
+                    <div class="movie_director">감독</div>
+                    <div class="movie_actor">배우</div>
+                    <div class="movie_genre">장르</div>
+                    <div class="movie_review"></div>
+                </div>
+                <th:block th:each="movie, status:${movieList.getContent()}">
+                    <div>
+                        <div class="movie_code">[[${movie.code}]]</div>
+                        <div class="movie_title"><a href="">[[${movie.movieTitle}]]</a></div>
+                        <div class="movie_director">[[${movie.director}]]</div>
+                        <div class="movie_actor">[[${movie.actor}]]</div>
+                        <div class="movie_genre">[[${movie.genre}]]</div>
+                        <div class="movie_review"><button th:onclick="location='/admin/review/[[${movie.code}]]'">리뷰 관리</button></div>
+                    </div>
+                </th:block>
+            </div>
+            <div class="board_page"
+                 th:with="start=${(movieList.number/maxPage)*maxPage+1},end=(${(movieList.totalPages==0)? 1:(start+(maxPage-1)< movieList.totalPages? start+(maxPage-1) : movieList.totalPages)})">
+                <div>
+                    <a th:href="@{'?page=0'}" class="bt first">
+                        << </a>
+                    <a th:href="@{'?page='+${movieList.number==0? 0:movieList.number-1}}" class="bt prev">
+                        < </a>
+                    <th:block th:each="page : ${#numbers.sequence(start,end)}"
+                              th:classappend="${movieList.number eq page-1}?'active':''">
+                        <a th:href="@{'?page='+${page-1}}" th:inline="text">[[${page}]]</a>
+                    </th:block>
+                    <a th:href="@{'?page='+${movieList.number==movieList.totalPages-1? movieList.totalPages-1:movieList.number+1}}"
+                       class="bt next">></a>
+                    <a th:href="@{'?page='+${movieList.totalPages-1}}" class="bt last">>></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

@@ -1,12 +1,16 @@
 package com.HiBro.dto;
 
 import com.HiBro.constant.AgeLimit;
+import com.HiBro.entity.MovieImg;
+import com.HiBro.entity.MovieVideo;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 public class MovieDTO {
@@ -30,4 +34,8 @@ public class MovieDTO {
     private AgeLimit ageLimit;
 
     private LocalDate premiereDate;
+
+    private List<MovieImg> movieImg = new ArrayList<>();
+
+    private List<MovieVideo> movieVideos = new ArrayList<>();
 }

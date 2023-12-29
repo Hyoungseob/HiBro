@@ -6,6 +6,7 @@ import com.HiBro.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -50,7 +51,11 @@ public class MovieService {
             movieRepository.delete(movie);
         }
     }
+    public Page<Movie> getMovieList(Pageable pageable){
+        return movieRepository.findAll(pageable);
+    }
 
+    //무비 차트 더보기 기능 구현을 위한 Pageable 객체 생성
     public Pageable getMoviePage(Optional<Integer> moviePageCnt){
 
         Pageable moviePageable = PageRequest.of(moviePageCnt.isPresent() ? moviePageCnt.get() : 0 , 8);

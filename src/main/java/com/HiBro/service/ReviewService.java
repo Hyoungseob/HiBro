@@ -2,6 +2,7 @@ package com.HiBro.service;
 
 import com.HiBro.dto.MovieDTO;
 import com.HiBro.dto.ReviewDTO;
+import com.HiBro.dto.ReviewFormDTO;
 import com.HiBro.entity.Member;
 import com.HiBro.entity.Movie;
 import com.HiBro.entity.Review;
@@ -9,10 +10,14 @@ import com.HiBro.repository.MemberRepository;
 import com.HiBro.repository.MovieRepository;
 import com.HiBro.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,16 +39,49 @@ public class ReviewService{
         return reviewRepository.save(review);
     }
 
-    public List<Review> getMovieReviewList(Long movieCode){
-        return reviewRepository.findByMovieCode(movieCode);
-    }
-    public List<Review> getMyReviewList(Long memberCode){
-        return reviewRepository.findByMemberCode(memberCode);
-    }
+    public Page<ReviewFormDTO> getMovieReviewList(Long movieCode, Pageable pageable){
+        List<Review> reviewList=reviewRepository.findByMovieCode(movieCode);
+        List<ReviewFormDTO> reviewFormDTOList = new ArrayList<>();
+        for(Review review : reviewList){
+            ReviewFormDTO reviewFormDTO = new ReviewFormDTO();
+            reviewFormDTO.setCode(review.getCode());
+            reviewFormDTO.setMovieTitle(review.getMovie().getMovieTitle());
+            reviewFormDTO.setContent(review.getContent());
+            reviewFormDTO.setMemberId(review.getMember().getId());
+            reviewFormDTOList.add(reviewFormDTO);
+        }
 
-    public void deleteReview(ReviewDTO reviewDTO){
-        Review review = reviewRepository.findById(reviewDTO.getCode())
+        return new PageImpl<>(reviewFormDTOList,pageable, reviewRepository.countByMovieCode(movieCode));
+    }
+    public List<Review> getMyReviewList(String memberId){
+        Member member = memberRepository.findById(memberId);
+
+        return reviewRepository.findByMemberCode(member.getCode());
+    }
+    public Review getMovieMyReview(Long movieCode,String memberId){
+        Member member = memberRepository.findById(memberId);
+        return reviewRepository.findByMemberCodeAndMovieCode(member.getCode(),movieCode);
+    }
+    public Review updateReview(ReviewDTO reviewDTO){
+        Review review = reviewRepository.findById(reviewDTO.getCode()).get();
+        review.setGrade(reviewDTO.getGrade());
+        review.setContent(reviewDTO.getContent());
+        return review;
+    }
+    public void deleteReview(Long reviewCode){
+        Review review = reviewRepository.findById(reviewCode)
                 .orElseThrow(EntityNotFoundException::new);
         reviewRepository.delete(review);
+    }
+    public Float getMovieGrade(Long movieCode){
+        List<Review> reviewList = reviewRepository.findByMovieCode(movieCode);
+        Float avg=0f;
+        for(Review review : reviewList){
+            avg +=review.getGrade();
+        }
+        avg /= reviewList.size();
+        avg = Math.round(avg*10f)/10.0f;
+
+        return avg;
     }
 }

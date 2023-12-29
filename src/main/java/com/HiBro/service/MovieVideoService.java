@@ -36,9 +36,9 @@ public class MovieVideoService {
         MovieVideo movieVideo = MovieVideo.createMovieVideo();
         movieVideo.setMovie(movie);
 
-        for(MultipartFile movieVideoFilesaved :  movieVideoFile){
+        for(MultipartFile movieVideoFileSaved :  movieVideoFile){
 
-            saveMovieVideoFile(movieVideo, movieVideoFilesaved);
+            saveMovieVideoFile(movieVideo, movieVideoFileSaved);
         }
 
         return movie.getCode();

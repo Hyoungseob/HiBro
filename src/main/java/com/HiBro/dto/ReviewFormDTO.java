@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ReviewDTO{
+public class ReviewFormDTO{
     private Long code;
+    private String movieTitle;
     private String content;
-    private Float grade;
-    private Long movie_code;
+    private String memberId;
 }

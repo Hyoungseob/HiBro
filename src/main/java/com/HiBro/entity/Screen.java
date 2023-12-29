@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Entity
@@ -19,14 +20,17 @@ public class Screen {
 	private Long code;
 
 	@Column(nullable = false)
+	@NotNull
 	private String location;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
+	@NotNull
 	private ScreenType type;
 
 	@ManyToOne
 	@JoinColumn(name = "theater_code")
+	@NotNull
 	private Theater theater;
 
 	public static Screen createScreen(ScreenDTO screenDTO) {

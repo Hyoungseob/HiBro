@@ -5,6 +5,7 @@ import com.HiBro.dto.SeatDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -18,13 +19,16 @@ public class Seat {
 	private Long code;
 
 	@Column(nullable = false)
+	@NotNull
 	private String seatRow;
 
 	@Column(nullable = false)
+	@NotNull
 	private String seatColumn;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
+	@NotNull
 	private SeatStatus status;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -5,6 +5,7 @@ import com.HiBro.dto.TheaterDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Getter
@@ -18,14 +19,17 @@ public class Theater {
 	private Long code;
 
 	@Column(nullable = false)
+	@NotNull
 	private String name;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
+	@NotNull
 	private Location location;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
+	@NotNull
 	private TheaterStatus status;
 
 	public static Theater createTheater(TheaterDTO theaterDTO) {

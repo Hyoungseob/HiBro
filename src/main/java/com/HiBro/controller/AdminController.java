@@ -6,7 +6,6 @@ import com.HiBro.entity.*;
 import com.HiBro.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -160,6 +159,7 @@ public class AdminController {
 		}
 		try {
 			Movie movie = movieService.findByCode(movieCode);
+			System.out.println(movieCode + "코드");
 			screenDateService.saveScreenDate(screenDateDTO, screenCode, movie);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());

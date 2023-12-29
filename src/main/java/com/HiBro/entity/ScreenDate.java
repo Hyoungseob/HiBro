@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ScreenDate {
 
 	@Column(nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@NotNull
 	private LocalDateTime screeningDateTime;
 
 	@Enumerated(EnumType.STRING)
@@ -30,10 +32,12 @@ public class ScreenDate {
 
 	@ManyToOne
 	@JoinColumn(name = "screen_code")
+	@NotNull
 	private Screen screen;
 
 	@ManyToOne
 	@JoinColumn(name = "movie_code")
+	@NotNull
 	private Movie movie;
 
 	@OneToMany(mappedBy = "screenDate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

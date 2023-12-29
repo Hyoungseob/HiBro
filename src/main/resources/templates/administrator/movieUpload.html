@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/layout2}">
 
 <!-- 사용자 스크립트 추가 -->
 <!--<th:block layout:fragment="script">-->
@@ -53,8 +53,9 @@
             margin-bottom : 15px;
         }
         .text{
-            width : *;
-            resize :  none;
+            width : 100%;
+            height: 85px;
+            resize : none;
             border : 1px solid #ced4da;
         }
         .img-div {
@@ -122,10 +123,11 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">영화 줄거리</span>
             </div>
-            <textarea class="text" aria-label="With textarea" th:field="*{summary}"></textarea>
+            <textarea class="text" aria-label="With textarea" rows="2" cols="85" th:field="*{summary}"></textarea>
         </div>
         <p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}" class="fieldError">Incorrect data</p>
 
+        <span class="input-group-text" style="width:94px;">영화 이미지 입력</span>
         <div th:if="${#lists.isEmpty(movieDTO.movieImg)}">
             <div class="form-group" th:each="num: ${#numbers.sequence(1,3)}">
                 <div class="custom-file img-div">
@@ -135,12 +137,12 @@
             </div>
         </div>
 
-        <div th:if = "${not #lists.isEmpty(movieDTO.movieImg)}">
-            <div class="form-group" th:each="movieImgDTO, status: ${movieDTO.movieImg}">
+        <span class="input-group-text" style="width:85px;">영화 영상 입력</span>
+        <div th:if="${#lists.isEmpty(movieDTO.movieVideos)}">
+            <div class="form-group" th:each="num: ${#numbers.sequence(1,3)}">
                 <div class="custom-file img-div">
                     <input type="file" class="custom-file-input" name="itemImgFile">
-                    <input type="hidden" name="itemImgIds" th:value="${movieImgDTO.code}">
-                    <label class="custom-file-label" th:text="${not #strings.isEmpty(movieImgDTO.oriImgName)} ? ${movieImgDTO.oriImgName} : '영화 이미지' + ${status.index+1}"></label>
+                    <label class="custom-file-label" th:text="|영화 영상 ${num}|"></label>
                 </div>
             </div>
         </div>

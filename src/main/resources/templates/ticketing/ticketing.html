@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/ticketing.css}">
 </th:block>
@@ -53,10 +57,8 @@
 						<span>3관 8층</span>
 						<span>(총172석)</span>
 					</span>
-					<ul>
-						<th:block th:each="screenDate : ${screenDateList}">
-							<li th:text="${screenDate.screeningDateTime}">영화고르고 극장 고르면 시간 나와야함</li>
-						</th:block>
+					<ul id ="screenDateList">
+						<li class="screenDateList" th:each="screenDate : ${screenDateList}" th:text="${screenDate.screeningDateTime}"></li>
 					</ul>
 				</div>
 			</div>
@@ -187,8 +189,6 @@
 		<div id="step3"></div>
 		<div id="con4">
 			<a href="#none" id="backmovsel">영화선택</a>
-			<div>영화</div>
-			<div class="theater">극장</div>
 			<a href="#none" id="goseatsel">좌석선택</a>
 			<a href="#none" id="gopay">결제</a>
 		</div>

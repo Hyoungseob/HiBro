@@ -28,9 +28,6 @@ public class Theater {
 	@Column(nullable = false)
 	private TheaterStatus status;
 
-	@OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Screen> screens = new ArrayList<>();
-
 	public static Theater createTheater(TheaterDTO theaterDTO) {
 		Theater theater = new Theater();
 		theater.setLocation(theaterDTO.getLocation());

@@ -28,7 +28,11 @@ a {
 	border: 1px solid #aaa;
 }
 
-.clicked {
+.clicked1 {
+	background-color: #ccc;
+}
+
+.clicked2 {
 	background-color: #ccc;
 }
 /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/

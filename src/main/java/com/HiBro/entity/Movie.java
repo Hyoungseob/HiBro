@@ -44,9 +44,6 @@ public class Movie {
     //@OneToMany(mappedBy = "movieCode", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     //private List<MovieImg> orderItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<ScreenDate> screenDate = new ArrayList<>();
-
     public static Movie createMovie(MovieDTO movieDTO){
         Movie movie = new Movie();
 

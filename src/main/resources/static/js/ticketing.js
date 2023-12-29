@@ -38,17 +38,36 @@ $(document).ready(function () {
 	});
 
 	function getScreenDate() {
-		let movieCode = $(".clicked1").val();
-		let screenCode = $(".clicked2").val();
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 
-		let url = "/ticketing"
+		var movieCode = $(".clicked1").val();
+		var theaterCode = $(".clicked2").val();
+
+		console.log(movieCode);
+		var url = "/ticketing";
 		$.ajax({
 			url: url,
 			type: "POST",
-			dataType: "json",
-			cache: false,
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader(header, token);
+			},
+			data: {
+				movieCode: movieCode,
+				theaterCode: theaterCode,
+			},
 			success: function (result, status) {
-				location.href = "/admin";
+				// 받아온 데이터를 화면에 렌더링합니다.
+				var ulElement = $("#screenDateList");
+
+				// 기존의 자식 요소들을 모두 제거
+				ulElement.empty();
+
+				// 받아온 데이터를 ulElement에 추가
+				result.forEach(function (screenDate) {
+					var liElement = $("<li>").html(screenDate.screeningDateTime);
+					ulElement.append(liElement);
+				});
 			},
 			error: function (jqXHR, status, error) {
 				if (jqXHR == "401") {
@@ -82,11 +101,11 @@ $(document).ready(function () {
 	});
 
 	// #date_time의 ul li 클릭하면 다른 div의 배경색 변경
-	$("#con3 ul li").click(function () {
-		$("#con3 ul li").css("background-color", ""); // 모든 li 배경색 초기화
-		$(this).css("background-color", "#ccc"); // 클릭한 li 배경색 변경
-		$("#goseatsel").css("background-color", "red");
-		date_timeLiClicked = true;
+	$("#screenDateList").on("click", "li", function () {
+		$(this).siblings().css("background-color", ""); // 현재 클릭한 li를 제외한 다른 li 배경색 초기화
+        $(this).css("background-color", "#ccc"); // 클릭한 li 배경색 변경
+        $("#goseatsel").css("background-color", "red");
+        date_timeLiClicked = true;
 	});
 
 	$("#goseatsel").click(function () {

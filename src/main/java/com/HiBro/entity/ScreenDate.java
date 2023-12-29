@@ -50,7 +50,6 @@ public class ScreenDate {
 	public void updateScreenDate(ScreenDateDTO screenDateDTO) {
 		this.screeningDateTime = screenDateDTO.getScreeningDateTime();
 		this.screeningTime = screenDateDTO.getScreeningTime();
-		System.out.println(screenDateDTO + "디툐");
 		this.movie = screenDateDTO.getMovie();
 	}
 

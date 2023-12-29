@@ -45,7 +45,7 @@ public class MemberManagementController{
     }
     @GetMapping("/admin/inquiry")
     public String getInquiryList(Model model, Optional<Integer> page) {
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+        Pageable pageable = PageRequest.of(page.map(integer -> integer - 1).orElse(0), 10);
         Page<Inquiry> inquiryList = inquiryService.getInquiryAll(pageable);
 
         model.addAttribute("inquiryList", inquiryList);

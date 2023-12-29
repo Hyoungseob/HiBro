@@ -2,6 +2,7 @@ package com.HiBro.entity;
 
 import com.HiBro.constant.ScreenType;
 import com.HiBro.dto.ScreenDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,9 +28,6 @@ public class Screen {
 	@ManyToOne
 	@JoinColumn(name = "theater_code")
 	private Theater theater;
-
-	@OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<ScreenDate> screenDates = new ArrayList();
 
 	public static Screen createScreen(ScreenDTO screenDTO) {
 		Screen screen = new Screen();

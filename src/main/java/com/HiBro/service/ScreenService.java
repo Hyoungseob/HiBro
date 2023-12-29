@@ -54,6 +54,11 @@ public class ScreenService {
 	public Page<Screen> getScreenList(Long theaterCode, Pageable pageable) {
 		return screenRepository.findByTheaterCode(theaterCode, pageable);
 	}
+
+	public List<Screen> getScreenList(Long theaterCode) {
+		return screenRepository.findByTheaterCode(theaterCode);
+	}
+
 	public Page<Screen> findByType(ScreenType type, Pageable pageable) {
 		return screenRepository.findByType(type, pageable);
 	}

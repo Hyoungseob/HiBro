@@ -69,8 +69,8 @@
 				<th:block th:each="screenDate, status:${screenDateList}">
 					<div>
 						<div class="screenDate_code">[[${screenDate.code}]]</div>
-						<div class="screenDate_time"><a
-								th:href="'/admin/screenDate/'+${screenDate.code}" th:text="${#temporals.format(screenDate.screeningDateTime, 'yyyy년 MM월 dd일 HH시 mm분')}"></a>
+						<div class="screenDate_time">
+							<a th:href="'/admin/screenDate/'+${screenDate.code}" th:text="${#temporals.format(screenDate.screeningDateTime, 'yyyy년 MM월 dd일 HH시 mm분')}"></a>
 						</div>
 						<div class="screenDate_type">[[${screenDate.screeningTime}]]</div>
 						<div class="movie_title">[[${screenDate.movie.movieTitle}]]</div>

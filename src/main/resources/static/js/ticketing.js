@@ -1,50 +1,82 @@
 $(document).ready(function () {
 	let selectedLi = null; // 현재 선택된 li 요소
-	let hidcon2LiClicked = false; // '.hidcon2 > ul > li' 클릭 여부
-	let con1LiClicked = false; // '#con1 > ul > li' 클릭 여부
+	let theaterNameClicked = false; // '.theaterName' 클릭 여부
+	let movieClicked = false; // '.movieClicked' 클릭 여부
+	let dateTimeClicked = false;
 
-	// con1의 직계 자손인 ul의 직계 자손인 li 클릭 이벤트 처리
-	$("#con1 > ul > li").click(function () {
+	// movieTitle 클릭 이벤트 처리
+	$(".movieTitle").click(function () {
 		const $this = $(this);
-		// 선택한 li의 배경색 변경
-		$this.addClass("clicked1");
 
-		// 선택한 li를 제외한 다른 li의 배경색 원래대로 변경
-		$this.siblings().removeClass("clicked1");
-		con1LiClicked = true; // '#con1 > ul > li' 클릭 여부 업데이트
-
-		// con1과 .hidcon2 > ul > li 둘 다 클릭되었을 때에만 #date_time 표시
-		if (con1LiClicked && hidcon2LiClicked) {
-			getScreenDate();
-			$("#date_time").css("display", "block"); // #date_time 표시
+		if (selectedLi && selectedLi !== this) {
+			dateTimeClicked = false;
 		}
+		if (selectedLi !== this) {
+			$this.addClass("movieTitleClicked");
+			$this.siblings().removeClass("movieTitleClicked");
+			movieClicked = true; // '.movieClicked' 클릭 여부 업데이트
+		}
+		displayDateTime();
 	});
 
-	// .hidcon2 > ul > li 클릭하면 배경색 변경
-	$(".hidcon2 > ul > li").click(function () {
+	// theater의 직계 자손인 ul의 직계 자손인 li 클릭 이벤트 처리
+	$(".theaterLocation").click(function () {
+		const $this = $(this);
+		const $subMenu = $this.find(".theaterList");
+
+		if (selectedLi && selectedLi !== this) {
+			$(selectedLi).css("background-color", "").find(".theaterList").css("display", "none");
+			$(".theaterName").removeClass("theaterNameClicked");
+			theaterNameClicked = false;
+			dateTimeClicked = false;
+			$("#date_time").css("display", "none"); // #date_time 숨김
+		}
+
+		if (selectedLi === this) {
+			// 이미 선택된 li를 다시 클릭한 경우, 선택 유지
+			$subMenu.css("display", "block");
+		} else {
+			$subMenu.css("display", "block");
+			$this.css("background-color", "#ccc");
+			dateTimeClicked = false;
+			selectedLi = this; // 현재 선택된 li 업데이트
+		}
+
+		displayDateTime();
+	});
+
+	// .theaterName 클릭하면 배경색 변경
+	$(".theaterName").click(function () {
 		const $this = $(this);
 		// 선택한 li의 배경색 변경
-		$this.addClass("clicked2");
+		$this.addClass("theaterNameClicked");
 
 		// 선택한 li를 제외한 다른 li의 배경색 원래대로 변경
-		$this.siblings().removeClass("clicked2");
-		hidcon2LiClicked = true; // '.hidcon2 > ul > li' 클릭 여부 업데이트
+		$this.siblings().removeClass("theaterNameClicked");
+		theaterNameClicked = true; // '.theaterName' 클릭 여부 업데이트
 
-		// con1과 .hidcon2 > ul > li 둘 다 클릭되었을 때에만 #date_time 표시
-		if (con1LiClicked && hidcon2LiClicked) {
+		displayDateTime();
+	});
+
+	// movie과 .theaterName 둘 다 클릭되었을 때에만 #date_time 표시
+	function displayDateTime() {
+		if (movieClicked && theaterNameClicked ) {
 			getScreenDate();
 			$("#date_time").css("display", "block"); // #date_time 표시
+		} else {
+			$("#screenDateList li").removeClass("dateTimeClicked"); // 클릭한 li에 클래스 추가 및 배경색 변경
+			dateTimeLiClicked = false;
 		}
-	});
+		displaySeatSelect();
+	}
 
 	function getScreenDate() {
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 
-		var movieCode = $(".clicked1").val();
-		var theaterCode = $(".clicked2").val();
+		var movieCode = $(".movieTitleClicked ").val();
+		var theaterCode = $(".theaterNameClicked").val();
 
-		console.log(movieCode);
 		var url = "/ticketing";
 		$.ajax({
 			url: url,
@@ -65,7 +97,13 @@ $(document).ready(function () {
 
 				// 받아온 데이터를 ulElement에 추가
 				result.forEach(function (screenDate) {
-					var liElement = $("<li>").html(screenDate.screeningDateTime);
+					var date = moment(screenDate.screeningDateTime);
+
+                    // 날짜 포맷팅
+                    var formattedDate = date.format('YYYY-MM-DD HH:mm');
+					var spanElement = $("<span>").html(screenDate.screen.type);
+					var liElement = $("<li>").html(formattedDate);
+					ulElement.append(spanElement);
 					ulElement.append(liElement);
 				});
 			},
@@ -78,35 +116,22 @@ $(document).ready(function () {
 			},
 		});
 	}
-
-	// con2의 직계 자손인 ul의 직계 자손인 li 클릭 이벤트 처리
-	$("#con2 > ul > li").click(function () {
-		const $this = $(this);
-		const $subMenu = $this.find(".hidcon2");
-
-		if (selectedLi && selectedLi !== this) {
-			$(selectedLi).css("background-color", "").find(".hidcon2").css("display", "none");
-			$(".hidcon2 > ul > li").css("background-color", ""); // '.hidcon2 > ul > li'의 배경색 초기화
-			$("#date_time").css("display", "none"); // #date_time 숨김
-		}
-
-		if (selectedLi === this) {
-			// 이미 선택된 li를 다시 클릭한 경우, 선택 유지
-			$subMenu.css("display", "block");
-		} else {
-			$subMenu.css("display", "block");
-			$this.css("background-color", "#ccc");
-			selectedLi = this; // 현재 선택된 li 업데이트
-		}
-	});
-
-	// #date_time의 ul li 클릭하면 다른 div의 배경색 변경
+	
+	// #screenDateList의 ul li 클릭하면 다른 div의 배경색 변경
 	$("#screenDateList").on("click", "li", function () {
-		$(this).siblings().css("background-color", ""); // 현재 클릭한 li를 제외한 다른 li 배경색 초기화
-        $(this).css("background-color", "#ccc"); // 클릭한 li 배경색 변경
-        $("#goseatsel").css("background-color", "red");
-        date_timeLiClicked = true;
+		$(this).siblings().removeClass("dateTimeClicked"); // 다른 li 초기화
+		$(this).addClass("dateTimeClicked"); // 클릭한 li에 클래스 추가 및 배경색 변경
+        dateTimeClicked = true;
+		displaySeatSelect();
 	});
+
+	function displaySeatSelect() {
+		if (dateTimeClicked) {
+			$("#goseatsel").css("background-color", "red");
+		} else {
+			$("#goseatsel").css("background-color", "#ccc");
+		}
+	}
 
 	$("#goseatsel").click(function () {
 		if ($("#goseatsel").css("background-color") === "rgb(255, 0, 0)") {

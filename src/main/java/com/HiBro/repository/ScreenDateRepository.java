@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ScreenDateRepository extends JpaRepository<ScreenDate, Long> {
@@ -15,5 +16,6 @@ public interface ScreenDateRepository extends JpaRepository<ScreenDate, Long> {
 
 	Page<ScreenDate> findByScreenCode(Long screenCode, Pageable pageable);
 
-	List<ScreenDate> findByScreenCodeAndMovieCode(Long screenCode, Long MovieCode);
+	List<ScreenDate> findByScreenCodeAndMovieCodeAndScreeningDateTimeBetweenOrderByScreeningDateTime(
+			Long screenCode, Long movieCode, LocalDateTime startDate, LocalDateTime endDate);
 }

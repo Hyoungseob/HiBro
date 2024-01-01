@@ -44,10 +44,12 @@ public class ScreenDate {
 	private List<Seat> seats = new ArrayList();
 
 
-	public static ScreenDate createScreenDate(ScreenDateDTO screenDateDTO) {
+	public static ScreenDate createScreenDate(ScreenDateDTO screenDateDTO, Movie movie, Screen screen) {
 		ScreenDate screenDate = new ScreenDate();
 		screenDate.setScreeningDateTime(screenDateDTO.getScreeningDateTime());
 		screenDate.setScreeningTime(screenDateDTO.getScreeningTime());
+		screenDate.setMovie(movie);
+		screenDate.setScreen(screen);
 		return screenDate;
 	}
 

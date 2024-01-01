@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -28,13 +29,15 @@ public class TicketingController {
 	}
 
 	@PostMapping("/ticketing")
-	public @ResponseBody ResponseEntity<List<ScreenDate>> getScreenDate(@RequestParam Long movieCode, @RequestParam Long theaterCode, Model model) {
+	public @ResponseBody ResponseEntity<List<ScreenDate>> getScreenDate(@RequestParam Long movieCode,
+																		@RequestParam Long theaterCode,
+																		Model model) {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		LocalDateTime endDate = currentDateTime.plusDays(100);
 		List<Screen> screenList = screenService.getScreenList(theaterCode);
 		List<ScreenDate> screenDateList = new ArrayList<>();
 		for (Screen screen : screenList) {
-			for (ScreenDate screenDate : screenDateService.findByScreenCodeAndMovieCode(screen.getCode(), movieCode)) {
-				screenDateList.add(screenDate);
-			}
+			screenDateList.addAll(screenDateService.findByScreenCodeAndMovieCodeAndScreeningDateTimeBetweenOrderByScreeningDateTime(screen.getCode(), movieCode, currentDateTime, endDate));
 		}
 		model.addAttribute("screenDateList", screenDateList);
 		return new ResponseEntity(screenDateList, HttpStatus.OK);

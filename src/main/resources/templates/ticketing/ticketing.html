@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
+
 <head>
 	<meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
@@ -10,24 +11,25 @@
 </th:block>
 <th:block layout:fragment="script">
 	<script th:src="@{/js/ticketing.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 </th:block>
 <div layout:fragment="content">
 
 	<div id="ticketing">
 		<div id="step1">
-			<div id="con1">
+			<div id="movie">
 				<h3>영화</h3>
 				<ul>
 					<th:block th:each="movie : ${movieList}">
-						<li th:text="${movie.movieTitle}" th:value="${movie.code}"></li>
+						<li class="movieTitle" th:text="${movie.movieTitle}" th:value="${movie.code}"></li>
 					</th:block>
 				</ul>
 			</div>
-			<div id="con2">
+			<div id="theater">
 				<h3>극장</h3>
 				<th:block th:each="location : ${T(com.HiBro.constant.Location).values()}">
 					<ul>
-						<li>
+						<li class="theaterLocation">
 							<div th:switch="${location}">
 								<div th:case="${T(com.HiBro.constant.Location).SEOUL}">서울</div>
 								<div th:case="${T(com.HiBro.constant.Location).INCHEON}">경기/인천</div>
@@ -36,10 +38,12 @@
 								<div th:case="${T(com.HiBro.constant.Location).DAEGU}">경북/대구</div>
 								<div th:case="${T(com.HiBro.constant.Location).BUSAN}">경남/울산/부산</div>
 								<div th:case="${T(com.HiBro.constant.Location).JEJU}">강원/제주</div>
-								<div class="hidcon2">
+								<div class="theaterList">
 									<ul>
 										<th:block th:each="theater, status:${theaterList}">
-											<li th:if="${theater.getLocation == location}" th:value="${theater.code}">[[${theater.name}]]</li>
+											<li class="theaterName" th:if="${theater.getLocation == location}"
+												th:value="${theater.code}">
+												[[${theater.name}]]</li>
 										</th:block>
 									</ul>
 								</div>
@@ -50,15 +54,8 @@
 			</div>
 			<div id="con3">
 				<h3>날짜</h3>
-				<div>달력</div>
 				<div id="date_time">
-					<span>
-						<span>2D</span>
-						<span>3관 8층</span>
-						<span>(총172석)</span>
-					</span>
-					<ul id ="screenDateList">
-						<li class="screenDateList" th:each="screenDate : ${screenDateList}" th:text="${screenDate.screeningDateTime}"></li>
+					<ul id="screenDateList">
 					</ul>
 				</div>
 			</div>
@@ -68,48 +65,16 @@
 			<div>
 				<div>
 					일반<select id="adult">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
+						<option th:each="i : ${#numbers.sequence(0, 8)}" th:value="${i}" th:text="${i}"></option>
 					</select>
 					청소년<select id="youth">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
+						<option th:each="i : ${#numbers.sequence(0, 8)}" th:value="${i}" th:text="${i}"></option>
 					</select>
 					노인<select id="senior">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
+						<option th:each="i : ${#numbers.sequence(0, 8)}" th:value="${i}" th:text="${i}"></option>
 					</select>
 					우대<select id="special">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
+						<option th:each="i : ${#numbers.sequence(0, 8)}" th:value="${i}" th:text="${i}"></option>
 					</select>
 					<p>총인원: <span id="total1">0</span></p>
 					<p>총액: <span id="total2">0</span></p>
@@ -188,9 +153,9 @@
 		</div>
 		<div id="step3"></div>
 		<div id="con4">
-			<a href="#none" id="backmovsel">영화선택</a>
-			<a href="#none" id="goseatsel">좌석선택</a>
-			<a href="#none" id="gopay">결제</a>
+			<a id="backmovsel">영화선택</a>
+			<a id="goseatsel">좌석선택</a>
+			<a id="gopay">결제</a>
 		</div>
 	</div>
 

@@ -16,7 +16,7 @@ import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
-public class AdminController {
+public class AdminTheaterController {
 	private final TheaterService theaterService;
 	private final ScreenService screenService;
 	private final ScreenDateService screenDateService;
@@ -159,7 +159,6 @@ public class AdminController {
 		}
 		try {
 			Movie movie = movieService.findByCode(movieCode);
-			System.out.println(movieCode + "코드");
 			screenDateService.saveScreenDate(screenDateDTO, screenCode, movie);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());

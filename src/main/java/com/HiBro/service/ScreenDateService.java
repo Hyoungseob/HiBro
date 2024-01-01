@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -31,9 +32,7 @@ public class ScreenDateService {
 
 	public ScreenDate saveScreenDate(ScreenDateDTO screenDateDTO, Long screenCode, Movie movie) {
 		Screen screen = screenRepository.findByCode(screenCode);
-		ScreenDate screenDate = ScreenDate.createScreenDate(screenDateDTO);
-		screenDate.setMovie(movie);
-		screenDate.setScreen(screen);
+		ScreenDate screenDate = ScreenDate.createScreenDate(screenDateDTO, movie, screen);
 		return screenDateRepository.save(screenDate);
 	}
 
@@ -55,7 +54,7 @@ public class ScreenDateService {
 		return screenDateRepository.findByScreenCode(screenCode, pageable);
 	}
 
-	public List<ScreenDate> findByScreenCodeAndMovieCode(Long screenCode, Long MovieCode) {
-		return screenDateRepository.findByScreenCodeAndMovieCode(screenCode, MovieCode);
+	public List<ScreenDate> findByScreenCodeAndMovieCodeAndScreeningDateTimeBetweenOrderByScreeningDateTime(Long screenCode, Long movieCode, LocalDateTime startDate, LocalDateTime endDate) {
+		return screenDateRepository.findByScreenCodeAndMovieCodeAndScreeningDateTimeBetweenOrderByScreeningDateTime(screenCode, movieCode, startDate, endDate);
 	}
 }

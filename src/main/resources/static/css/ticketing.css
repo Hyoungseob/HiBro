@@ -28,15 +28,18 @@ a {
 	border: 1px solid #aaa;
 }
 
-.clicked1 {
+.movieTitleClicked {
 	background-color: #ccc;
 }
 
-.clicked2 {
+.theaterNameClicked {
+	background-color: #ccc;
+}
+.dateTimeClicked{
 	background-color: #ccc;
 }
 /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
-#con1 {
+#movie {
 	width: 285px;
 	background-color: #f5f5f5;
 	height: 100%;
@@ -45,17 +48,17 @@ a {
 	padding: 10px;
 }
 
-#con1>ul {
+#movie>ul {
 	margin-top: 10px;
 }
 
-#con1>ul>li {
+.movieTitle {
 	border-bottom: 1px solid #ddd;
 	line-height: 26px;
 }
 
 /*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
-#con2 {
+#theater {
 	width: 285px;
 	background-color: #f5f5f5;
 	height: 100%;
@@ -68,18 +71,18 @@ a {
 	flex-direction: column;
 }
 
-#con2>ul {
+#theater>ul {
 	position: relative;
 	margin: 0;
 }
 
-#con2>ul>li {
+#theater>ul>li {
 	width: 50%;
 	border-bottom: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }
 
-.hidcon2 {
+.theaterList {
 	display: none;
 	position: absolute;
 	left: 50%;
@@ -90,7 +93,7 @@ a {
 	z-index: 3;
 }
 
-.hidcon2>ul>li {
+.theaterName {
 	border-bottom: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }

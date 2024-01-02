@@ -2,6 +2,7 @@ $(document).ready(function () {
 	let selectedLi = null; // 현재 선택된 li 요소
 	let theaterNameClicked = false; // '.theaterName' 클릭 여부
 	let movieClicked = false; // '.movieClicked' 클릭 여부
+	let dateClicked = false;
 	let dateTimeClicked = false;
 
 	// movieTitle 클릭 이벤트 처리
@@ -48,19 +49,30 @@ $(document).ready(function () {
 	// .theaterName 클릭하면 배경색 변경
 	$(".theaterName").click(function () {
 		const $this = $(this);
-		// 선택한 li의 배경색 변경
 		$this.addClass("theaterNameClicked");
-
-		// 선택한 li를 제외한 다른 li의 배경색 원래대로 변경
 		$this.siblings().removeClass("theaterNameClicked");
-		theaterNameClicked = true; // '.theaterName' 클릭 여부 업데이트
+		theaterNameClicked = true;
 
+		displayDateTime();
+	});
+
+	// .date 클릭이벤트
+	$(".date").click(function (){
+		const $this = $(this);
+		if (selectedLi && selectedLi !== this) {
+			dateTimeClicked = false;
+		}
+		if (selectedLi !== this) {
+			$this.addClass("dateClicked");
+			$this.siblings().removeClass("dateClicked");
+			dateClicked = true;
+		}
 		displayDateTime();
 	});
 
 	// movie과 .theaterName 둘 다 클릭되었을 때에만 #date_time 표시
 	function displayDateTime() {
-		if (movieClicked && theaterNameClicked ) {
+		if (movieClicked && theaterNameClicked && dateClicked) {
 			getScreenDate();
 			$("#date_time").css("display", "block"); // #date_time 표시
 		} else {
@@ -76,6 +88,7 @@ $(document).ready(function () {
 
 		var movieCode = $(".movieTitleClicked ").val();
 		var theaterCode = $(".theaterNameClicked").val();
+		var selectedDate = $(".dateClicked").val();
 
 		var url = "/ticketing";
 		$.ajax({
@@ -87,6 +100,7 @@ $(document).ready(function () {
 			data: {
 				movieCode: movieCode,
 				theaterCode: theaterCode,
+				selectedDate: selectedDate
 			},
 			success: function (result, status) {
 				// 받아온 데이터를 화면에 렌더링합니다.
@@ -95,16 +109,27 @@ $(document).ready(function () {
 				// 기존의 자식 요소들을 모두 제거
 				ulElement.empty();
 
+
+				var displayedLocations = []; // 이미 출력한 위치를 기록할 배열
 				// 받아온 데이터를 ulElement에 추가
 				result.forEach(function (screenDate) {
 					var date = moment(screenDate.screeningDateTime);
 
-                    // 날짜 포맷팅
-                    var formattedDate = date.format('YYYY-MM-DD HH:mm');
-					var spanElement = $("<span>").html(screenDate.screen.type);
-					var liElement = $("<li>").html(formattedDate);
-					ulElement.append(spanElement);
-					ulElement.append(liElement);
+                        // 날짜 포맷팅
+                    var formattedDate = date.format('HH:mm');
+
+                    // 스크린 위치가 이미 출력되었는지 확인
+                    if (!displayedLocations.includes(screenDate.screen.location)) {
+                        var screenLocation = $("<span>").html(screenDate.screen.location);
+                        displayedLocations.push(screenDate.screen.location); // 출력한 위치를 기록
+                        ulElement.append(screenLocation);
+						var spanElement = $("<span>").html(screenDate.screen.type);
+						ulElement.append(spanElement);
+                    }
+
+                    var liElement = $("<li>").attr("data-date", screenDate.screeningDateTime).html(formattedDate);
+
+                    ulElement.append(liElement);
 				});
 			},
 			error: function (jqXHR, status, error) {
@@ -141,6 +166,33 @@ $(document).ready(function () {
 			$("#backmovsel").css("display", "block");
 			$("#gopay").css("display", "block");
 			$("#step3").css("display", "none");
+
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var screenDateTime = $(".dateTimeClicked").data("date");
+
+			var url = "/seat";
+			$.ajax({
+				url: url,
+				type: "POST",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				data: {
+					localDateTime: screenDateTime,
+				},
+				success: function(result, status) {
+                    $("#screenDateTime").html(screenDateTime);
+                },
+				error: function (jqXHR, status, error) {
+					if (jqXHR == "401") {
+						alert("로그인 하세요");
+					} else {
+						alert("아무튼오류임");
+					}
+				},
+			});
 		}
 	});
 	$("#backmovsel").click(function () {

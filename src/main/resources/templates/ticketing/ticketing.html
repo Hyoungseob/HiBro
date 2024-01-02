@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout1}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:temporals="http://www.thymeleaf.org/extras/java8/temporals"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout1}">
 
 <head>
 	<meta name="_csrf" th:content="${_csrf.token}" />
@@ -52,8 +52,30 @@
 					</ul>
 				</th:block>
 			</div>
-			<div id="con3">
+			<!-- "yyyy mm dd" 형식의 날짜를 출력 -->
+			<div id="date">
 				<h3>날짜</h3>
+				<ul>
+					<th:block th:each="date, status : ${dates}">
+						<div>
+							<th:block
+								th:if="${status.index == 0 or date.getYear() != dates[status.index - 1].getYear()}">
+								<h6 th:text="${date.getYear()} + '년'"></h6>
+							</th:block>
+							<th:block
+								th:if="${status.index == 0 or date.getMonthValue() != dates[status.index - 1].getMonthValue()}">
+								<h5 th:text="${date.getMonthValue()} + '월'"></h5>
+							</th:block>
+						</div>
+						<li class="date" th:value="${#temporals.format(date, 'yyyyMMdd')}">
+							<span th:text="${#temporals.format(date, 'E', T(java.util.Locale).KOREAN)}"></span>
+							<span th:text="${date.dayOfMonth}"></span>
+						</li>
+					</th:block>
+				</ul>
+			</div>
+			<div id="con3">
+				<h3>시간</h3>
 				<div id="date_time">
 					<ul id="screenDateList">
 					</ul>
@@ -63,6 +85,7 @@
 
 		<div id="step2">
 			<div>
+				<h3 id="screenDateTime"></h3>
 				<div>
 					일반<select id="adult">
 						<option th:each="i : ${#numbers.sequence(0, 8)}" th:value="${i}" th:text="${i}"></option>

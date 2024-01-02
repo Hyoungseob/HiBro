@@ -54,7 +54,9 @@ public class ScreenDateService {
 		return screenDateRepository.findByScreenCode(screenCode, pageable);
 	}
 
-	public List<ScreenDate> findByScreenCodeAndMovieCodeAndScreeningDateTimeBetweenOrderByScreeningDateTime(Long screenCode, Long movieCode, LocalDateTime startDate, LocalDateTime endDate) {
-		return screenDateRepository.findByScreenCodeAndMovieCodeAndScreeningDateTimeBetweenOrderByScreeningDateTime(screenCode, movieCode, startDate, endDate);
+	public List<ScreenDate> findByScreenCodeAndMovieCodeAndScreeningDateTimeBetweenOrderByScreeningDateTimeAsc(
+			Long screenCode, Long movieCode, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+		return screenDateRepository.findByScreenCodeAndMovieCodeAndScreeningDateTimeBetweenOrderByScreeningDateTimeAsc(screenCode, movieCode, startDateTime, endDateTime);
 	}
+
 }
